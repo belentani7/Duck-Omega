@@ -90,6 +90,7 @@ export const beats = mysqlTable("beats", {
   bpm: int("bpm"),
   musicalKey: varchar("musicalKey", { length: 16 }),
   previewKey: varchar("previewKey", { length: 512 }),
+  previewWatermarked: int("previewWatermarked").default(0).notNull(),
   masterKey: varchar("masterKey", { length: 512 }),
   description: text("description"),
   exclusivePriceCents: int("exclusivePriceCents").default(0).notNull(),

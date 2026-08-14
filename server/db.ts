@@ -9,8 +9,10 @@ import {
   deliverables,
   files,
   orders,
+  orderItems,
   paymentEvents,
   projects,
+  revisionComments,
   revisions,
   users,
 } from "../drizzle/schema";
@@ -151,9 +153,9 @@ export async function createRevision(input: typeof revisions.$inferInsert) {
   const db = await getDb();
   if (!db) return undefined;
   const project = await getProject(input.projectId);
-  if (!project) throw new Error("Proyecto no encontrado");
+  if (!project) throw new Error("Projeto não encontrado");
   const count = await countProjectRevisions(input.projectId);
-  if (count >= project.revisionLimit) throw new Error("Se alcanzó el límite de revisiones del proyecto");
+  if (count >= project.revisionLimit) throw new Error("O limite de revisões do projeto foi atingido");
   const result = await db.insert(revisions).values(input);
   await db.update(projects).set({ revisionCount: count + 1, status: "review" }).where(eq(projects.id, input.projectId));
   return result[0]?.insertId ? Number(result[0].insertId) : undefined;
@@ -184,4 +186,61 @@ export async function recordPaymentEvent(input: { provider: string; eventId: str
     if (String(error).toLowerCase().includes("duplicate")) return { duplicate: true };
     throw error;
   }
+}
+
+
+export async function addRevisionComment(input: typeof revisionComments.$inferInsert) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const revision = await db.select().from(revisions).where(eq(revisions.id, input.revisionId)).limit(1);
+  if (!revision[0]) throw new Error("Revisão não encontrada");
+  const result = await db.insert(revisionComments).values(input);
+  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+}
+
+export async function listRevisionComments(revisionId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(revisionComments).where(eq(revisionComments.revisionId, revisionId)).orderBy(desc(revisionComments.createdAt));
+}
+
+
+export async function createTestOrder(input: { buyerEmail: string; clientId?: number; beatId: number; licenseType: "exclusive" | "non_exclusive"; totalCents: number }) {
+  const db = await getDb();
+  if (!db) return { id: 0, status: "pending" as const };
+  const orderResult = await db.insert(orders).values({ buyerEmail: input.buyerEmail, clientId: input.clientId, provider: "test", totalCents: input.totalCents, status: "pending" });
+  const orderId = Number(orderResult[0]?.insertId ?? 0);
+  if (orderId) await db.insert(orderItems).values({ orderId, beatId: input.beatId, licenseType: input.licenseType, unitPriceCents: input.totalCents });
+  return { id: orderId, status: "pending" as const };
+}
+
+
+const orderTransitions: Record<string, string[]> = {
+  pending: ["paid", "failed", "cancelled"],
+  paid: ["refunded"],
+  failed: [],
+  cancelled: [],
+  refunded: [],
+};
+
+export async function getOrder(orderId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
+  return rows[0];
+}
+
+export async function transitionOrder(orderId: number, nextStatus: "paid" | "failed" | "cancelled" | "refunded") {
+  const db = await getDb();
+  if (!db) return { id: orderId, status: nextStatus };
+  const current = await getOrder(orderId);
+  if (!current) throw new Error("Pedido não encontrado");
+  if (!canTransitionOrder(current.status, nextStatus)) throw new Error(`Transição inválida: ${current.status} para ${nextStatus}`);
+  await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, orderId));
+  return { id: orderId, status: nextStatus };
+}
+
+
+export function canTransitionOrder(current: string, next: string) {
+  return orderTransitions[current]?.includes(next) ?? false;
 }

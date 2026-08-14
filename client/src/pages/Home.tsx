@@ -22,7 +22,7 @@ const navItems = [
 ];
 
 const statusLabel: Record<string, string> = {
-  discovery: "Discovery",
+  discovery: "Descoberta",
   in_progress: "Em andamento",
   review: "Revisão",
   delivered: "Entregue",
@@ -74,13 +74,13 @@ export default function Home() {
             <div className="flex items-center gap-3"><div className="grid h-10 w-10 place-items-center rounded-2xl border border-emerald-400/30 bg-emerald-500/10 text-emerald-300 shadow-[0_0_30px_rgba(16,185,129,.15)]"><Music2 size={19} /></div><div><div className="font-mono text-sm tracking-[.2em] text-emerald-300">DUCK</div><div className="text-xs text-slate-500">STUDIO HUB</div></div></div>
             <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(false)}><X size={18} /></Button>
           </div>
-          <div className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[.25em] text-slate-600">Workspace</div>
+          <div className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[.25em] text-slate-600">Estúdio</div>
           <nav className="space-y-1">
             {navItems.map(item => <button key={item.id} onClick={() => { if (item.id === "tools") window.location.assign("/ferramentas"); else setSection(item.id); setMobileOpen(false); }} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm transition ${section === item.id ? "bg-emerald-400/12 text-emerald-200 shadow-inner shadow-emerald-900/30" : "text-slate-400 hover:bg-white/[.04] hover:text-white"}`}><item.icon size={17} /><span>{item.label}</span>{section === item.id && <ChevronRight size={15} className="ml-auto text-emerald-400" />}</button>)}
           </nav>
           <div className="mt-10 mb-3 px-3 text-[10px] font-semibold uppercase tracking-[.25em] text-slate-600">Ecossistema</div>
           <Link href="/ferramentas" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-400 transition hover:bg-white/[.04] hover:text-white"><Wand2 size={17} /> Ferramentas <ArrowUpRight size={14} className="ml-auto" /></Link>
-          <Link href="/catalog" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-400 transition hover:bg-white/[.04] hover:text-white"><Sparkles size={17} /> Beat Store <ArrowUpRight size={14} className="ml-auto" /></Link>
+          <Link href="/catalog" className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-400 transition hover:bg-white/[.04] hover:text-white"><Sparkles size={17} /> Loja de Beats <ArrowUpRight size={14} className="ml-auto" /></Link>
           <div className="mt-auto rounded-2xl border border-emerald-900/60 bg-emerald-950/20 p-4"><div className="mb-2 flex items-center gap-2 text-xs text-emerald-300"><ShieldCheck size={14} /> Ambiente protegido</div><p className="text-xs leading-5 text-slate-500">Arquivos privados, atividade e permissões controlados em um único núcleo.</p></div>
         </aside>
         {mobileOpen && <button aria-label="Fechar menu" className="fixed inset-0 z-20 bg-black/60 md:hidden" onClick={() => setMobileOpen(false)} />}

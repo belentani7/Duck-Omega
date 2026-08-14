@@ -1,0 +1,1 @@
+ALTER TABLE `beats` ADD `previewWatermarked` int DEFAULT 0 NOT NULL;

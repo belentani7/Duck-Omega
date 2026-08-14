@@ -15,6 +15,13 @@
       "when": 1786750639861,
       "tag": "0001_clumsy_satana",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786751625915,
+      "tag": "0002_dry_molecule_man",
+      "breakpoints": true
     }
   ]
 }

@@ -5,13 +5,18 @@ import { COOKIE_NAME } from "@shared/const";
 import { producerProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import {
   createClient,
+  addRevisionComment,
   createProject,
   createRevision,
+  createTestOrder,
   dashboardStats,
+  getOrder,
+  transitionOrder,
   listActivity,
   listBeats,
   listClients,
   listProjects,
+  listRevisionComments,
   recentChatMessages,
   saveChatMessage,
 } from "./db";
@@ -60,6 +65,13 @@ export const appRouter = router({
       fileId: z.number().int().positive().optional(),
       summary: z.string().min(2).max(4000),
     })).mutation(({ ctx, input }) => createRevision({ ...input, requestedBy: ctx.user.id })),
+    addComment: protectedProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(({ ctx, input }) => addRevisionComment({ ...input, authorId: ctx.user.id })),
+    comments: protectedProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(({ input }) => listRevisionComments(input.revisionId)),
+  }),
+  checkout: router({
+    createTestOrder: publicProcedure.input(z.object({ buyerEmail: z.string().email(), clientId: z.number().int().positive().optional(), beatId: z.number().int().positive(), licenseType: z.enum(["exclusive", "non_exclusive"]), totalCents: z.number().int().positive() })).mutation(({ input }) => createTestOrder(input)),
+    status: publicProcedure.input(z.object({ orderId: z.number().int().positive() })).query(({ input }) => getOrder(input.orderId)),
+    transition: producerProcedure.input(z.object({ orderId: z.number().int().positive(), status: z.enum(["paid", "failed", "cancelled", "refunded"]) })).mutation(({ input }) => transitionOrder(input.orderId, input.status)),
   }),
   catalog: router({
     publicList: publicProcedure.query(() => listBeats()),

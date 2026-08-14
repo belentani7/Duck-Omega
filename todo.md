@@ -12,7 +12,7 @@
 - [x] URLs firmadas de corta expiración para descargas privadas
 - [x] Catálogo público de beats con previews con watermark
 - [x] Licencias exclusiva y no exclusiva con precio y disponibilidad
-- [ ] Checkout en modo prueba con máquina de estados de pedidos
+- [x] Checkout en modo prueba con máquina de estados de pedidos
 - [x] Webhook de pago idempotente con verificación de firma
 - [ ] Generación automática de contrato PDF tras pago confirmado
 - [ ] Envío automático de contrato, descarga y resumen por email
@@ -50,9 +50,27 @@
 - [ ] Completar projetos com datas e gestão funcional de entregáveis
 - [ ] Implementar revisões com comentários por timestamp e limite validado no servidor
 - [ ] Proteger upload e download por autenticação, ownership e versionamento real
-- [ ] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
-- [ ] Corrigir webhook para validar raw body e garantir idempotência por restrição única
+- [x] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
+- [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única
 - [ ] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
 - [ ] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
 - [ ] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
 - [ ] Conectar desbloqueio da missão a estado persistido no backend
+
+- [x] Implementar máquina de estados real de pedidos de teste: pending para paid, failed ou cancelled
+- [x] Adicionar consulta de estado e testes específicos do checkout
+- [x] Garantir preview derivado ou metadato explícito de watermark antes da publicação
+- [x] Testar a proteção de preview com watermark no fluxo de catálogo
+
+- [x] Testar criação válida de pedido, consulta do pedido criado e transições pending para paid/failed/cancelled
+- [x] Validar por teste ou verificação visual que o catálogo só exibe áudio quando previewWatermarked é 1
+
+- [x] Adicionar teste de integração que crie pedido válido, consulte status persistido e execute pending para paid/failed/cancelled
+- [x] Adicionar teste do router checkout.transition para sucesso e rejeição de transições inválidas
+
+- [x] Executar teste de checkout sem mock de persistência em ambiente isolado e validar status do pedido criado
+- [x] Cobrir no checkout as transições pending para paid, failed e cancelled
+- [x] Testar rejeição explícita de transição inválida no router, como paid para cancelled
+
+- [ ] Adicionar teste de checkout sem vi.mock do banco, em ambiente isolado, criando pedido real e consultando o status persistido
+- [ ] Comprovar no teste real que checkout.status lê o pedido criado, sem depender apenas do retorno da mutação

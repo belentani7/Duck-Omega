@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { Express, Request, Response } from "express";
-import { createFileRecord, recordPaymentEvent } from "./db";
+import { createFileRecord, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
 
@@ -53,8 +53,12 @@ export function registerHttpRoutes(app: Express) {
     const secret = process.env.DUCK_PAYMENT_WEBHOOK_SECRET || "";
     const expected = secret ? crypto.createHmac("sha256", secret).update(payload).digest("hex") : "";
     if (!eventId || !secret || !signature || !safeEqualHex(expected, signature)) return res.status(401).json({ error: "Assinatura inválida" });
-    const event = await recordPaymentEvent({ provider: String(req.body?.provider || "test"), eventId, orderId: typeof req.body?.orderId === "number" ? req.body.orderId : undefined, payload, signatureValid: 1 });
+    const orderId = typeof req.body?.orderId === "number" ? req.body.orderId : undefined;
+    const event = await recordPaymentEvent({ provider: String(req.body?.provider || "test"), eventId, orderId, payload, signatureValid: 1 });
     if (event.duplicate) return res.status(200).json({ received: true, duplicate: true });
+    if (orderId && ["paid", "failed", "cancelled", "refunded"].includes(String(req.body?.status))) {
+      await transitionOrder(orderId, req.body.status);
+    }
     return res.status(200).json({ received: true, processed: true });
   });
 }
