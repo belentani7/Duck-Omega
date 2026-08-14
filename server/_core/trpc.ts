@@ -27,11 +27,31 @@ const requireUser = t.middleware(async opts => {
 
 export const protectedProcedure = t.procedure.use(requireUser);
 
+export const producerProcedure = t.procedure.use(
+  t.middleware(async opts => {
+    const { ctx, next } = opts;
+    if (!ctx.user || !["owner", "producer"].includes(ctx.user.role)) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Acesso restrito ao produtor." });
+    }
+    return next({ ctx: { ...ctx, user: ctx.user } });
+  }),
+);
+
+export const clientProcedure = t.procedure.use(
+  t.middleware(async opts => {
+    const { ctx, next } = opts;
+    if (!ctx.user || !["owner", "producer", "client"].includes(ctx.user.role)) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Usuário sem papel válido." });
+    }
+    return next({ ctx: { ...ctx, user: ctx.user } });
+  }),
+);
+
 export const adminProcedure = t.procedure.use(
   t.middleware(async opts => {
     const { ctx, next } = opts;
 
-    if (!ctx.user || ctx.user.role !== 'admin') {
+    if (!ctx.user || ctx.user.role !== 'owner') {
       throw new TRPCError({ code: "FORBIDDEN", message: NOT_ADMIN_ERR_MSG });
     }
 
