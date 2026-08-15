@@ -107,7 +107,7 @@
 - [x] Convertir el análisis en mejoras de Duck Hub y documentación de decisiones
 - [x] Añadir pruebas y gates de calidad para los cambios de esta iniciativa
 - [x] Preparar dossier estratégico profundo en español con anexos en portugués cuando corresponda
-- [ ] Confirmar repositorio GitHub de destino antes de realizar una subida
+- [x] Confirmar repositorio GitHub de destino antes de realizar una subida
 - [ ] Subir cambios trazables al repositorio autorizado con commit y resumen de validaciones
 
 - [x] Inventariar todos los chats y archivos adjuntos relevantes para Duck, separando hechos, ideas y contenido sensible
