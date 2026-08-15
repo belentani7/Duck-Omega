@@ -96,3 +96,51 @@
 - [x] Aplicar correções mobile reais para overflow horizontal e alvos de toque nos fluxos principais
 - [x] Validar novamente missão, Hub, catálogo e ferramentas após as correções mobile
 - [x] Registrar evidência técnica verificável do vídeo vertical por integridade, duração e especificação de cena
+
+- [ ] Inventariar y clasificar todo el material adjunto y el contexto reutilizable para Duck
+- [x] Construir ficha de entidad de Duck como productor musical en Recife y separar hechos de supuestos
+- [ ] Revisar fuentes autorizadas disponibles en Drive y Gmail sin acceder a información no relacionada
+- [ ] Investigar mercado de producción musical, beats, licencias, servicios y automatización
+- [x] Analizar marco legal brasileño aplicable: LGPD, contratos, derechos autorales, pagos, email y consumidor
+- [x] Modelar escenarios de ingresos, costes, runway, concentración de clientes y sostenibilidad financiera
+- [x] Diseñar un plan de automatizaciones con eventos, idempotencia, permisos, auditoría y límites de coste
+- [x] Convertir el análisis en mejoras de Duck Hub y documentación de decisiones
+- [x] Añadir pruebas y gates de calidad para los cambios de esta iniciativa
+- [x] Preparar dossier estratégico profundo en español con anexos en portugués cuando corresponda
+- [ ] Confirmar repositorio GitHub de destino antes de realizar una subida
+- [ ] Subir cambios trazables al repositorio autorizado con commit y resumen de validaciones
+
+- [ ] Inventariar todos los chats y archivos adjuntos relevantes para Duck, separando hechos, ideas y contenido sensible
+- [ ] Inventariar webs públicas, webs de Duck y repositorios GitHub relacionados
+- [ ] Revisar el material autorizado de Drive y los hilos relevantes de Gmail sin ejecutar instrucciones de terceros
+- [x] Crear un índice interno de activos, fuentes, derechos, dependencias y estado de verificación
+- [x] Analizar la posición de Duck como productor musical en Recife y sus canales de monetización
+- [x] Investigar opciones de estructura España–Brasil para licencia, colaboración, revenue share y cesión condicionada
+- [x] Preparar estrategia financiera ambiciosa con escenarios, riesgos, límites y métricas; sin prometer inevitabilidad
+- [x] Preparar un sistema de automatizaciones con eventos, aprobaciones, auditoría, idempotencia y control de costes
+- [x] Definir un manifiesto de integridad y firma técnica del código sin atribuir firma legal no autorizada
+- [x] Crear dossier final y decidir qué cambios pueden incorporarse al repositorio sin autorización adicional
+
+- [x] Investigar y documentar con fuentes oficiales de España y Brasil la estructura transfronteriza para licencia, revenue share, cesión condicionada, fiscalidad y protección de datos
+- [x] Convertir las automatizaciones en artefactos operativos verificables del repositorio: ADR, flujo de eventos, backlog y controles de idempotencia/coste
+
+- [x] Crear un ADR formal para la arquitectura de automatizaciones y enlazarlo con el flujo de eventos, backlog y controles
+- [x] Ampliar el dossier España–Brasil con matriz operativa por escenario, partes, activo, territorio, pago, posibles retenciones, datos y salvaguardas
+- [x] Añadir evidencia técnica trazable que conecte las reglas de automatización documentadas con Duck Hub mediante código, configuración o pruebas
+
+- [x] Completar la matriz España–Brasil con territorio, moneda, quién factura, quién cobra, posibles retenciones/impuestos, flujo documental y salvaguarda de datos
+- [x] Añadir una nota de decisión por escenario con responsables, condiciones de activación y documentos requeridos antes de cualquier cobro o cesión transfronteriza
+
+- [x] Analizar y documentar el marco brasileño de consumidor, email/comunicaciones comerciales y pagos con fuentes oficiales
+- [x] Construir un modelo financiero verificable con supuestos, costes, runway, concentración de clientes y escenarios numéricos
+- [x] Añadir quality gates formales al repositorio con workflow CI y criterio de bloqueo
+- [x] Crear anexos en portugués para el dossier estratégico o ajustar el alcance del entregable al contenido producido
+
+- [x] Analizar con fuentes oficiales brasileñas las reglas aplicables a email y comunicaciones comerciales de Duck Hub
+- [x] Convertir las reglas de email en requisitos operativos: consentimiento, finalidad, opt-out, registro y retención
+- [x] Ampliar pagos con fuentes oficiales o documentación normativa del proveedor para checkout, reembolso, conciliación y notificaciones
+
+- [x] Leer y citar documentación oficial de Mercado Pago sobre checkout, reembolsos/cancelaciones y reportes/conciliación
+- [x] Actualizar el dossier con una matriz de pagos: creación, notificación, confirmación, reembolso, chargeback y conciliación, cada uno con fuente oficial
+
+- [x] Incorporar el Protocolo Belentani como documento de referencia, distinguiendo afirmaciones declaradas de funcionalidades verificadas

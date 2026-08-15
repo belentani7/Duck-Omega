@@ -1,0 +1,165 @@
+# Manifiesto técnico de integridad — Duck Hub
+
+Este manifiesto permite verificar que los archivos no cambiaron después de la fecha indicada. No es una firma legal ni certifica autoría.
+
+- Proyecto: duck-hub
+- Fecha de generación: 2026-08-15
+- Política: se excluyen node_modules, dist, .git y archivos de entorno.
+
+## Hashes SHA-256
+
+```text
+b4572613f7e7b7827f8dd1c7543b03f903082ba146ebe8115dd9bd81aebd4bee  ./.gitignore
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./.gitkeep
+8619e3651f3b73a41810874abf63765703d2feda2b67aa87e197d6a9a5f8a11d  ./.manus-logs/browserConsole.log
+142b459c0f209196b88e9ab8da83cf0bc0378f37b3b18825f13d72610a7d26bd  ./.manus-logs/devserver.log
+b5e1dda9f1f534e96befdb794c0ecf98e872498b79d70e81a193cb3f4ed7839c  ./.manus-logs/networkRequests.log
+539a177aa74c104846db811347164e4b2eefaa954d01125c46e424322088a3df  ./.manus-logs/sessionReplay.log
+17f593918ed38aec9deac4301d519a4349172c649d1849ce17190cedbde33228  ./.prettierignore
+087532218269eb851c22dcc3d5234ea46bfa513b494a3d7b167b1c1f48c410c5  ./.prettierrc
+c8d6e63513302de209c19414974a101d77ef6529009a576288fce4b8ad0c70e8  ./.project-config.json
+66867e702b946488e3f1834d209fce6e4715e1eae23d5be5fcb00a6893c0068d  ./client/index.html
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./client/public/.gitkeep
+e95d3246bc3757b46286221060b7346ea59fb6a9c94aa05f5eae7e7e09877d1b  ./client/public/__manus__/debug-collector.js
+4130f4a4637084d1fdd472ec1762f38c1b06cb84b71108fc786f68bf0479bc8c  ./client/public/__manus__/version.json
+8c0709f076fb3cdb176ae3dd8cfe50a6ccc2e35fd831ab2d6655184a486ff703  ./client/src/App.tsx
+2d87f1597ab79277ab1755353fc21d362aa05c4e20b79c320001ead15923cca7  ./client/src/_core/hooks/useAuth.ts
+c97ae745ae8f4db0b5e1a96d851fe9fd6943c53bc1bc6c28603bce36058ce28a  ./client/src/components/AIChatBox.tsx
+4f5d5829ff8a47b800d92a884848b4d7abddeafebb3af939cf5a96624a24f06c  ./client/src/components/DashboardLayout.tsx
+7b6eab8ac4d4118bdf2be88f23e7db5318d975ac03e6451f773d5eb15feb34cc  ./client/src/components/DashboardLayoutSkeleton.tsx
+3b0bdb7a19758fcd440138ccfb5f306b96836564f15d7c8c9663d7dd7417e972  ./client/src/components/ErrorBoundary.tsx
+66237a756ee50b4195a074f689aa97dd4ec445cbbc6f0d11f12bb32a6fb4cd0d  ./client/src/components/ManusDialog.tsx
+931413fea95936e68f872bc34733138f9e11a656446b1a56a98fba9532954e22  ./client/src/components/Map.tsx
+7b96cf50388ad3d07be64924ab33ba5f63b79a6a5749ebe4d31c789c0bc00d44  ./client/src/components/ui/accordion.tsx
+aeecd7967eb0be3bad2753b6633d9a43cc4c08cb35de872ffdc0b9f2b6a9b26c  ./client/src/components/ui/alert-dialog.tsx
+eccfc7f6ca9d51407cb413a3ca4b5ac721898ac93d38e95c02c35188ad674abe  ./client/src/components/ui/alert.tsx
+654f5d6e9ed17472305d7e6fc5de30453875ffae585f5d064aedc9e6945bdbb0  ./client/src/components/ui/aspect-ratio.tsx
+c2382ff71d7ef3492096ed6ef35bf82e1fd421a81d55ca80453f5f5138eac360  ./client/src/components/ui/avatar.tsx
+51fd797c59e63d164ade736769f19f26e41c157daba29aa0b327b3b226f4d4ac  ./client/src/components/ui/badge.tsx
+dd84657e30691ea7f14a785c13b660d6cd626c08ba1df8439c3eca858ee3cd7e  ./client/src/components/ui/breadcrumb.tsx
+ba1d824f0f4d8b5dd78a80fa766e3543eefb9173143652be2c7cb765af1864f5  ./client/src/components/ui/button-group.tsx
+b08b4785e03566c7a6063b3d57234deae41649676870cbbb9ab2448d816e1739  ./client/src/components/ui/button.tsx
+89308bce82e8b23b611cfbc88bc19f7b341d7109ab9a2838c04cb50922113501  ./client/src/components/ui/calendar.tsx
+1397e7d264d90162220ea7473b311e434651886267c71e7f58d4488be9d8ff39  ./client/src/components/ui/card.tsx
+42f66e6fde568c209df5d58a4ca13c3ae92d120a04fd99f7be695d6a570ef0a9  ./client/src/components/ui/carousel.tsx
+47c4de202fe1dc229af94d2c86197251d279bee131d2a6fb75ab9e58cec71aab  ./client/src/components/ui/chart.tsx
+4fc309590e66d3c41e3be5fb73f988b0e916e7bf5fff321c22c3a64cd4fe97cf  ./client/src/components/ui/checkbox.tsx
+95b5b9ea89a4105045c58b7eba539e57a1f4abc5a54d43ea0f7168f46b645eeb  ./client/src/components/ui/collapsible.tsx
+47910540789d4de9e890de63bfc0046f9cf6bfaa86d496a98c79622900f8520c  ./client/src/components/ui/command.tsx
+fe63c0a0dcabe749874ad19e07dee8418337c62dd64452fc08b5abf27b49b9eb  ./client/src/components/ui/context-menu.tsx
+3ffd83bd2940c1191fde091bc47311aebc2b79d78824965a5c446115e58190aa  ./client/src/components/ui/dialog.tsx
+573deecc31f90fcd96f53a37b2e5363eb326fe737cbdb28cac38a5d014734fc8  ./client/src/components/ui/drawer.tsx
+ede99252b737a29eb1f05370956e2b842be161b6a661f1429155ac561653d029  ./client/src/components/ui/dropdown-menu.tsx
+c0b612929b15fd498b984d8d98d1b082a3eb294be5aa8eb9cb53b67cf152f465  ./client/src/components/ui/empty.tsx
+f093424ca5eadf43d46b020ed780aee7aa5f6d90d0b48fb50c031e3d7b0528c7  ./client/src/components/ui/field.tsx
+0157362d572713567d989b726277879e75c60c24684ade4aef854867dc2fac48  ./client/src/components/ui/form.tsx
+bdfe831708e7de6b9fbb14d8fe5af5a0985f67cff3c2b5755b4b570c3b4e7ad5  ./client/src/components/ui/hover-card.tsx
+f62f2be2ad4c2c7711e7b25b0d6c03572f7871cb4022e9f4f6860dcd77dd9e57  ./client/src/components/ui/input-group.tsx
+45fc7fed882aa5024d8eea52d9b392d13b1d80f2b7f846365bc2586e3d16253d  ./client/src/components/ui/input-otp.tsx
+0aaad971269e84519fb14928a70777db539b4cacf9f145fecd905ba483a199c6  ./client/src/components/ui/input.tsx
+89f2ed48c2270064d63e0a40f755c1da14e99e7db46bceac56d6dee7b45b8798  ./client/src/components/ui/item.tsx
+4f8f3e521b2b007643b8a2c8f86cf547bd87e703dc2bed067083ca48f901d6ad  ./client/src/components/ui/kbd.tsx
+7fdad17d8e83912ad0cfc372c551a901ab98523ef17c0792a17c592a147db732  ./client/src/components/ui/label.tsx
+53fb1c058fabaf0cfb3fb2cfdb9b17ccc8762376d62cc011150d919209b82c1a  ./client/src/components/ui/menubar.tsx
+aafccbe2b05d9f80b7d007301b51aaede4692efc468304c5fb11b21cd0c0ef43  ./client/src/components/ui/navigation-menu.tsx
+8f0d822b4688eb131e37fbf2330e19b269ab6487583be3249b98f3b68bb07928  ./client/src/components/ui/pagination.tsx
+5e7bec05904d9091a7b53963f5b49660bf3564b02a057ef8640ab6855d6e32fd  ./client/src/components/ui/popover.tsx
+2297e3c13d5b2a04a9164c3900c8cae2e477c07ebed35c4bbda98d1232ab7b7e  ./client/src/components/ui/progress.tsx
+025f03d81d4e304eb27d94e6517f37072a3941df8f8603ac55cfb42b17cd99ef  ./client/src/components/ui/radio-group.tsx
+52e1027a4b4a5f70f0479f69fe40046dfa112952b7e568292727e1618348ee80  ./client/src/components/ui/resizable.tsx
+793c5d69e6e5ce8bcbe453b8834d53f3a90839fc8e8e1f9fe5f77e7626566677  ./client/src/components/ui/scroll-area.tsx
+40945665ec8363e55ae38f26115ee763cbc5548bed585eed569d406cbc4b7a75  ./client/src/components/ui/select.tsx
+23bbf3f74d01f55533f6f22ebbc2b299137421e07896cb7af21245756a10c27e  ./client/src/components/ui/separator.tsx
+ab22e38f2cf312a31a84fb91f7e912f0da66e809f6e1ae675ec6cf0c8ec0ba61  ./client/src/components/ui/sheet.tsx
+782ec3ba8a570c9a0f6ec12d7e1c1efdee5e02eb2da7aa46131c734e7f7bbea8  ./client/src/components/ui/sidebar.tsx
+1f75b999a5ad2f65e8fb807faa2b3fccef9eb333996fb4c9030575dac7393091  ./client/src/components/ui/skeleton.tsx
+9c458646597836916678a9bce2f3064d4d5cdb0c65d32d92bc71f57d7569fb6b  ./client/src/components/ui/slider.tsx
+a65fe9ded89363ec546f28401a26caec1a3aa38c52259eb829cfa33723dbe3a5  ./client/src/components/ui/sonner.tsx
+ecd836d476573adb4403747c3457339276805433c20eacf3408303b76ec283ff  ./client/src/components/ui/spinner.tsx
+688cccb52220e05f6770fb5e8296375f2a784bcf6585eb26a721a9f29361ab60  ./client/src/components/ui/switch.tsx
+085566291cf03c9fea590aa9b77339feebf04cf8ce23494a3667f84bf4811e29  ./client/src/components/ui/table.tsx
+394b62295cee5185e858bcabfafcd5a7287910944c962fbd9c1c06444b22cedb  ./client/src/components/ui/tabs.tsx
+ffbad961ec02f9ca23f4157daa1a4139960c4477a245c216a793b4692dec142c  ./client/src/components/ui/textarea.tsx
+92e7640e30c4ae3ffd775e9a3d845327c26d9ce0f9f39555c2e7cfc2c8671c4d  ./client/src/components/ui/toggle-group.tsx
+a922c5e0534b9fd556ff8a8b56e25f7d24544be6050472cdd1ea003b8a0f3e47  ./client/src/components/ui/toggle.tsx
+6f0c581e2018d676e43c0b4b5aeb62d3fe68e65907cf748548208d75ac212677  ./client/src/components/ui/tooltip.tsx
+d7cdbd188f13aa1449030f34b529aa49dc28e62a44a8ddc8029f24e9afe1e9c4  ./client/src/const.ts
+e025cdb51ad747757235b16dccbb39b5e949cdf93fa9a822ff81ef6e32f65924  ./client/src/contexts/ThemeContext.tsx
+674c515075a2f318d4ec2291313ba552488de0b2c1aac7f36f3d71c4e34d434e  ./client/src/hooks/useComposition.ts
+464e778a9da49481e3c6dac4f92ff589e01349b33063a74c45435cfeed81e1c0  ./client/src/hooks/useMobile.tsx
+60cc14f39a3f8b212d7baf4beeaf35f81e09a7c78e4154bcca3477e010879511  ./client/src/hooks/usePersistFn.ts
+9ce270790369f895df64af4a7eb46379862383c40cf74f68e0ae0ef2d1c7c163  ./client/src/index.css
+d883ad43f46eaf73342924feaf5342ce601d04abe1a828076625071931cc0ef3  ./client/src/lib/trpc.ts
+d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27  ./client/src/lib/utils.ts
+0e322fd292220e189d5acc65a89e65fee16d29a5c261625ce758cde3bfd72fd2  ./client/src/main.tsx
+d3905f3521d77e97b7d7c6198a6f915bf45f68223c74552e7e728f4fe10ca79a  ./client/src/pages/ComponentShowcase.tsx
+b9462535cb6ab6545a22ace26b69078971211a95ca0dcd5818e40a18199106d4  ./client/src/pages/Home.tsx
+0bd1d67798d28fe964b108e69ae1d731e2d9b2eedad0eb79da157a2f1f5ee254  ./client/src/pages/Mission.tsx
+4062794318dde4d0a321e0332cdee2cea68d19c1d9d81889ff425b02ed183f64  ./client/src/pages/NotFound.tsx
+821aefc0f52990e3cd9c01d7ae6f6b6a651d302ab92bf0650b30e84180fcac0c  ./client/src/pages/PublicCatalog.tsx
+4b729ead8bfa0e565e02748a6470a92428237dde0a1f5b75fd3be8ce6df8a492  ./client/src/pages/Tools.tsx
+8be0e54515838be398164884e96319b52bcfcbd52b2e63171d51df4131cfcb03  ./components.json
+a54d98470fd87e7caf80739791cbc41c3a490d0bc009c1e662f972434faee1db  ./docs/AUDITORIA_MOBILE_PT.md
+18c0b09b38229b24532459b9eb44f743c14f14b112bd74ec0e12edad2176ae63  ./docs/ENTREGA_DUCK_PT.md
+7c64b0570954eaa7c5fce51c570f253b4e76809dcfcdf9d8ea8c86ce04f09bdd  ./docs/ESTRATEGIA_DUCK_EMPRESA_ES_BR.md
+9e99c7aa5bf01983a937cc43855bebfe5beffbc738a869cd4d478aca3b74f547  ./docs/INDICE_INTERNO_DUCK.md
+9610673b3fe7b6b950a8e7e54cb1e91f9dd25f87d7ae6a41d2f6ada957065d01  ./drizzle.config.ts
+814a08e40d7fc2bcfd458759d18319198ca8ae394f2fa15617a78678e9c9c93b  ./drizzle/0000_handy_thunderbird.sql
+45a149fafcc7198c4e68a159f286fe24ee9d3abece75e4e28f934d2f97bb6e53  ./drizzle/0001_clumsy_satana.sql
+0ebc2a0f609313bbeeefc1fa6db39da3f671b94cd8ad08ff0c5f5b7ab5f448b4  ./drizzle/0002_dry_molecule_man.sql
+2987013db830a4765f8bd030edcd75afb517fd63190c6ae42709701fcb6c6198  ./drizzle/0003_ambiguous_violations.sql
+e54dd5711ed215a30c99e4bc0ef5635905132ce456a09f022a3eca9d92bfb42f  ./drizzle/0004_vengeful_firestar.sql
+dc18c05b0de4e09b303ac5855af195f78fd6be7a66ad242b49f815aae80c3d54  ./drizzle/meta/0000_snapshot.json
+8bfd63ddb365dc9de3cafec8630e51518aea0c3064099090f5a8613214bd7ba1  ./drizzle/meta/0001_snapshot.json
+1ff300d0313d05bbdc11cf8204998eb66fed2af8ebbdb8516af91e90930dd7dc  ./drizzle/meta/0002_snapshot.json
+59098d2c94e61fb524ce07de25d90dae163c6bc759291776a6e6fd67b6cf26c5  ./drizzle/meta/0003_snapshot.json
+73e1c84cc06045078d21bb74ac09bc963ed7b696a92844b5f32dcb9083d7d818  ./drizzle/meta/0004_snapshot.json
+81c6c393533a78d9fa35b52102e594d93d7ab073aaaf1e7365cec5a229db76a6  ./drizzle/meta/_journal.json
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./drizzle/migrations/.gitkeep
+85acb8ece8fbb5031fc56fa8c70338d9b8b06ef3b032391fff8532c6373c7186  ./drizzle/relations.ts
+17ce929561f593d80c53a0d8ce37a1c41e5d1fd8c0a78d11c3eeb4a1c9bee465  ./drizzle/schema.ts
+f90b61d90ad0acd392c6b7d762eab82660641d6ae308ea5fc2e1ffb56966cf25  ./package.json
+4e16e6ff3fde7d6c1024d3e0c8605dc9eb6afb690d0d49958c2f449091813072  ./patches/wouter@3.7.1.patch
+d9e32f951b650cd48424898675bc0f0f7d7a8778bb7e2d0cca5efa38c508930e  ./pnpm-lock.yaml
+a43ea9ca8624270a83857d61a7154f17c48bb2c19126d1ee037a37345f6bda86  ./server/_core/context.ts
+8b9f416d2d3ea74b3c26cb6855d9019ad7cc4403e103a150502179874c568373  ./server/_core/cookies.ts
+194ef8e309abde283a1132aa383af10ae583e27e983afa30dfcece3aa9ce27a7  ./server/_core/dataApi.ts
+15356c6c79afa61c60b20e126691853d07b51c48b9e57f205b7ce63dd02d622b  ./server/_core/env.ts
+e9070208f34813a427d4a79207819acc2ac0d1de5244b4db55fe3a94bfe3f950  ./server/_core/heartbeat.ts
+3218b6a0a642d92fc5cb24f8737147b8e4f3f11474e53576b6ed4679d7973ccb  ./server/_core/imageGeneration.ts
+afe9c42f1a0b53e20dfc263f29a4c86d91531104c80254481d90b5d1fb4b53c7  ./server/_core/index.ts
+30d3f1c62a9fbbb4cdba6cb91e1580213dae53fb3d404b5bdd1d41cb6f1d5096  ./server/_core/llm.ts
+c04f24ee38ef6840d56053f3464091d164a6236fc36e37672d555a684461ab7e  ./server/_core/map.ts
+550bf6544bf792b6d13c68539679deb363b70fbf07c0dbde189a98787f66f003  ./server/_core/notification.ts
+310791a577a40e7920f2ac449f730e4a27ce452c7f6a932834260943be469826  ./server/_core/oauth.ts
+828ff33d41561c3353065deb46930ee44cb81fdf47b75c03171cb5fbd74a81d7  ./server/_core/sdk.ts
+dec37a868cf4d82d4cadf18ba279e3aa60ff863c9026ecd2a2165650d2d968e0  ./server/_core/storageProxy.ts
+61bb2c904da1fa08a425f8882aa3b23003bba7266ce00b2d9fcd685e5d4bffaf  ./server/_core/systemRouter.ts
+4d7328920efe46ff98919f06440a59c02e727d3b700ce0b92069c84a2051c07a  ./server/_core/trpc.ts
+c2ed733d67b16ae4621164dbce09e99de0233b4a0ed05227bc35096822173c05  ./server/_core/types/cookie.d.ts
+d073995b792a4376177bf7270cbcf3a670d4e72efb8eb6a83ecb55043cc729c3  ./server/_core/types/manusTypes.ts
+957da5abe4ca740e48fedf9cd3c26ce1c9eca473ed50d7e7588f2173798f6b1b  ./server/_core/vite.ts
+c53b328b12e54adfacbc632e668c2b58b9954547ce9d3313907096c8b2db330c  ./server/_core/voiceTranscription.ts
+253f4a050743093300aa70fc0072f5fbd46cfba96ecfd1d52d434fbe7dcfb54a  ./server/auth.logout.test.ts
+fb2f4dcd79fb9c1fd9f99cd5d05c6f86b302f48f925625b32f5ee236f0cf00e2  ./server/catalog.guard.test.ts
+67a52c3abfe46b7cff00d43470f60aa3a8a361a558db4944e6f5e11c72bca102  ./server/checkout.integration.test.ts
+c1637c4a85a944501341fbf7437e310ef7c4aa30bb84ca654f1c0b20c01a0615  ./server/db.ts
+a66082c1817282ca3543943a2f72fc9d2a4763d73e256e9341177b063d366b2a  ./server/duck-hub.test.ts
+bfa1b82b64bad8e4ef65ae696f0b2ae24e8f1aef7c7620a942f5d6b31ef7a579  ./server/httpRoutes.ts
+935c955d4131c1c29269a6bb24a68dec63a3940e1c95fbcab94730bc83225aea  ./server/mission.integration.test.ts
+346fce69ff33e0a06560b6bcd974d5e994f47acf9569e4005002948b1d224978  ./server/routers.ts
+55eab39960d991bfbd50e86fb586fd6842fff88bcc7ab6d3538982a3fd9dd860  ./server/storage.ts
+52bee7d152045eaa009083e26a4cbc21d413c80b0403a23c4b5572141dec942a  ./shared/_core/errors.ts
+30a4b7bfc3369a0f98f4af263dbf8ec5c6fee95cebe8922e347eeb03ab5afccc  ./shared/const.ts
+959aeb30b032e203677e278922e97988b7cbcb56485694458298859af5589974  ./shared/types.ts
+ad3328e8937c30291ace02a646e4f3043f5d992890131990a0ed216bc8535f83  ./template.json
+45878357dd2471ecc5d239cdb68980a1cb1367a4bf7c9b2ffd0aee0f322ffdcb  ./todo.md
+4bea0e0003e3c943f455346abc4854d1666d604adbaa6aa8eda11f94fb8f1396  ./tsconfig.json
+1b4f11ec05e426ffb9b020cf18ed5bb979b7f042ad43bfd5d9043b569843afab  ./vite.config.ts
+6293502cedaba844c01a9958ade609d7523b4c3553a83804dab32dc571d498ec  ./vite.config.ts.bak
+a0de83b3967226a98302bbb34aa2e1321890dba9ac1d1c8ce8a6b7989af87e44  ./vitest.config.ts
+```
+
+## Verificación
+
+Desde la raíz del proyecto: `sha256sum -c docs/DUCK_CODE_SHA256.txt` requiere adaptar las rutas al formato del manifiesto si se mueve de carpeta.
