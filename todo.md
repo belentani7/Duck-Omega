@@ -49,7 +49,14 @@
 - [ ] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
 - [ ] Completar projetos com datas e gestão funcional de entregáveis
 - [x] Implementar revisões com comentários por timestamp e limite validado no servidor
-- [ ] Proteger upload e download por autenticação, ownership e versionamento real
+- [x] Proteger upload e download por autenticação, ownership e versionamento real
+- [x] Permitir e validar visibilidade private/client no upload conforme role e associação
+- [x] Testar upload client-visible e signed-url para cliente atribuído e não relacionado
+- [x] Testar uploads repetidos com incremento real de version e metadados persistidos
+- [x] Testar uploads repetidos sem mock de getNextFileVersion usando metadados persistidos em isolamento
+- [x] Ler e verificar os metadados persistidos do arquivo versionado após uploads repetidos
+- [x] Exercitar a rota de upload duas vezes sem mock de getNextFileVersion usando um repositório persistente isolado
+- [x] Ler os metadados produzidos pelo fluxo de upload isolado e verificar fileName, clientId, projectId, visibility e version
 - [x] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
 - [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única
 - [x] Cobrir arquivos, webhook e revisões com testes Vitest dedicados

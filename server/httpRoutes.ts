@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { Express, Request, Response } from "express";
-import { createFileRecord, getClientByUserId, getFileByStorageKey, recordPaymentEvent, transitionOrder } from "./db";
+import { createFileRecord, getClientByUserId, getFileByStorageKey, getNextFileVersion, getProject, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
 
@@ -19,20 +19,34 @@ export function canAccessStoredFile(user: { id: number; role?: string }, file: {
 export function registerHttpRoutes(app: Express) {
   app.post("/api/files/upload", async (req: Request, res: Response) => {
     try {
-      const { fileName, mimeType, contentBase64, projectId, clientId } = req.body ?? {};
+      const { fileName, mimeType, contentBase64, projectId, clientId, visibility } = req.body ?? {};
       const user = await sdk.authenticateRequest(req as any);
       if (typeof fileName !== "string" || typeof mimeType !== "string" || typeof contentBase64 !== "string" || !user?.id) {
         return res.status(400).json({ error: "fileName, mimeType e contentBase64 são obrigatórios" });
       }
+      const requestedVisibility = visibility === undefined ? "private" : visibility;
+      if (requestedVisibility !== "private" && requestedVisibility !== "client") return res.status(400).json({ error: "Visibilidade inválida" });
+      const clientProfile = user.role === "client" ? await getClientByUserId(user.id) : undefined;
+      if (user.role === "client") {
+        if (typeof clientId === "number" && clientId !== clientProfile?.id) return res.status(403).json({ error: "Cliente não pode atribuir o arquivo a outro cliente" });
+        if (typeof projectId === "number") {
+          const project = await getProject(projectId);
+          if (!project || project.clientId !== clientProfile?.id) return res.status(403).json({ error: "Cliente não pode atribuir o arquivo a outro projeto" });
+        }
+      }
+      const normalizedClientId = typeof clientId === "number" ? clientId : clientProfile?.id;
+      if (requestedVisibility === "client" && normalizedClientId === undefined) return res.status(400).json({ error: "Arquivos visíveis ao cliente exigem associação" });
       if (!/^audio\/(mpeg|wav|x-wav|mp4)|application\/(pdf|zip)|video\//.test(mimeType)) {
         return res.status(415).json({ error: "Tipo MIME não permitido" });
       }
       const buffer = Buffer.from(contentBase64, "base64");
       if (buffer.byteLength > 50 * 1024 * 1024) return res.status(413).json({ error: "O arquivo ultrapassa 50 MB" });
       const sha256 = crypto.createHash("sha256").update(buffer).digest("hex");
-      const stored = await storagePut(`duck/files/${user.id}/${sha256}-${fileName}`, buffer, mimeType);
-      const id = await createFileRecord({ fileName, mimeType, sizeBytes: buffer.byteLength, sha256, storageKey: stored.key, uploadedBy: user.id, projectId: typeof projectId === "number" ? projectId : undefined, clientId: typeof clientId === "number" ? clientId : undefined, visibility: "private", version: 1 });
-      return res.status(201).json({ id, key: stored.key, url: stored.url, sha256 });
+      const normalizedProjectId = typeof projectId === "number" ? projectId : undefined;
+      const version = await getNextFileVersion({ fileName, projectId: normalizedProjectId, clientId: normalizedClientId });
+      const stored = await storagePut(`duck/files/${user.id}/${sha256}-v${version}-${fileName}`, buffer, mimeType);
+      const id = await createFileRecord({ fileName, mimeType, sizeBytes: buffer.byteLength, sha256, storageKey: stored.key, uploadedBy: user.id, projectId: normalizedProjectId, clientId: normalizedClientId, visibility: requestedVisibility, version });
+      return res.status(201).json({ id, key: stored.key, url: stored.url, sha256, version });
     } catch (error) {
       console.error("[Files] upload failed", error);
       return res.status(500).json({ error: "Não foi possível salvar o arquivo" });

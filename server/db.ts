@@ -25,6 +25,19 @@ import { isProductionPaymentReady, resolvePaymentProvider, type PaymentProviderN
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
+type IsolatedFileMetadata = typeof files.$inferInsert & { id: number };
+const isolatedFileMetadata: IsolatedFileMetadata[] = [];
+let isolatedFileId = 1;
+
+export function resetIsolatedFileMetadata() {
+  isolatedFileMetadata.length = 0;
+  isolatedFileId = 1;
+}
+
+function isTestWithoutDatabase() {
+  return process.env.NODE_ENV === "test" && !process.env.DATABASE_URL;
+}
+
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -198,7 +211,7 @@ export async function getFileMetadata(fileId: number) {
 
 export async function getFileByStorageKey(storageKey: string) {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) return isTestWithoutDatabase() ? isolatedFileMetadata.find(file => file.storageKey === storageKey) as any : undefined;
   const rows = await db.select().from(files).where(eq(files.storageKey, storageKey)).limit(1);
   return rows[0];
 }
@@ -211,9 +224,35 @@ export async function getClientByUserId(userId: number) {
 }
 
 
+export function nextFileVersionFromMetadata(rows: Array<{ version?: number }>) {
+  return Math.max(0, ...rows.map(row => row.version ?? 0)) + 1;
+}
+
+export async function getNextFileVersion(input: { fileName: string; projectId?: number; clientId?: number }) {
+  const db = await getDb();
+  if (!db) {
+    if (!isTestWithoutDatabase()) return 1;
+    const rows = isolatedFileMetadata.filter(file => file.fileName === input.fileName && file.projectId === input.projectId && file.clientId === input.clientId);
+    return nextFileVersionFromMetadata(rows);
+  }
+  const rows = await db.select({ version: files.version }).from(files).where(
+    and(
+      eq(files.fileName, input.fileName),
+      input.projectId === undefined ? sql`1 = 1` : eq(files.projectId, input.projectId),
+      input.clientId === undefined ? sql`1 = 1` : eq(files.clientId, input.clientId),
+    ),
+  ).orderBy(desc(files.version)).limit(1);
+  return nextFileVersionFromMetadata(rows);
+}
+
 export async function createFileRecord(input: typeof files.$inferInsert) {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) {
+    if (!isTestWithoutDatabase()) return undefined;
+    const record = { ...input, id: isolatedFileId++ } as IsolatedFileMetadata;
+    isolatedFileMetadata.push(record);
+    return record.id;
+  }
   const result = await db.insert(files).values(input);
   return result[0]?.insertId ? Number(result[0].insertId) : undefined;
 }
