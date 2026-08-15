@@ -18,6 +18,9 @@ import {
   users,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { notifyOwner } from "./_core/notification";
+import { storeContractPdf } from "./contracts";
+import { contractEffect, notificationEffect } from "../shared/paymentEffects";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -247,6 +250,39 @@ export async function transitionOrder(orderId: number, nextStatus: "paid" | "fai
   if (!current) throw new Error("Pedido não encontrado");
   if (!canTransitionOrder(current.status, nextStatus)) throw new Error(`Transição inválida: ${current.status} para ${nextStatus}`);
   await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, orderId));
+
+  if (current.status === "pending" && nextStatus === "paid") {
+    const item = await db
+      .select({ beatTitle: beats.title, licenseType: orderItems.licenseType, buyerEmail: orders.buyerEmail, totalCents: orders.totalCents, provider: orders.provider, createdAt: orders.createdAt })
+      .from(orderItems)
+      .innerJoin(orders, eq(orderItems.orderId, orders.id))
+      .innerJoin(beats, eq(orderItems.beatId, beats.id))
+      .where(eq(orderItems.orderId, orderId))
+      .limit(1);
+
+    if (contractEffect(current.contractKey) === "generate" && item[0]) {
+      try {
+        const contract = await storeContractPdf({ orderId, ...item[0] });
+        await db.update(orders).set({ contractKey: contract.key }).where(eq(orders.id, orderId));
+        await recordActivity({ type: "order.contract.generated", title: "Contrato PDF gerado", detail: contract.key, entityType: "order", entityId: orderId });
+      } catch (error) {
+        await recordActivity({ type: "order.contract.retryable", title: "Contrato PDF pendente de reprocessamento", detail: JSON.stringify({ orderId, error: String(error) }), entityType: "order", entityId: orderId });
+      }
+    } else if (current.contractKey) {
+      await recordActivity({ type: "order.contract.idempotent", title: "Contrato PDF já existente", detail: current.contractKey, entityType: "order", entityId: orderId });
+    }
+
+    try {
+      const delivered = await notifyOwner({ title: "Compra confirmada no Duck Hub", content: `Pedido #${orderId} pago para ${current.buyerEmail}.` });
+      if (notificationEffect(delivered) === "retryable") {
+        await recordActivity({ type: "order.notification.retryable", title: "Notificação do produtor pendente", detail: `Pedido #${orderId}`, entityType: "order", entityId: orderId });
+      } else {
+        await recordActivity({ type: "order.notification.sent", title: "Produtor notificado", detail: `Pedido #${orderId}`, entityType: "order", entityId: orderId });
+      }
+    } catch (error) {
+      await recordActivity({ type: "order.notification.retryable", title: "Falha ao notificar produtor", detail: JSON.stringify({ orderId, error: String(error) }), entityType: "order", entityId: orderId });
+    }
+  }
   return { id: orderId, status: nextStatus };
 }
 
@@ -302,7 +338,7 @@ export async function startMission(userId: number) {
 
 export async function unlockMission(userId: number) {
   const db = await getDb();
-  if (!db) return { userId, currentStep: 5, started: 1, unlocked: 1 };
+  if (!db) throw new Error("A persistência da missão está indisponível; o núcleo não pode ser desbloqueado");
   const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
   if (!existing[0]) throw new Error("Inicie e complete a missão antes de desbloquear o núcleo");
   if (existing[0].currentStep < 5) throw new Error("Complete todas as etapas da missão antes de desbloquear o núcleo");

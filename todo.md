@@ -14,9 +14,9 @@
 - [x] Licencias exclusiva y no exclusiva con precio y disponibilidad
 - [x] Checkout en modo prueba con máquina de estados de pedidos
 - [x] Webhook de pago idempotente con verificación de firma
-- [ ] Generación automática de contrato PDF tras pago confirmado
+- [x] Generación automática de contrato PDF tras pago confirmado
 - [ ] Envío automático de contrato, descarga y resumen por email
-- [ ] Notificación al productor por cada compra confirmada
+- [x] Notificación al productor por cada compra confirmada
 - [ ] Preparación de integración Mercado Pago y/o proveedor de pago configurable
 - [x] Registro de actividad y auditoría de acciones críticas
 - [ ] Automatizaciones por eventos para pagos, archivos, revisiones y entregas
@@ -82,8 +82,8 @@
 - [x] Validar no servidor a condição real do desbloqueio final, sem confiar apenas no código do cliente
 - [x] Testar no tRPC desbloqueio negado sem condição válida e restauração após recarregar a sessão
 
-- [ ] Negar unlockMission quando não existir progresso persistido suficiente, sem criar desbloqueio direto
-- [ ] Validar o desbloqueio final por estado real persistido, independente do código fixo no cliente
+- [x] Negar unlockMission quando não existir progresso persistido suficiente, sem criar desbloqueio direto
+- [x] Validar o desbloqueio final por estado real persistido, independente do código fixo no cliente
 - [ ] Adicionar teste de integração sem mock do db para mission.progress e mission.unlock com nova leitura do estado persistido
 
 - [x] Auditar a missão, o Hub, o catálogo e as ferramentas em viewport mobile real
@@ -186,3 +186,11 @@
 - [x] Revisar manualmente ComponentShowcase.tsx y los componentes auxiliares auditados, registrando justificación explícita para cada cadena restante en inglés/nombre propio (PayPal, @nextjs, Popover, marcas/frameworks) o traducirla si es texto de interfaz
 - [x] Ajustar scripts/extract_visible_text.py para excluir ejemplos/documentación interna y marcas técnicas no operacionales, regenerando docs/AUDITORIA_LOCALIZACAO_RENDERIZADO.txt con salida limpia por ruta
 - [x] Expandir docs/AUDITORIA_LOCALIZACAO_PTBR.md con una tabla/inventario completo de cadenas corregidas, cadenas mantenidas por justificación y referencia al resultado final limpio
+
+- [x] Sincronizar Mission.tsx para que el estado unlocked derive del backend para usuarios autenticados, eliminando o invalidando el fallback de localStorage cuando missionProgress indique bloqueado
+- [x] Añadir test o validación del caso en que localStorage contiene desbloqueo pero el backend retorna unlocked: 0, garantizando que el núcleo permanezca bloqueado en la UI
+
+- [ ] Añadir prueba de integración del checkout pending → paid que verifique contractKey, actividad y comportamiento idempotente con contrato existente
+- [x] Separar y robustecer el post-pago para registrar un estado recuperable cuando falle la generación/subida del PDF, sin dejar el pedido pagado sin seguimiento
+- [x] Hacer independiente la notificación al productor, manejar retorno false de notifyOwner y registrar el fallo para reintento
+- [ ] Añadir pruebas de notificación por cada compra pagada, incluso si el contrato falla o ya existe
