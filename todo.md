@@ -239,3 +239,11 @@
 - [x] Criar minuta informativa de Split Sheet & Termos de Produção em Markdown, marcada para revisão jurídica
 - [x] Integrar no Duck Hub artefatos operacionais da expansão sem criar credenciais reais nem dados fictícios
 - [x] Validar o plano com fontes, testes/documentação e salvar checkpoint da expansão Brasil–Espanha
+
+## Reauditoria Duck / publicação autorizada
+- [x] Auditar o HTML anexado e comparar a narrativa, identidade e fluxos com o Duck Hub atual
+- [x] Confirmar tecnicamente PT-BR como idioma principal e seletor persistente para ES/EN/FR
+- [x] Consultar somente materiais autorizados disponíveis no Drive e inventariar referências úteis
+- [x] Inspecionar a conta GitHub BELENTANI e identificar repositórios públicos livres para possível destino
+- [x] Atualizar a estratégia de independência financeira com metas sustentáveis, consentimento e validação profissional
+- [x] Documentar a decisão de repositório e o estado de publicação sem subir nada sem autorização explícita
