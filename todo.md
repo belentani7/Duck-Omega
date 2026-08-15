@@ -205,3 +205,8 @@
 - [x] Implementar navegação e páginas principais preservando a experiência da missão, Hub, catálogo e ferramentas
 - [x] Adicionar GSAP com animações suaves, acessíveis e reduzidas por prefers-reduced-motion aos cards de beats
 - [x] Validar responsividade, acessibilidade, typecheck, testes, build e screenshots das rotas principais após a refatoração
+
+- [ ] Definir e implementar, se confirmado, uma experiência única Astro navegável que una missão, Hub, catálogo e ferramentas sem perder os fluxos operacionais
+- [ ] Adicionar testes/evidência do CRM com histórico de projetos por cliente, histórico de faturas e operações backend/UI reais
+- [ ] Adicionar testes/evidência de criação, acompanhamento, datas e estados de entregáveis dentro de projetos
+- [ ] Converter ferramentas, automações e central de recursos em fluxos backend reais end-to-end, ou manter explicitamente como pendente sem marcar como completo
