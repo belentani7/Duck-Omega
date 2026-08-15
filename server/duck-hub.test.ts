@@ -9,6 +9,16 @@ const publicContext = {
   res: {} as TrpcContext["res"],
 } as TrpcContext;
 
+const ownerContext = {
+  ...publicContext,
+  user: { id: 1, openId: "owner", name: "Duck", email: "duck@example.com", loginMethod: "test", role: "owner", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() },
+} as TrpcContext;
+
+const clientContext = {
+  ...publicContext,
+  user: { id: 2, openId: "client", name: "Cliente", email: "cliente@example.com", loginMethod: "test", role: "client", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() },
+} as TrpcContext;
+
 describe("Duck Hub core contracts", () => {
   it("reports a healthy service", async () => {
     const result = await appRouter.createCaller(publicContext).system.health();
@@ -21,16 +31,11 @@ describe("Duck Hub core contracts", () => {
   });
 
   it("blocks a client from producer-only project creation", async () => {
-    const clientContext = { ...publicContext, user: { id: 2, openId: "client", name: "Cliente", email: "cliente@example.com", loginMethod: "test", role: "client", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() } } as TrpcContext;
     await expect(appRouter.createCaller(clientContext).projects.create({ clientId: 1, title: "Projeto válido", revisionLimit: 2 })).rejects.toThrow(/produtor/i);
   });
 
   it("rejects a project without a valid title", async () => {
-    const context = {
-      ...publicContext,
-      user: { id: 1, openId: "owner", name: "Duck", email: "duck@example.com", loginMethod: "test", role: "owner", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() },
-    } as TrpcContext;
-    await expect(appRouter.createCaller(context).projects.create({ clientId: 1, title: "x", revisionLimit: 2 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).projects.create({ clientId: 1, title: "x", revisionLimit: 2 })).rejects.toThrow();
   });
 
   it("covers valid and invalid checkout transitions", () => {
@@ -46,7 +51,23 @@ describe("Duck Hub core contracts", () => {
   });
 
   it("validates timestamp comments before calling the backend", async () => {
-    const context = { ...publicContext, user: { id: 1, openId: "owner", name: "Duck", email: "duck@example.com", loginMethod: "test", role: "owner", createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() } } as TrpcContext;
-    await expect(appRouter.createCaller(context).projects.addComment({ revisionId: 1, body: "Entrada no refrão", timestampMs: -1 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).projects.addComment({ revisionId: 1, body: "Entrada no refrão", timestampMs: -1 })).rejects.toThrow();
+  });
+});
+
+describe("Duck Hub operational access contracts", () => {
+  it("validates CRM email input before attempting persistence", async () => {
+    await expect(appRouter.createCaller(ownerContext).clients.create({ name: "Cliente válido", email: "email-invalido" })).rejects.toThrow();
+  });
+
+  it("keeps project deliverable queries producer-only", async () => {
+    await expect(appRouter.createCaller(clientContext).projects.deliverables({ projectId: 1 })).rejects.toThrow(/produtor|autoriz/i);
+    await expect(appRouter.createCaller(ownerContext).projects.deliverables({ projectId: 1 })).resolves.toEqual(expect.any(Array));
+  });
+
+  it("keeps mission progress protected and validates step bounds", async () => {
+    await expect(appRouter.createCaller(publicContext).mission.progress()).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).mission.advance({ currentStep: 0 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).mission.advance({ currentStep: 21 })).rejects.toThrow();
   });
 });

@@ -206,7 +206,7 @@
 - [x] Adicionar GSAP com animações suaves, acessíveis e reduzidas por prefers-reduced-motion aos cards de beats
 - [x] Validar responsividade, acessibilidade, typecheck, testes, build e screenshots das rotas principais após a refatoração
 
-- [ ] Definir e implementar, se confirmado, uma experiência única Astro navegável que una missão, Hub, catálogo e ferramentas sem perder os fluxos operacionais
+- [x] Definir e implementar, se confirmado, uma experiência única Astro navegável que una missão, Hub, catálogo e ferramentas sem perder os fluxos operacionais
 - [ ] Adicionar testes/evidência do CRM com histórico de projetos por cliente, histórico de faturas e operações backend/UI reais
 - [ ] Adicionar testes/evidência de criação, acompanhamento, datas e estados de entregáveis dentro de projetos
 - [ ] Converter ferramentas, automações e central de recursos em fluxos backend reais end-to-end, ou manter explicitamente como pendente sem marcar como completo
@@ -220,3 +220,11 @@
 - [x] Traduzir os detalhes residuais da fila do Hub (Revisão de mix, Hoje, Amanhã, Responder briefing, dias) e o delta de receita em todos os idiomas
 - [x] Traduzir ou justificar os rótulos técnicos visíveis de categoria (PROJETO, OPERAÇÃO, RECURSOS, ANÁLISE, PÚBLICO e SINAL) nas rotas Astro
 - [x] Repetir a auditoria mobile dos quatro idiomas após as últimas correções e registrar evidência final sem strings operacionais mistas
+
+## Nova camada visual mutável
+- [x] Definir inventário de objetos de estudo visuais e fontes de referência para o universo Duck
+- [x] Gerar imagens originais em prompts detalhados de aproximadamente 100 palavras e armazená-las fora do projeto
+- [x] Integrar assets visuais nas rotas missão, Hub, catálogo e ferramentas sem quebrar a localização
+- [x] Implementar plugins visuais mutáveis com variações controladas, prefers-reduced-motion e fallback acessível
+- [x] Validar mobile 390x844, desktop, contraste, carregamento dos assets, testes e build após a integração visual
+- [ ] Salvar checkpoint da camada visual mutável com documentação das fontes e decisões de uso

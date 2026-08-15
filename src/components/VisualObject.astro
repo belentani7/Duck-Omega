@@ -1,0 +1,61 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  label?: string;
+  mode?: "gema" | "scanner" | "stems" | "fader" | "selo";
+  aspect?: "square" | "wide" | "portrait";
+}
+const { src, alt, label = "OBJETO DE ESTUDO", mode = "gema", aspect = "wide" } = Astro.props;
+---
+<figure class={`visual-object visual-${mode} visual-${aspect}`} data-visual-object data-visual-mode={mode} tabindex="0">
+  <img src={src} alt={alt} loading="lazy" decoding="async" />
+  <span class="visual-shade" aria-hidden="true"></span>
+  <span class="visual-scanline" aria-hidden="true"></span>
+  <figcaption class="visual-caption"><span class="mono">{label}</span><span class="visual-pulse" aria-hidden="true"></span></figcaption>
+  <button type="button" class="visual-cycle focus-ring" data-visual-cycle data-i18n-aria="visualCycle" aria-label="Alterar variação visual">↗</button>
+</figure>
+
+<script>
+  const setupVisualObjects = () => {
+    document.querySelectorAll("[data-visual-object]").forEach((node) => {
+      if (node.dataset.visualReady) return;
+      node.dataset.visualReady = "true";
+      const button = node.querySelector("[data-visual-cycle]");
+      const modes = ["calm", "signal", "archive"];
+      let index = Number(localStorage.getItem("duck-visual-mode") || 0) % modes.length;
+      const apply = () => {
+        node.dataset.visualState = modes[index];
+        node.style.setProperty("--visual-seed", String(index));
+      };
+      button?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        index = (index + 1) % modes.length;
+        localStorage.setItem("duck-visual-mode", String(index));
+        apply();
+      });
+      apply();
+    });
+  };
+  setupVisualObjects();
+  document.addEventListener("astro:page-load", setupVisualObjects);
+</script>
+
+<style>
+  .visual-object { position:relative; overflow:hidden; min-height:170px; margin:0; border:1px solid rgba(167,243,208,.14); border-radius:22px; background:#07130e; isolation:isolate; box-shadow:0 24px 80px rgba(0,0,0,.28); }
+  .visual-square { aspect-ratio:1; } .visual-wide { aspect-ratio:16/9; } .visual-portrait { aspect-ratio:4/5; }
+  .visual-object img { width:100%; height:100%; min-height:inherit; object-fit:cover; display:block; opacity:.72; filter:saturate(.8) contrast(1.06) brightness(.72); transform:scale(1.04); transition:transform 900ms cubic-bezier(.23,1,.32,1), filter 450ms ease, opacity 450ms ease; }
+  .visual-object:hover img, .visual-object:focus-within img { transform:scale(1.1); filter:saturate(1.06) contrast(1.08) brightness(.84); opacity:.9; }
+  .visual-shade { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(2,9,6,.7),transparent 48%,rgba(20,130,88,.16)); mix-blend-mode:multiply; pointer-events:none; }
+  .visual-scanline { position:absolute; inset:0; z-index:2; background:linear-gradient(180deg,transparent 0%,rgba(94,228,177,.12) 48%,transparent 52%); opacity:.24; transform:translateY(-100%); animation:visual-scan 6s ease-in-out infinite; pointer-events:none; }
+  .visual-caption { position:absolute; z-index:3; inset:auto 16px 14px; display:flex; justify-content:space-between; align-items:center; color:#b5ead1; font-size:9px; letter-spacing:.18em; text-shadow:0 2px 12px #000; }
+  .visual-pulse { width:7px; height:7px; border-radius:50%; background:#5ee4b1; box-shadow:0 0 18px #5ee4b1; animation:visual-pulse 1.8s ease-in-out infinite; }
+  .visual-cycle { position:absolute; z-index:4; top:12px; right:12px; width:30px; height:30px; border:1px solid rgba(167,243,208,.18); border-radius:10px; color:#8de8c3; background:rgba(3,15,10,.58); cursor:pointer; }
+  .visual-object[data-visual-state="signal"] .visual-shade { background:linear-gradient(135deg,rgba(2,9,6,.64),transparent 32%,rgba(58,226,173,.3)); }
+  .visual-object[data-visual-state="signal"] .visual-scanline { animation-duration:2.6s; opacity:.52; }
+  .visual-object[data-visual-state="archive"] img { filter:saturate(.62) contrast(1.12) brightness(.62); }
+  .visual-object[data-visual-state="archive"] .visual-shade { background:linear-gradient(135deg,rgba(1,4,3,.86),rgba(89,61,22,.24)); }
+  @keyframes visual-scan { 0%,20%{transform:translateY(-110%)} 65%,100%{transform:translateY(110%)} }
+  @keyframes visual-pulse { 0%,100%{opacity:.45;transform:scale(.82)} 50%{opacity:1;transform:scale(1.15)} }
+  @media (prefers-reduced-motion: reduce) { .visual-object img,.visual-scanline,.visual-pulse { animation:none; transition:none; transform:none; } .visual-scanline { display:none; } }
+</style>

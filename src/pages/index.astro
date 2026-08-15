@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
+import VisualObject from "../components/VisualObject.astro";
 ---
 <BaseLayout title="Missão" description="A entrada secreta do Duck Hub">
   <Nav active="/" />
@@ -14,7 +15,7 @@ import Nav from "../components/Nav.astro";
       </div>
       <div class="signal glass">
         <div class="signal-top"><span><i></i> <span data-i18n="secureChannel">CANAL SEGURO</span></span><b class="mono">01 / 05</b></div>
-        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / <span data-i18n="signal">SINAL</span></span><h2 data-i18n="signalFound">O sinal foi encontrado</h2><p data-i18n="unifiedLead">Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p></div>
+        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / <span data-i18n="signal">SINAL</span></span><h2 data-i18n="signalFound">O sinal foi encontrado</h2><p data-i18n="unifiedLead">Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p><VisualObject src="/manus-storage/duck-gema-01_ba17f467.png" alt="Sintetizador Gema 01 com luzes verdes sobre uma bancada escura" label="GEMA 01 / ESTUDO" mode="gema" aspect="wide" /></div>
         <div class="progress"><span></span><i></i><i></i><i></i><i></i></div>
       </div>
     </section>
@@ -47,7 +48,7 @@ import Nav from "../components/Nav.astro";
   .signal-core { padding:70px 5px 64px; }
   .signal-icon { display:grid; place-items:center; width:56px; height:56px; margin-bottom:28px; border-radius:16px; color:#58e5b2; background:rgba(52,211,153,.1); font-size:28px; }
   .signal h2 { margin:16px 0 12px; font-size:clamp(28px,4vw,44px); letter-spacing:-.05em; }
-  .signal p { max-width:600px; margin:0; color:#84958d; font-size:14px; line-height:1.75; }
+  .signal p { max-width:600px; margin:0; color:#84958d; font-size:14px; line-height:1.75; } .signal-core :global(.visual-object) { margin-top:24px; min-height:150px; }
   .progress { display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; gap:8px; }
   .progress span, .progress i { height:6px; border-radius:99px; background:rgba(255,255,255,.08); }
   .progress span { background:#5ee4b1; }
