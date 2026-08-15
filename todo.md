@@ -46,6 +46,7 @@
 - [x] Revisar a missão imersiva para explicar o ecossistema Duck em português
 
 - [ ] Implementar RBAC real para Owner, Produtor e Cliente por procedimento e recurso
+- [ ] Separar uma procedure owner-only para configuração/status de pagamentos e cobrir owner, producer e client
 - [ ] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
 - [ ] Completar projetos com datas e gestão funcional de entregáveis
 - [x] Implementar revisões com comentários por timestamp e limite validado no servidor
@@ -79,8 +80,10 @@
 - [x] Cobrir no checkout as transições pending para paid, failed e cancelled
 - [x] Testar rejeição explícita de transição inválida no router, como paid para cancelled
 
-- [ ] Adicionar teste de checkout sem vi.mock do banco, em ambiente isolado, criando pedido real e consultando o status persistido
-- [ ] Comprovar no teste real que checkout.status lê o pedido criado, sem depender apenas do retorno da mutação
+- [x] Adicionar teste de checkout sem vi.mock do banco, em ambiente isolado, criando pedido real e consultando o status persistido
+- [x] Criar repositório isolado de pedidos e missão somente para testes, sem alterar o esquema produtivo
+- [x] Exercitar create/status/transition do checkout e progress/start/advance/unlock da missão pelos callers tRPC reais
+- [x] Comprovar no teste real que checkout.status lê o pedido criado, sem depender apenas do retorno da mutação
 
 - [x] Persistir no backend o início, a etapa atual e o desbloqueio final da missão para usuários autenticados
 - [x] Conectar o desbloqueio final a uma condição real do sistema e restaurá-lo ao recarregar a sessão
@@ -91,7 +94,7 @@
 
 - [x] Negar unlockMission quando não existir progresso persistido suficiente, sem criar desbloqueio direto
 - [x] Validar o desbloqueio final por estado real persistido, independente do código fixo no cliente
-- [ ] Adicionar teste de integração sem mock do db para mission.progress e mission.unlock com nova leitura do estado persistido
+- [x] Adicionar teste de integração sem mock do db para mission.progress e mission.unlock com nova leitura do estado persistido
 
 - [x] Auditar a missão, o Hub, o catálogo e as ferramentas em viewport mobile real
 - [x] Corrigir overflow, navegação, toque, legibilidade e estados funcionais da versão mobile
@@ -266,4 +269,13 @@
 - [x] Ajustar traduções sem transformar slogans de Belentani em centro da experiência
 - [x] Atualizar expectativas dos testes de i18n para a nova copy Duck mantendo alinhamento de locales
 - [x] Validar a nova hierarquia verbal em mobile, desktop e quatro idiomas
-- [ ] Salvar checkpoint da recalibração de voz Duck
+- [x] Salvar checkpoint da recalibração de voz Duck
+
+## Camada DAW / movimento visual
+- [x] Auditar as superfícies atuais e definir pontos de movimento sem prejudicar a leitura operacional
+- [x] Criar visualizador de barras, playhead e medidores com fallback acessível
+- [x] Integrar a linguagem visual DAW nas quatro rotas mantendo Duck Studio como identidade
+- [x] Adicionar controles de play/pause e variação sem áudio real nem dados fictícios de reprodução
+- [x] Validar animação em 390x844 e desktop, prefers-reduced-motion, contraste, testes e build
+- [x] Corrigir sobreposição do AudioDeck com o objeto de stems no catálogo mobile
+- [ ] Salvar checkpoint da camada DAW/movimento

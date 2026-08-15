@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import VisualObject from "../components/VisualObject.astro";
+import AudioDeck from "../components/AudioDeck.astro";
 ---
 <BaseLayout title="Missão" description="A entrada secreta do Duck Hub">
   <Nav active="/" />
@@ -15,7 +16,7 @@ import VisualObject from "../components/VisualObject.astro";
       </div>
       <div class="signal glass">
         <div class="signal-top"><span><i></i> <span data-i18n="secureChannel">CANAL SEGURO</span></span><b class="mono">01 / 05</b></div>
-        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / <span data-i18n="signal">SINAL</span></span><h2 data-i18n="signalFound">O sinal foi encontrado</h2><p data-i18n="unifiedLead">Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p><VisualObject src="/manus-storage/duck-gema-01_ba17f467.png" alt="Sintetizador Gema 01 com luzes verdes sobre uma bancada escura" label="GEMA 01 / ESTUDO" mode="gema" aspect="wide" /></div>
+        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / <span data-i18n="signal">SINAL</span></span><h2 data-i18n="signalFound">O sinal foi encontrado</h2><p data-i18n="unifiedLead">Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p><VisualObject src="/manus-storage/duck-gema-01_ba17f467.png" alt="Sintetizador Gema 01 com luzes verdes sobre uma bancada escura" label="GEMA 01 / ESTUDO" mode="gema" aspect="wide" /><AudioDeck label="DUCK STUDIO / SESSÃO" variant="spectrum" compact /></div>
         <div class="progress"><span></span><i></i><i></i><i></i><i></i></div>
       </div>
     </section>

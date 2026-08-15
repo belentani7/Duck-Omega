@@ -29,6 +29,29 @@ type IsolatedFileMetadata = typeof files.$inferInsert & { id: number };
 const isolatedFileMetadata: IsolatedFileMetadata[] = [];
 let isolatedFileId = 1;
 
+type IsolatedOrder = {
+  id: number;
+  buyerEmail: string;
+  clientId?: number;
+  beatId: number;
+  licenseType: "exclusive" | "non_exclusive";
+  totalCents: number;
+  provider: PaymentProviderName;
+  status: "pending" | "paid" | "failed" | "cancelled" | "refunded";
+  contractKey?: string | null;
+};
+const isolatedOrders: IsolatedOrder[] = [];
+let isolatedOrderId = 1;
+
+type IsolatedMissionProgress = { userId: number; currentStep: number; started: number; unlocked: number };
+const isolatedMissionProgress: IsolatedMissionProgress[] = [];
+
+export function resetIsolatedCheckoutAndMission() {
+  isolatedOrders.length = 0;
+  isolatedOrderId = 1;
+  isolatedMissionProgress.length = 0;
+}
+
 export function resetIsolatedFileMetadata() {
   isolatedFileMetadata.length = 0;
   isolatedFileId = 1;
@@ -290,6 +313,11 @@ export async function listRevisionComments(revisionId: number) {
 export async function createTestOrder(input: { buyerEmail: string; clientId?: number; beatId: number; licenseType: "exclusive" | "non_exclusive"; totalCents: number; provider?: PaymentProviderName }) {
   const provider = resolvePaymentProvider({ requested: input.provider ?? "test", mercadoPagoAccessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN });
   if (!isProductionPaymentReady(provider)) throw new Error("Mercado Pago não está configurado para produção");
+  if (isTestWithoutDatabase()) {
+    const order: IsolatedOrder = { id: isolatedOrderId++, buyerEmail: input.buyerEmail, clientId: input.clientId, beatId: input.beatId, licenseType: input.licenseType, totalCents: input.totalCents, provider: provider.provider, status: "pending", contractKey: null };
+    isolatedOrders.push(order);
+    return { id: order.id, status: order.status, provider: order.provider };
+  }
   const db = await getDb();
   if (!db) return { id: 0, status: "pending" as const, provider: provider.provider };
   const orderResult = await db.insert(orders).values({ buyerEmail: input.buyerEmail, clientId: input.clientId, provider: provider.provider, totalCents: input.totalCents, status: "pending" });
@@ -316,6 +344,7 @@ const orderTransitions: Record<string, string[]> = {
 };
 
 export async function getOrder(orderId: number) {
+  if (isTestWithoutDatabase()) return isolatedOrders.find(order => order.id === orderId);
   const db = await getDb();
   if (!db) return undefined;
   const rows = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
@@ -323,6 +352,13 @@ export async function getOrder(orderId: number) {
 }
 
 export async function transitionOrder(orderId: number, nextStatus: "paid" | "failed" | "cancelled" | "refunded") {
+  if (isTestWithoutDatabase()) {
+    const current = isolatedOrders.find(order => order.id === orderId);
+    if (!current) throw new Error("Pedido não encontrado");
+    if (!canTransitionOrder(current.status, nextStatus)) throw new Error(`Transição inválida: ${current.status} para ${nextStatus}`);
+    current.status = nextStatus;
+    return { id: current.id, status: current.status };
+  }
   const db = await getDb();
   if (!db) return { id: orderId, status: nextStatus };
   const current = await getOrder(orderId);
@@ -409,6 +445,7 @@ export async function recordActivity(input: typeof activity.$inferInsert) {
 
 
 export async function getMissionProgress(userId: number) {
+  if (isTestWithoutDatabase()) return isolatedMissionProgress.find(progress => progress.userId === userId) ?? { userId, currentStep: 1, started: 0, unlocked: 0 };
   const db = await getDb();
   if (!db) return { userId, currentStep: 1, started: 0, unlocked: 0 };
   const rows = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
@@ -416,6 +453,12 @@ export async function getMissionProgress(userId: number) {
 }
 
 export async function advanceMission(userId: number, currentStep: number) {
+  if (isTestWithoutDatabase()) {
+    const existing = isolatedMissionProgress.find(progress => progress.userId === userId);
+    if (!existing) isolatedMissionProgress.push({ userId, currentStep, started: 0, unlocked: 0 });
+    else if (currentStep > existing.currentStep) existing.currentStep = currentStep;
+    return getMissionProgress(userId);
+  }
   const db = await getDb();
   if (!db) return { userId, currentStep };
   const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
@@ -429,6 +472,12 @@ export async function advanceMission(userId: number, currentStep: number) {
 
 
 export async function startMission(userId: number) {
+  if (isTestWithoutDatabase()) {
+    const existing = isolatedMissionProgress.find(progress => progress.userId === userId);
+    if (!existing) isolatedMissionProgress.push({ userId, currentStep: 1, started: 1, unlocked: 0 });
+    else existing.started = 1;
+    return getMissionProgress(userId);
+  }
   const db = await getDb();
   if (!db) return { userId, currentStep: 1, started: 1, unlocked: 0 };
   const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
@@ -438,6 +487,15 @@ export async function startMission(userId: number) {
 }
 
 export async function unlockMission(userId: number) {
+  if (isTestWithoutDatabase()) {
+    const existing = isolatedMissionProgress.find(progress => progress.userId === userId);
+    if (!existing) throw new Error("Inicie e complete a missão antes de desbloquear o núcleo");
+    if (existing.currentStep < 5) throw new Error("Complete todas as etapas da missão antes de desbloquear o núcleo");
+    existing.started = 1;
+    existing.currentStep = 5;
+    existing.unlocked = 1;
+    return getMissionProgress(userId);
+  }
   const db = await getDb();
   if (!db) throw new Error("A persistência da missão está indisponível; o núcleo não pode ser desbloqueado");
   const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);

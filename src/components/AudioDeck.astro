@@ -1,0 +1,87 @@
+---
+interface Props {
+  label?: string;
+  variant?: "spectrum" | "timeline" | "meter";
+  compact?: boolean;
+}
+const { label = "DUCK STUDIO / SESSÃO", variant = "spectrum", compact = false } = Astro.props;
+const bars = Array.from({ length: compact ? 24 : 42 }, (_, index) => ({ index, height: 24 + ((index * 17) % 62) }));
+---
+<section class={`audio-deck audio-${variant} ${compact ? "audio-compact" : ""}`} data-audio-deck data-audio-state="paused" aria-label={label}>
+  <div class="audio-head">
+    <span class="audio-status"><i aria-hidden="true"></i><span data-i18n="audioDeck">DUCK STUDIO / SESSÃO</span></span>
+    <span class="audio-time mono" data-audio-time>00:00 / 00:32</span>
+  </div>
+  <div class="audio-stage" aria-hidden="true">
+    <div class="audio-grid"></div>
+    <div class="audio-bars">{bars.map((bar) => <i style={`--bar-height:${bar.height}%;--bar-index:${bar.index}`}></i>)}</div>
+    <span class="audio-playhead"></span>
+    <div class="audio-meter audio-meter-left"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="audio-meter audio-meter-right"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="audio-controls">
+    <button type="button" class="audio-toggle focus-ring" data-audio-toggle data-i18n-aria="audioPlay" aria-label="Reproduzir visualização" aria-pressed="false"><span data-audio-icon>▶</span></button>
+    <div class="audio-track"><span data-i18n="audioTimeline">VISUALIZAÇÃO / FLUXO</span><b></b></div>
+    <button type="button" class="audio-mode focus-ring" data-audio-mode data-i18n-aria="audioMode" aria-label="Alterar modo visual">↗</button>
+  </div>
+</section>
+
+<script>
+  const setupAudioDecks = () => {
+    document.querySelectorAll("[data-audio-deck]").forEach((node) => {
+      if (node.dataset.audioReady) return;
+      node.dataset.audioReady = "true";
+      const toggle = node.querySelector("[data-audio-toggle]");
+      const mode = node.querySelector("[data-audio-mode]");
+      const time = node.querySelector("[data-audio-time]");
+      const modes = ["spectrum", "timeline", "meter"];
+      let modeIndex = modes.indexOf(node.classList.contains("audio-timeline") ? "timeline" : node.classList.contains("audio-meter") ? "meter" : "spectrum");
+      let playing = false;
+      let elapsed = 0;
+      let timer;
+      const applyMode = () => {
+        node.dataset.audioMode = modes[modeIndex];
+      };
+      const renderTime = () => {
+        const seconds = String(elapsed % 60).padStart(2, "0");
+        if (time) time.textContent = `00:${seconds} / 00:32`;
+      };
+      const setPlaying = (next) => {
+        playing = next;
+        node.dataset.audioState = playing ? "playing" : "paused";
+        toggle?.setAttribute("aria-pressed", String(playing));
+        const locale = (window as any).__DUCK_LOCALE__ || "pt-BR";
+        const messages = (window as any).__DUCK_TRANSLATIONS__?.[locale] || {};
+        if (toggle) toggle.setAttribute("aria-label", playing ? (messages.audioPause || "Pausar visualização") : (messages.audioPlay || "Reproduzir visualização"));
+        const icon = node.querySelector("[data-audio-icon]");
+        if (icon) icon.textContent = playing ? "Ⅱ" : "▶";
+        window.clearInterval(timer);
+        if (playing && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          timer = window.setInterval(() => { elapsed = (elapsed + 1) % 33; renderTime(); }, 1000);
+        }
+      };
+      toggle?.addEventListener("click", () => setPlaying(!playing));
+      mode?.addEventListener("click", () => { modeIndex = (modeIndex + 1) % modes.length; applyMode(); });
+      applyMode();
+      renderTime();
+    });
+  };
+  setupAudioDecks();
+  document.addEventListener("astro:page-load", setupAudioDecks);
+</script>
+
+<style>
+  .audio-deck { position:relative; display:block; width:100%; min-width:0; overflow:hidden; padding:14px; border:1px solid rgba(167,243,208,.14); border-radius:20px; background:linear-gradient(145deg,rgba(9,29,20,.95),rgba(4,12,8,.92)); color:#ccefe0; box-shadow:0 20px 60px rgba(0,0,0,.24); }
+  .audio-head,.audio-controls { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .audio-head { color:#7aa08e; font:9px 'DM Mono',monospace; letter-spacing:.15em; }
+  .audio-status { display:flex; align-items:center; gap:7px; }.audio-status i { width:6px; height:6px; border-radius:50%; background:#5ee4b1; box-shadow:0 0 13px #5ee4b1; }
+  .audio-stage { position:relative; height:132px; margin:14px 0 12px; overflow:hidden; border:1px solid rgba(167,243,208,.08); border-radius:12px; background:#030906; }
+  .audio-grid { position:absolute; inset:0; background:linear-gradient(rgba(94,228,177,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(94,228,177,.06) 1px,transparent 1px); background-size:100% 25%,10% 100%; opacity:.65; }
+  .audio-bars { position:absolute; inset:20px 18px 19px; display:flex; align-items:center; gap:3px; }.audio-bars i { flex:1; height:var(--bar-height); min-width:2px; border-radius:4px 4px 2px 2px; background:linear-gradient(180deg,#9af4ca,#21a875 70%,#0e5139); opacity:.62; transform-origin:center; animation:audio-idle 1.7s ease-in-out infinite alternate; animation-delay:calc(var(--bar-index) * -37ms); }.audio-deck[data-audio-state="paused"] .audio-bars i { animation-play-state:paused; }.audio-deck[data-audio-mode="timeline"] .audio-bars i { border-radius:1px; opacity:.42; }.audio-deck[data-audio-mode="meter"] .audio-bars i { background:linear-gradient(180deg,#d6ffe9,#5ee4b1 45%,#164d38); }
+  .audio-playhead { position:absolute; top:0; bottom:0; left:14%; width:1px; background:#e1fff0; box-shadow:0 0 14px #5ee4b1; opacity:.9; animation:audio-playhead 4s linear infinite paused; }.audio-deck[data-audio-state="playing"] .audio-playhead { animation-play-state:running; }
+  .audio-meter { position:absolute; bottom:8px; display:flex; align-items:end; gap:2px; height:28px; opacity:.55; }.audio-meter-left { left:8px; }.audio-meter-right { right:8px; }.audio-meter i { width:3px; height:var(--meter-height,35%); background:#5ee4b1; animation:audio-meter 850ms ease-in-out infinite alternate; }.audio-meter i:nth-child(2){--meter-height:65%;animation-delay:-120ms}.audio-meter i:nth-child(3){--meter-height:90%;animation-delay:-240ms}.audio-meter i:nth-child(4){--meter-height:52%;animation-delay:-360ms}.audio-meter i:nth-child(5){--meter-height:78%;animation-delay:-480ms}.audio-deck[data-audio-state="paused"] .audio-meter i { animation-play-state:paused; }
+  .audio-toggle,.audio-mode { display:grid; place-items:center; flex:none; width:30px; height:30px; border:1px solid rgba(167,243,208,.16); border-radius:9px; color:#07150e; background:#5ee4b1; cursor:pointer; font-size:11px; }.audio-mode { color:#8de8c3; background:rgba(94,228,177,.08); }.audio-track { min-width:0; flex:1; color:#799688; font:9px 'DM Mono',monospace; letter-spacing:.12em; }.audio-track b { display:block; height:3px; margin-top:6px; border-radius:99px; background:linear-gradient(90deg,#5ee4b1 0 22%,rgba(255,255,255,.1) 22%); }.audio-deck[data-audio-state="playing"] .audio-track b { animation:audio-progress 4s linear infinite; }
+  @keyframes audio-idle { from { transform:scaleY(.76); opacity:.42; } to { transform:scaleY(1.04); opacity:.88; } } @keyframes audio-playhead { from { left:12%; } to { left:88%; } } @keyframes audio-meter { from { transform:scaleY(.55); opacity:.35; } to { transform:scaleY(1); opacity:.9; } } @keyframes audio-progress { from { background:linear-gradient(90deg,#5ee4b1 0 12%,rgba(255,255,255,.1) 12%); } to { background:linear-gradient(90deg,#5ee4b1 0 88%,rgba(255,255,255,.1) 88%); } }
+  @media (prefers-reduced-motion: reduce) { .audio-bars i,.audio-playhead,.audio-meter i,.audio-track b { animation:none !important; }.audio-playhead { left:50%; }.audio-deck[data-audio-state="playing"] .audio-playhead { opacity:.65; } }
+  @media (max-width:720px) { .audio-stage { height:112px; }.audio-deck { padding:12px; border-radius:17px; } }
+</style>

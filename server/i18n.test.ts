@@ -15,6 +15,11 @@ describe("Duck Hub i18n catalog", () => {
       "catalogLead",
       "deliveryChecklist",
       "backendOnline",
+      "audioDeck",
+      "audioTimeline",
+      "audioPlay",
+      "audioPause",
+      "audioMode",
     ] as const;
 
     for (const locale of locales) {

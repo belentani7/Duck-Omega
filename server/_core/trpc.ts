@@ -47,6 +47,16 @@ export const clientProcedure = t.procedure.use(
   }),
 );
 
+export const ownerProcedure = t.procedure.use(
+  t.middleware(async opts => {
+    const { ctx, next } = opts;
+    if (!ctx.user || ctx.user.role !== "owner") {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Acesso restrito ao proprietário." });
+    }
+    return next({ ctx: { ...ctx, user: ctx.user } });
+  }),
+);
+
 export const adminProcedure = t.procedure.use(
   t.middleware(async opts => {
     const { ctx, next } = opts;
