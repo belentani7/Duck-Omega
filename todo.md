@@ -45,8 +45,8 @@
 - [x] Criar uma central de recursos para templates, presets, stems, referências e documentação
 - [x] Revisar a missão imersiva para explicar o ecossistema Duck em português
 
-- [ ] Implementar RBAC real para Owner, Produtor e Cliente por procedimento e recurso
-- [ ] Separar uma procedure owner-only para configuração/status de pagamentos e cobrir owner, producer e client
+- [x] Implementar RBAC real para Owner, Produtor e Cliente por procedimento e recurso
+- [x] Separar uma procedure owner-only para configuração/status de pagamentos e cobrir owner, producer e client
 - [ ] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
 - [ ] Completar projetos com datas e gestão funcional de entregáveis
 - [x] Implementar revisões com comentários por timestamp e limite validado no servidor
@@ -278,4 +278,8 @@
 - [x] Adicionar controles de play/pause e variação sem áudio real nem dados fictícios de reprodução
 - [x] Validar animação em 390x844 e desktop, prefers-reduced-motion, contraste, testes e build
 - [x] Corrigir sobreposição do AudioDeck com o objeto de stems no catálogo mobile
-- [ ] Salvar checkpoint da camada DAW/movimento
+- [x] Salvar checkpoint da camada DAW/movimento
+
+- [x] Aplicar autorização por recurso nas procedures de revisões e comentários, validando papel e associação ao projeto
+- [x] Adicionar cobertura de testes de RBAC por recurso para owner, producer e client
+- [x] Usar clientProcedure em acessos de cliente explícitos ou documentar e testar bloqueios intencionais

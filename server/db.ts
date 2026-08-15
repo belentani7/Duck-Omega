@@ -211,6 +211,19 @@ export async function getProject(projectId: number) {
   return rows[0];
 }
 
+export async function getRevisionAccessContext(revisionId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db
+    .select({ id: revisions.id, projectId: revisions.projectId, clientUserId: clients.userId })
+    .from(revisions)
+    .innerJoin(projects, eq(revisions.projectId, projects.id))
+    .innerJoin(clients, eq(projects.clientId, clients.id))
+    .where(eq(revisions.id, revisionId))
+    .limit(1);
+  return rows[0];
+}
+
 export async function createRevision(input: typeof revisions.$inferInsert) {
   const db = await getDb();
   if (!db) return undefined;

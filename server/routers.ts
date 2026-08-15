@@ -1,8 +1,10 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { invokeLLM } from "./_core/llm";
 import { getSessionCookieOptions } from "./_core/cookies";
+import type { TrpcContext } from "./_core/context";
 import { COOKIE_NAME } from "@shared/const";
-import { producerProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { clientProcedure, ownerProcedure, producerProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import {
   createClient,
   addRevisionComment,
@@ -28,16 +30,27 @@ import {
   recentChatMessages,
   saveChatMessage,
   paymentProviderStatus,
+  getRevisionAccessContext,
 } from "./db";
 import { clients, projects, revisions } from "../drizzle/schema";
 import { getAutomationBudget, planAutomationActions, type DuckAutomationEventType } from "../shared/automation";
+import { canAccessProjectResource } from "../shared/resourceAuth";
 
 const roleProcedure = producerProcedure;
+
+async function assertRevisionAccess(ctx: { user: NonNullable<TrpcContext["user"]> }, revisionId: number) {
+  const resource = await getRevisionAccessContext(revisionId);
+  if (!resource) throw new TRPCError({ code: "NOT_FOUND", message: "Revisão não encontrada." });
+  if (!canAccessProjectResource(ctx.user.role, ctx.user.id, resource)) {
+    throw new TRPCError({ code: "FORBIDDEN", message: "Você não tem acesso a esta revisão." });
+  }
+  return resource;
+}
 
 export const appRouter = router({
   system: router({
     health: publicProcedure.query(() => ({ ok: true, service: "duck-hub" })),
-    paymentProvider: roleProcedure.query(() => paymentProviderStatus()),
+    paymentProvider: ownerProcedure.query(() => paymentProviderStatus()),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -77,8 +90,14 @@ export const appRouter = router({
       fileId: z.number().int().positive().optional(),
       summary: z.string().min(2).max(4000),
     })).mutation(({ ctx, input }) => createRevision({ ...input, requestedBy: ctx.user.id })),
-    addComment: protectedProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(({ ctx, input }) => addRevisionComment({ ...input, authorId: ctx.user.id })),
-    comments: protectedProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(({ input }) => listRevisionComments(input.revisionId)),
+    addComment: clientProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(async ({ ctx, input }) => {
+      await assertRevisionAccess(ctx, input.revisionId);
+      return addRevisionComment({ ...input, authorId: ctx.user.id });
+    }),
+    comments: clientProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      await assertRevisionAccess(ctx, input.revisionId);
+      return listRevisionComments(input.revisionId);
+    }),
     deliverables: producerProcedure.input(z.object({ projectId: z.number().int().positive() })).query(({ input }) => listDeliverables(input.projectId)),
     createDeliverable: producerProcedure.input(z.object({ projectId: z.number().int().positive(), title: z.string().min(2).max(180), dueDate: z.date().optional() })).mutation(({ input }) => createDeliverable(input)),
     updateDeliverable: producerProcedure.input(z.object({ deliverableId: z.number().int().positive(), status: z.enum(["pending", "in_progress", "review", "approved"]), dueDate: z.date().optional() })).mutation(({ input }) => updateDeliverableStatus(input)),
