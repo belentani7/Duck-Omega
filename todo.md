@@ -33,7 +33,7 @@
 - [ ] Eliminar dependencia narrativa de html-video-production, game-dev y music-prompter
 
 - [x] Mantener la misión secreta como entrada de un software real y navegable
-- [ ] Conectar los desbloqueos narrativos a estados persistidos y acciones reales del sistema
+- [x] Conectar os desbloqueios narrativos a estados persistidos e ações reais do sistema
 - [x] Mantener backend, base de datos, autenticación y pruebas aunque la interfaz sea inmersiva
 - [x] Evitar entregar una landing estática o una demo sin lógica operativa
 
@@ -55,7 +55,7 @@
 - [ ] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
 - [ ] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
 - [ ] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
-- [ ] Conectar desbloqueio da missão a estado persistido no backend
+- [x] Conectar desbloqueio da missão a estado persistido no backend
 
 - [x] Implementar máquina de estados real de pedidos de teste: pending para paid, failed ou cancelled
 - [x] Adicionar consulta de estado e testes específicos do checkout
@@ -74,3 +74,25 @@
 
 - [ ] Adicionar teste de checkout sem vi.mock do banco, em ambiente isolado, criando pedido real e consultando o status persistido
 - [ ] Comprovar no teste real que checkout.status lê o pedido criado, sem depender apenas do retorno da mutação
+
+- [x] Persistir no backend o início, a etapa atual e o desbloqueio final da missão para usuários autenticados
+- [x] Conectar o desbloqueio final a uma condição real do sistema e restaurá-lo ao recarregar a sessão
+- [x] Adicionar testes tRPC para mission.progress e mission.advance, incluindo retomada do desbloqueio
+
+- [x] Validar no servidor a condição real do desbloqueio final, sem confiar apenas no código do cliente
+- [x] Testar no tRPC desbloqueio negado sem condição válida e restauração após recarregar a sessão
+
+- [ ] Negar unlockMission quando não existir progresso persistido suficiente, sem criar desbloqueio direto
+- [ ] Validar o desbloqueio final por estado real persistido, independente do código fixo no cliente
+- [ ] Adicionar teste de integração sem mock do db para mission.progress e mission.unlock com nova leitura do estado persistido
+
+- [x] Auditar a missão, o Hub, o catálogo e as ferramentas em viewport mobile real
+- [x] Corrigir overflow, navegação, toque, legibilidade e estados funcionais da versão mobile
+- [x] Criar simulação vertical 9:16 em português com remetente identificado e Protocolo Belentani
+- [x] Mostrar Duck como Guardião da Gema nº 1 e scanner laser identificando o usuário
+- [x] Documentar o que o software já faz e o que Duck fará ao receber solicitações ou arquivos
+- [x] Gerar ZIP com software, vídeo, documentação e materiais relevantes
+
+- [x] Aplicar correções mobile reais para overflow horizontal e alvos de toque nos fluxos principais
+- [x] Validar novamente missão, Hub, catálogo e ferramentas após as correções mobile
+- [x] Registrar evidência técnica verificável do vídeo vertical por integridade, duração e especificação de cena

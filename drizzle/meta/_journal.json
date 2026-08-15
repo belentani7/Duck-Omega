@@ -22,6 +22,20 @@
       "when": 1786751625915,
       "tag": "0002_dry_molecule_man",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1786752128791,
+      "tag": "0003_ambiguous_violations",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1786752262532,
+      "tag": "0004_vengeful_firestar",
+      "breakpoints": true
     }
   ]
 }

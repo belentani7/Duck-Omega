@@ -144,6 +144,16 @@ export const activity = mysqlTable("activity", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const missionProgress = mysqlTable("missionProgress", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().unique(),
+  currentStep: int("currentStep").default(1).notNull(),
+  started: int("started").default(0).notNull(),
+  unlocked: int("unlocked").default(0).notNull(),
+  unlockedAt: timestamp("unlockedAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export const chatMessages = mysqlTable("chatMessages", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
@@ -158,3 +168,4 @@ export type Client = typeof clients.$inferSelect;
 export type Project = typeof projects.$inferSelect;
 export type Beat = typeof beats.$inferSelect;
 export type Order = typeof orders.$inferSelect;
+export type MissionProgress = typeof missionProgress.$inferSelect;

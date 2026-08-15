@@ -47,9 +47,10 @@
 }
 
 * { border-color: var(--border); }
-html { background: #070b0a; }
-body { margin: 0; min-width: 320px; background: #070b0a; color: var(--foreground); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
-button, a, input, textarea { transition: all 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+html { background: #070b0a; max-width: 100%; overflow-x: hidden; }
+body, #root { margin: 0; min-width: 320px; max-width: 100%; overflow-x: hidden; background: #070b0a; color: var(--foreground); font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+button, a, input, textarea { transition: all 160ms cubic-bezier(0.23, 1, 0.32, 1); touch-action: manipulation; }
+@media (max-width: 640px) { button:not([aria-label^="Ir para fase"]), a { min-height: 44px; } }
 button:active { transform: scale(.98); }
 ::selection { background: rgba(52, 211, 153, .3); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }

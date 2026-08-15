@@ -11,6 +11,7 @@ import {
   orders,
   orderItems,
   paymentEvents,
+  missionProgress,
   projects,
   revisionComments,
   revisions,
@@ -267,4 +268,44 @@ export async function recordActivity(input: typeof activity.$inferInsert) {
   if (!db) return undefined;
   const result = await db.insert(activity).values(input);
   return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+}
+
+
+export async function getMissionProgress(userId: number) {
+  const db = await getDb();
+  if (!db) return { userId, currentStep: 1, started: 0, unlocked: 0 };
+  const rows = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
+  return rows[0] ?? { userId, currentStep: 1, started: 0, unlocked: 0 };
+}
+
+export async function advanceMission(userId: number, currentStep: number) {
+  const db = await getDb();
+  if (!db) return { userId, currentStep };
+  const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
+  if (!existing[0]) {
+    await db.insert(missionProgress).values({ userId, currentStep });
+  } else if (currentStep > existing[0].currentStep) {
+    await db.update(missionProgress).set({ currentStep }).where(eq(missionProgress.userId, userId));
+  }
+  return getMissionProgress(userId);
+}
+
+
+export async function startMission(userId: number) {
+  const db = await getDb();
+  if (!db) return { userId, currentStep: 1, started: 1, unlocked: 0 };
+  const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
+  if (!existing[0]) await db.insert(missionProgress).values({ userId, currentStep: 1, started: 1, unlocked: 0 });
+  else await db.update(missionProgress).set({ started: 1 }).where(eq(missionProgress.userId, userId));
+  return getMissionProgress(userId);
+}
+
+export async function unlockMission(userId: number) {
+  const db = await getDb();
+  if (!db) return { userId, currentStep: 5, started: 1, unlocked: 1 };
+  const existing = await db.select().from(missionProgress).where(eq(missionProgress.userId, userId)).limit(1);
+  if (!existing[0]) throw new Error("Inicie e complete a missão antes de desbloquear o núcleo");
+  if (existing[0].currentStep < 5) throw new Error("Complete todas as etapas da missão antes de desbloquear o núcleo");
+  await db.update(missionProgress).set({ started: 1, currentStep: 5, unlocked: 1 }).where(eq(missionProgress.userId, userId));
+  return getMissionProgress(userId);
 }

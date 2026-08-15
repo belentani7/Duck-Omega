@@ -18,6 +18,10 @@ import {
   listProjects,
   listDeliverables,
   listRevisionComments,
+  getMissionProgress,
+  advanceMission,
+  startMission,
+  unlockMission,
   recentChatMessages,
   saveChatMessage,
 } from "./db";
@@ -69,6 +73,12 @@ export const appRouter = router({
     addComment: protectedProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(({ ctx, input }) => addRevisionComment({ ...input, authorId: ctx.user.id })),
     comments: protectedProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(({ input }) => listRevisionComments(input.revisionId)),
     deliverables: producerProcedure.input(z.object({ projectId: z.number().int().positive() })).query(({ input }) => listDeliverables(input.projectId)),
+  }),
+  mission: router({
+    progress: protectedProcedure.query(({ ctx }) => getMissionProgress(ctx.user.id)),
+    start: protectedProcedure.mutation(({ ctx }) => startMission(ctx.user.id)),
+    advance: protectedProcedure.input(z.object({ currentStep: z.number().int().min(1).max(20) })).mutation(({ ctx, input }) => advanceMission(ctx.user.id, input.currentStep)),
+    unlock: protectedProcedure.mutation(({ ctx }) => unlockMission(ctx.user.id)),
   }),
   checkout: router({
     createTestOrder: publicProcedure.input(z.object({ buyerEmail: z.string().email(), clientId: z.number().int().positive().optional(), beatId: z.number().int().positive(), licenseType: z.enum(["exclusive", "non_exclusive"]), totalCents: z.number().int().positive() })).mutation(({ input }) => createTestOrder(input)),

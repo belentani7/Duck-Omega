@@ -17,6 +17,11 @@ const phases = [
 export default function Mission() {
   const [, navigate] = useLocation();
   const health = trpc.system.health.useQuery();
+  const me = trpc.auth.me.useQuery();
+  const missionProgress = trpc.mission.progress.useQuery(undefined, { enabled: Boolean(me.data) });
+  const saveMission = trpc.mission.advance.useMutation();
+  const startMission = trpc.mission.start.useMutation();
+  const unlockMission = trpc.mission.unlock.useMutation();
   const [active, setActive] = useState(0);
   const [code, setCode] = useState("");
   const [unlocked, setUnlocked] = useState(false);
@@ -27,6 +32,12 @@ export default function Mission() {
     setUnlocked(localStorage.getItem("duck-mission-unlocked") === "true");
   }, []);
 
+  useEffect(() => {
+    if (missionProgress.data?.currentStep) setActive(Math.min(missionProgress.data.currentStep - 1, phases.length - 1));
+    if (missionProgress.data?.started) setStarted(true);
+    if (missionProgress.data?.unlocked) setUnlocked(true);
+  }, [missionProgress.data?.currentStep, missionProgress.data?.started, missionProgress.data?.unlocked]);
+
   const progress = useMemo(() => Math.round(((active + 1) / phases.length) * 100), [active]);
   const phase = phases[active];
   const isLast = active === phases.length - 1;
@@ -34,17 +45,23 @@ export default function Mission() {
   function begin() {
     setStarted(true);
     localStorage.setItem("duck-mission-started", "true");
+    if (me.data) startMission.mutate();
   }
 
   function advance() {
     if (isLast) return;
-    setActive(value => Math.min(value + 1, phases.length - 1));
+    setActive(value => {
+      const next = Math.min(value + 1, phases.length - 1);
+      if (me.data) saveMission.mutate({ currentStep: next + 1 });
+      return next;
+    });
   }
 
   function unlock() {
     if (code.trim().toUpperCase() === "DUCK-OMEGA") {
       setUnlocked(true);
       localStorage.setItem("duck-mission-unlocked", "true");
+      if (me.data) unlockMission.mutate();
     }
   }
 
