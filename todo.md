@@ -228,3 +228,14 @@
 - [x] Implementar plugins visuais mutáveis com variações controladas, prefers-reduced-motion e fallback acessível
 - [x] Validar mobile 390x844, desktop, contraste, carregamento dos assets, testes e build após a integração visual
 - [x] Salvar checkpoint da camada visual mutável com documentação das fontes e decisões de uso
+
+## Ampliação Brasil–Espanha / Duck Prod
+- [x] Definir arquitetura financeira Brasil–Espanha, entidades faturadoras, moedas, settlement e reconciliação
+- [x] Pesquisar e comparar Stripe Connect, Wise Business, PayPal, BeatStars e alternativas com fontes atuais
+- [x] Definir modelo de splits de royalties, registros de ISRC/ISWC, master, composição e pagamentos periódicos
+- [x] Desenhar pipeline Tally/formulário → contrato PDF → assinatura digital → pagamento → entrega de áudio
+- [x] Verificar suporte atual a webhooks/callbacks dos provedores selecionados e documentar fallback seguro
+- [x] Especificar stack no-code e limites de cada ferramenta para operação assíncrona
+- [x] Criar minuta informativa de Split Sheet & Termos de Produção em Markdown, marcada para revisão jurídica
+- [x] Integrar no Duck Hub artefatos operacionais da expansão sem criar credenciais reais nem dados fictícios
+- [ ] Validar o plano com fontes, testes/documentação e salvar checkpoint da expansão Brasil–Espanha
