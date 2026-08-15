@@ -1,0 +1,69 @@
+<section class="catalog-section" aria-labelledby="beats-heading">
+  <div class="section-head"><div><span class="eyebrow">GEMA 01 / CATÁLOGO</span><h2 id="beats-heading">Beats para a próxima versão.</h2></div><span id="catalog-status" class="status-label">Sincronizando...</span></div>
+  <div id="beat-grid" class="beat-grid" aria-live="polite">
+    <article class="beat-skeleton glass"></article><article class="beat-skeleton glass"></article><article class="beat-skeleton glass"></article>
+  </div>
+</section>
+<script>
+  import { gsap } from "gsap";
+  const grid = document.querySelector("#beat-grid");
+  const status = document.querySelector("#catalog-status");
+  const money = (cents: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(cents / 100);
+  const trpcGet = async (path: string) => {
+    const input = encodeURIComponent(JSON.stringify({ 0: { json: null } }));
+    const response = await fetch(`/api/trpc/${path}?batch=1&input=${input}`);
+    if (!response.ok) throw new Error("Falha de sincronização");
+    const payload = await response.json();
+    return payload?.[0]?.result?.data?.json ?? [];
+  };
+  const render = (beats: any[]) => {
+    if (!grid || !status) return;
+    status.textContent = `${beats.length} ${beats.length === 1 ? "beat disponível" : "beats disponíveis"}`;
+    if (!beats.length) {
+      grid.innerHTML = `<div class="empty glass"><span>♫</span><h3>O catálogo está pronto.</h3><p>Adicione a primeira Gema pelo Hub para iniciar a operação.</p></div>`;
+      return;
+    }
+    grid.innerHTML = beats.map((beat: any) => `<article class="beat-card glass" data-beat-card><div class="beat-art"><span class="beat-orb">♫</span><span class="mono beat-index">${String(beat.id).padStart(2, "0")}</span></div><div class="beat-body"><div class="beat-meta"><span>${beat.genre || "Instrumental"}</span><span>${beat.bpm || "—"} BPM</span></div><h3>${beat.title}</h3><p>${beat.description || "Textura pronta para receber a sua próxima ideia."}</p><div class="license-row"><button class="license active" data-license="non_exclusive" data-price="${beat.nonExclusivePriceCents}">Não exclusiva <b>${money(beat.nonExclusivePriceCents)}</b></button><button class="license" data-license="exclusive" data-price="${beat.exclusivePriceCents}">Exclusiva <b>${money(beat.exclusivePriceCents)}</b></button></div><div class="card-footer"><span class="availability">${beat.availability === "available" ? "Disponível" : "Reservado"}</span><button class="buy-button focus-ring" data-buy data-id="${beat.id}" data-title="${beat.title}">Continuar →</button></div></div></article>`).join("");
+    grid.querySelectorAll<HTMLElement>("[data-beat-card]").forEach((card, index) => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduce) gsap.fromTo(card, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .55, delay: index * .07, ease: "power3.out" });
+      card.addEventListener("mouseenter", () => { if (!reduce) gsap.to(card, { y: -5, duration: .2, ease: "power2.out" }); });
+      card.addEventListener("mouseleave", () => { if (!reduce) gsap.to(card, { y: 0, duration: .28, ease: "power2.out" }); });
+      card.querySelectorAll<HTMLButtonElement>("[data-license]").forEach(button => button.addEventListener("click", () => { card.querySelectorAll("[data-license]").forEach(item => item.classList.remove("active")); button.classList.add("active"); }));
+      card.querySelector<HTMLButtonElement>("[data-buy]")?.addEventListener("click", () => { const title = card.querySelector("h3")?.textContent || "beat"; window.location.href = `/catalog?beat=${encodeURIComponent(title)}`; });
+    });
+  };
+  trpcGet("catalog.publicList").then(render).catch(() => { if (status) status.textContent = "Catálogo offline"; if (grid) grid.innerHTML = `<div class="empty glass"><span>◌</span><h3>Canal temporariamente offline.</h3><p>O núcleo continua protegido. Tente novamente em alguns instantes.</p></div>`; });
+</script>
+<style>
+  .catalog-section { padding: 76px 0 120px; }
+  .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:24px; }
+  .eyebrow { color:#55ddb0; font:500 10px 'DM Mono', monospace; letter-spacing:.2em; }
+  h2 { margin:9px 0 0; color:#e4f3eb; font-size:clamp(28px,4vw,42px); letter-spacing:-.04em; }
+  .status-label { color:#71857a; font-size:12px; }
+  .beat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .beat-card { overflow:hidden; min-width:0; transition:border-color .22s; }
+  .beat-card:hover { border-color:rgba(52,211,153,.35); }
+  .beat-art { position:relative; display:grid; place-items:center; height:190px; background:radial-gradient(circle at 50% 40%, rgba(52,211,153,.2), transparent 30%), linear-gradient(135deg,#0c241a,#07110d 65%); }
+  .beat-orb { display:grid; place-items:center; width:68px; height:68px; border:1px solid rgba(110,231,183,.45); border-radius:50%; color:#5ee4b1; background:rgba(52,211,153,.08); box-shadow:0 0 45px rgba(52,211,153,.15); font-size:26px; }
+  .beat-index { position:absolute; top:18px; right:18px; color:#6be7ba; font-size:10px; }
+  .beat-body { padding:19px; }
+  .beat-meta { display:flex; gap:10px; color:#71857a; font-size:10px; text-transform:uppercase; letter-spacing:.12em; }
+  .beat-body h3 { margin:13px 0 7px; font-size:21px; letter-spacing:-.03em; }
+  .beat-body p { min-height:42px; margin:0; color:#758980; font-size:12px; line-height:1.6; }
+  .license-row { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:17px; }
+  .license { padding:10px; border:1px solid rgba(255,255,255,.08); border-radius:10px; color:#789084; background:rgba(255,255,255,.025); text-align:left; font-size:10px; cursor:pointer; }
+  .license b { display:block; margin-top:5px; color:#d8f7e6; font-size:12px; }
+  .license.active { border-color:rgba(52,211,153,.42); background:rgba(52,211,153,.09); color:#a9f1cf; }
+  .card-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:18px; }
+  .availability { color:#53dba9; font-size:11px; }
+  .buy-button { border:0; border-radius:10px; padding:10px 13px; color:#04100a; background:#5ee4b1; cursor:pointer; font-size:11px; font-weight:700; }
+  .empty { grid-column:1/-1; padding:52px 20px; text-align:center; }
+  .empty span { color:#5ee4b1; font-size:30px; }
+  .empty h3 { margin:14px 0 7px; font-size:20px; }
+  .empty p { margin:0; color:#758980; font-size:13px; }
+  .beat-skeleton { min-height:430px; opacity:.45; background:linear-gradient(110deg,rgba(255,255,255,.03) 8%,rgba(255,255,255,.08) 18%,rgba(255,255,255,.03) 33%); background-size:200% 100%; animation:shimmer 1.4s linear infinite; }
+  @keyframes shimmer { to { background-position-x:-200%; } }
+  @media (max-width: 840px) { .beat-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width: 560px) { .catalog-section { padding:48px 0 110px; } .section-head { align-items:start; flex-direction:column; gap:8px; } .beat-grid { grid-template-columns:1fr; } .beat-art { height:170px; } }
+</style>

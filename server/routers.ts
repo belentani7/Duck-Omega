@@ -24,6 +24,7 @@ import {
   unlockMission,
   recentChatMessages,
   saveChatMessage,
+  paymentProviderStatus,
 } from "./db";
 import { clients, projects, revisions } from "../drizzle/schema";
 
@@ -32,6 +33,7 @@ const roleProcedure = producerProcedure;
 export const appRouter = router({
   system: router({
     health: publicProcedure.query(() => ({ ok: true, service: "duck-hub" })),
+    paymentProvider: roleProcedure.query(() => paymentProviderStatus()),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -81,7 +83,7 @@ export const appRouter = router({
     unlock: protectedProcedure.mutation(({ ctx }) => unlockMission(ctx.user.id)),
   }),
   checkout: router({
-    createTestOrder: publicProcedure.input(z.object({ buyerEmail: z.string().email(), clientId: z.number().int().positive().optional(), beatId: z.number().int().positive(), licenseType: z.enum(["exclusive", "non_exclusive"]), totalCents: z.number().int().positive() })).mutation(({ input }) => createTestOrder(input)),
+    createTestOrder: publicProcedure.input(z.object({ buyerEmail: z.string().email(), clientId: z.number().int().positive().optional(), beatId: z.number().int().positive(), licenseType: z.enum(["exclusive", "non_exclusive"]), totalCents: z.number().int().positive(), provider: z.enum(["test", "mercado_pago"]).optional() })).mutation(({ input }) => createTestOrder(input)),
     status: publicProcedure.input(z.object({ orderId: z.number().int().positive() })).query(({ input }) => getOrder(input.orderId)),
     transition: producerProcedure.input(z.object({ orderId: z.number().int().positive(), status: z.enum(["paid", "failed", "cancelled", "refunded"]) })).mutation(({ input }) => transitionOrder(input.orderId, input.status)),
   }),

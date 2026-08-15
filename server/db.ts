@@ -21,6 +21,7 @@ import { ENV } from "./_core/env";
 import { notifyOwner } from "./_core/notification";
 import { storeContractPdf } from "./contracts";
 import { contractEffect, notificationEffect } from "../shared/paymentEffects";
+import { isProductionPaymentReady, resolvePaymentProvider, type PaymentProviderName } from "../shared/paymentProvider";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -215,16 +216,23 @@ export async function listRevisionComments(revisionId: number) {
 }
 
 
-export async function createTestOrder(input: { buyerEmail: string; clientId?: number; beatId: number; licenseType: "exclusive" | "non_exclusive"; totalCents: number }) {
+export async function createTestOrder(input: { buyerEmail: string; clientId?: number; beatId: number; licenseType: "exclusive" | "non_exclusive"; totalCents: number; provider?: PaymentProviderName }) {
+  const provider = resolvePaymentProvider({ requested: input.provider ?? "test", mercadoPagoAccessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN });
+  if (!isProductionPaymentReady(provider)) throw new Error("Mercado Pago não está configurado para produção");
   const db = await getDb();
-  if (!db) return { id: 0, status: "pending" as const };
-  const orderResult = await db.insert(orders).values({ buyerEmail: input.buyerEmail, clientId: input.clientId, provider: "test", totalCents: input.totalCents, status: "pending" });
+  if (!db) return { id: 0, status: "pending" as const, provider: provider.provider };
+  const orderResult = await db.insert(orders).values({ buyerEmail: input.buyerEmail, clientId: input.clientId, provider: provider.provider, totalCents: input.totalCents, status: "pending" });
   const orderId = Number(orderResult[0]?.insertId ?? 0);
   if (orderId) {
     await db.insert(orderItems).values({ orderId, beatId: input.beatId, licenseType: input.licenseType, unitPriceCents: input.totalCents });
     await recordActivity({ type: "order.created", title: "Novo pedido de beat", detail: input.buyerEmail, entityType: "order", entityId: orderId });
   }
-  return { id: orderId, status: "pending" as const };
+  return { id: orderId, status: "pending" as const, provider: provider.provider };
+}
+
+export function paymentProviderStatus() {
+  const config = resolvePaymentProvider({ requested: process.env.DUCK_PAYMENT_PROVIDER ?? "test", mercadoPagoAccessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN });
+  return { ...config, ready: isProductionPaymentReady(config) };
 }
 
 

@@ -17,7 +17,7 @@
 - [x] Generación automática de contrato PDF tras pago confirmado
 - [ ] Envío automático de contrato, descarga y resumen por email
 - [x] Notificación al productor por cada compra confirmada
-- [ ] Preparación de integración Mercado Pago y/o proveedor de pago configurable
+- [x] Preparación de integración Mercado Pago y/o proveedor de pago configurable
 - [x] Registro de actividad y auditoría de acciones críticas
 - [ ] Automatizaciones por eventos para pagos, archivos, revisiones y entregas
 - [x] Chat interno con LLM para consultas, borradores y sugerencias
@@ -194,3 +194,14 @@
 - [x] Separar y robustecer el post-pago para registrar un estado recuperable cuando falle la generación/subida del PDF, sin dejar el pedido pagado sin seguimiento
 - [x] Hacer independiente la notificación al productor, manejar retorno false de notifyOwner y registrar el fallo para reintento
 - [ ] Añadir pruebas de notificación por cada compra pagada, incluso si el contrato falla o ya existe
+
+- [x] Conectar shared/paymentProvider.ts al flujo real de checkout para resolver provider sin hardcodear test y bloquear Mercado Pago sin credenciales
+- [x] Añadir pruebas del checkout que verifiquen selección/configuración de proveedor y rechazo seguro cuando Mercado Pago no está configurado
+- [x] Exponer en una consulta operativa el estado del proveedor activo y la falta de configuración de Mercado Pago
+
+- [x] Auditar a arquitetura React/Vite atual e identificar páginas, rotas, componentes e contratos tRPC que precisam ser preservados na refatoração para Astro
+- [x] Definir uma estratégia segura de integração Astro com o backend Express/tRPC existente, sem quebrar autenticação, catálogo, checkout, missão ou Hub
+- [x] Implementar shell frontend Astro + Tailwind com tema dark profissional, acento esmeralda e layout mobile-first para 390x844
+- [x] Implementar navegação e páginas principais preservando a experiência da missão, Hub, catálogo e ferramentas
+- [x] Adicionar GSAP com animações suaves, acessíveis e reduzidas por prefers-reduced-motion aos cards de beats
+- [x] Validar responsividade, acessibilidade, typecheck, testes, build e screenshots das rotas principais após a refatoração

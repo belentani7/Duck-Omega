@@ -7,6 +7,14 @@ import { createServer as createViteServer } from "vite";
 import viteConfig from "../../vite.config";
 
 export async function setupVite(app: Express, server: Server) {
+  const astroDist = path.resolve(import.meta.dirname, "../..", "dist", "public");
+  const astroIndex = path.join(astroDist, "index.html");
+  if (fs.existsSync(astroIndex)) {
+    app.use(express.static(astroDist));
+    app.use("*", (_req, res) => res.sendFile(astroIndex));
+    return;
+  }
+
   const serverOptions = {
     middlewareMode: true,
     hmr: { server },

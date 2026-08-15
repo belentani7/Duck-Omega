@@ -1,0 +1,49 @@
+---
+const { active = "" } = Astro.props;
+const links = [
+  ["/", "Missão"],
+  ["/hub", "Hub"],
+  ["/catalog", "Beats"],
+  ["/ferramentas", "Ferramentas"],
+];
+---
+<header class="topbar">
+  <div class="shell topbar-inner">
+    <a class="brand focus-ring" href="/" aria-label="Duck Hub, início">
+      <span class="brand-mark">♪</span>
+      <span><strong>DUCK / OMEGA</strong><small>SISTEMA DE MISSÃO</small></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      {links.map(([href, label]) => <a class:list={["nav-link", { active: active === href }]} class="focus-ring" href={href}>{label}</a>)}
+    </nav>
+    <a class="status focus-ring" href="/hub"><span></span> API ONLINE <b>Entrar →</b></a>
+  </div>
+</header>
+<nav class="mobile-nav" aria-label="Navegação mobile">
+  {links.map(([href, label]) => <a class:list={["mobile-link", { active: active === href }]} class="focus-ring" href={href}><span>{label === "Missão" ? "⌁" : label === "Hub" ? "◈" : label === "Beats" ? "♫" : "✦"}</span>{label}</a>)}
+</nav>
+<style>
+  .topbar { position: relative; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .topbar-inner { min-height: 76px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .brand { display:flex; align-items:center; gap:11px; color:#dff7e9; text-decoration:none; }
+  .brand-mark { display:grid; place-items:center; width:36px; height:36px; border:1px solid rgba(52,211,153,.35); border-radius:12px; color:#5ee4b1; background:rgba(52,211,153,.08); font-size:20px; }
+  .brand strong, .brand small { display:block; }
+  .brand strong { font:500 12px 'DM Mono', monospace; letter-spacing:.28em; color:#5ee4b1; }
+  .brand small { margin-top:3px; color:#63756b; font-size:9px; letter-spacing:.18em; }
+  .desktop-nav { display:flex; gap:4px; }
+  .nav-link { color:#71857a; padding:9px 13px; border-radius:10px; text-decoration:none; font-size:12px; transition: color .2s, background .2s; }
+  .nav-link:hover, .nav-link.active { color:#c8f8df; background:rgba(52,211,153,.08); }
+  .status { color:#708078; font-size:11px; text-decoration:none; white-space:nowrap; }
+  .status span { display:inline-block; width:7px; height:7px; margin-right:7px; border-radius:50%; background:#34d399; box-shadow:0 0 12px #34d399; }
+  .status b { color:#75e8bd; margin-left:9px; font-weight:500; }
+  .mobile-nav { display:none; }
+  @media (max-width: 720px) {
+    .topbar-inner { min-height:68px; }
+    .desktop-nav, .status { display:none; }
+    .mobile-nav { position:fixed; z-index:15; left:12px; right:12px; bottom:12px; display:grid; grid-template-columns:repeat(4,1fr); padding:7px; border:1px solid rgba(167,243,208,.14); border-radius:18px; background:rgba(5,14,10,.88); backdrop-filter:blur(22px); box-shadow:0 14px 45px rgba(0,0,0,.45); }
+    .mobile-link { display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 4px; color:#708078; text-decoration:none; font-size:10px; border-radius:12px; }
+    .mobile-link span { font-size:17px; line-height:1; color:#5e8372; }
+    .mobile-link.active { color:#b8f5d8; background:rgba(52,211,153,.10); }
+    .mobile-link.active span { color:#54e2ae; }
+  }
+</style>
