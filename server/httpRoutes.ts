@@ -4,7 +4,7 @@ import { createFileRecord, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
 
-function safeEqualHex(expected: string, received: string) {
+export function safeEqualHex(expected: string, received: string) {
   const a = Buffer.from(expected, "hex");
   const b = Buffer.from(received, "hex");
   return a.length === b.length && crypto.timingSafeEqual(a, b);

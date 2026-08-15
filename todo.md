@@ -227,4 +227,4 @@
 - [x] Integrar assets visuais nas rotas missão, Hub, catálogo e ferramentas sem quebrar a localização
 - [x] Implementar plugins visuais mutáveis com variações controladas, prefers-reduced-motion e fallback acessível
 - [x] Validar mobile 390x844, desktop, contraste, carregamento dos assets, testes e build após a integração visual
-- [ ] Salvar checkpoint da camada visual mutável com documentação das fontes e decisões de uso
+- [x] Salvar checkpoint da camada visual mutável com documentação das fontes e decisões de uso
