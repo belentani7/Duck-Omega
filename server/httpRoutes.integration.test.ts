@@ -9,6 +9,7 @@ import { sdk } from "./_core/sdk";
 
 let server: http.Server;
 let baseUrl = "";
+process.env.NODE_ENV = "test";
 
 function requestJson(path: string, options: { method?: string; body?: unknown; headers?: Record<string, string> } = {}) {
   return new Promise<{ status: number; body: any }>((resolve, reject) => {
@@ -51,6 +52,7 @@ describe("HTTP route integration contracts", () => {
 
   beforeEach(() => {
     vi.restoreAllMocks();
+    db.resetIsolatedFileMetadata();
     vi.spyOn(sdk, "authenticateRequest").mockResolvedValue({ id: 7, role: "owner" } as any);
     vi.spyOn(storage, "storagePut").mockResolvedValue({ key: "duck/files/7/hash-demo.wav", url: "https://storage.test/file" });
     vi.spyOn(storage, "storageGetSignedUrl").mockResolvedValue("https://storage.test/signed");

@@ -81,6 +81,13 @@ describe("Duck Hub operational access contracts", () => {
     await expect(appRouter.createCaller(ownerContext).projects.updateDeliverable({ deliverableId: 1, status: "invalid" as "approved" })).rejects.toThrow();
   });
 
+  it("exposes deterministic automation planning with fail-closed approval", async () => {
+    await expect(appRouter.createCaller(clientContext).automation.plan({ type: "order.paid", attempts: 0, approvalGranted: true })).rejects.toThrow(/produtor|autoriz/i);
+    await expect(appRouter.createCaller(ownerContext).automation.plan({ type: "order.paid", attempts: 0, approvalGranted: false })).resolves.toEqual(expect.objectContaining({ type: "order.paid", actions: ["open_exception"] }));
+    await expect(appRouter.createCaller(ownerContext).automation.plan({ type: "order.paid", attempts: 0, approvalGranted: true })).resolves.toEqual(expect.objectContaining({ type: "order.paid", actions: ["record_activity", "queue_delivery", "queue_statement"] }));
+    await expect(appRouter.createCaller(ownerContext).automation.plan({ type: "order.paid", attempts: 3, approvalGranted: true })).resolves.toEqual(expect.objectContaining({ actions: ["open_exception"] }));
+  });
+
   it("keeps mission progress protected and validates step bounds", async () => {
     await expect(appRouter.createCaller(publicContext).mission.progress()).rejects.toThrow();
     await expect(appRouter.createCaller(ownerContext).mission.advance({ currentStep: 0 })).rejects.toThrow();

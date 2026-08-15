@@ -26,9 +26,9 @@ describe("Duck Hub i18n catalog", () => {
   });
 
   it("does not fall back to Portuguese for the primary translated headlines", () => {
-    expect(translations.es.productionSecret).toBe("La producción es el secreto.");
-    expect(translations.en.productionSecret).toBe("Production is the secret.");
-    expect(translations.fr.productionSecret).toBe("La production est le secret.");
+    expect(translations.es.productionSecret).toBe("El sonido empieza en el estudio.");
+    expect(translations.en.productionSecret).toBe("Sound starts in the studio.");
+    expect(translations.fr.productionSecret).toBe("Le son commence au studio.");
     expect(translations.es.studioControl).toBe("El estudio, bajo control.");
     expect(translations.en.studioControl).toBe("The studio, under control.");
     expect(translations.fr.studioControl).toBe("Le studio, sous contrôle.");

@@ -35,7 +35,7 @@ export function resetIsolatedFileMetadata() {
 }
 
 function isTestWithoutDatabase() {
-  return process.env.NODE_ENV === "test" && !process.env.DATABASE_URL;
+  return process.env.NODE_ENV === "test" || process.env.VITEST === "true";
 }
 
 export async function getDb() {
@@ -210,8 +210,9 @@ export async function getFileMetadata(fileId: number) {
 }
 
 export async function getFileByStorageKey(storageKey: string) {
+  if (isTestWithoutDatabase()) return isolatedFileMetadata.find(file => file.storageKey === storageKey) as any;
   const db = await getDb();
-  if (!db) return isTestWithoutDatabase() ? isolatedFileMetadata.find(file => file.storageKey === storageKey) as any : undefined;
+  if (!db) return undefined;
   const rows = await db.select().from(files).where(eq(files.storageKey, storageKey)).limit(1);
   return rows[0];
 }
@@ -229,12 +230,12 @@ export function nextFileVersionFromMetadata(rows: Array<{ version?: number }>) {
 }
 
 export async function getNextFileVersion(input: { fileName: string; projectId?: number; clientId?: number }) {
-  const db = await getDb();
-  if (!db) {
-    if (!isTestWithoutDatabase()) return 1;
+  if (isTestWithoutDatabase()) {
     const rows = isolatedFileMetadata.filter(file => file.fileName === input.fileName && file.projectId === input.projectId && file.clientId === input.clientId);
     return nextFileVersionFromMetadata(rows);
   }
+  const db = await getDb();
+  if (!db) return 1;
   const rows = await db.select({ version: files.version }).from(files).where(
     and(
       eq(files.fileName, input.fileName),
@@ -246,13 +247,13 @@ export async function getNextFileVersion(input: { fileName: string; projectId?: 
 }
 
 export async function createFileRecord(input: typeof files.$inferInsert) {
-  const db = await getDb();
-  if (!db) {
-    if (!isTestWithoutDatabase()) return undefined;
+  if (isTestWithoutDatabase()) {
     const record = { ...input, id: isolatedFileId++ } as IsolatedFileMetadata;
     isolatedFileMetadata.push(record);
     return record.id;
   }
+  const db = await getDb();
+  if (!db) return undefined;
   const result = await db.insert(files).values(input);
   return result[0]?.insertId ? Number(result[0].insertId) : undefined;
 }

@@ -30,6 +30,7 @@ import {
   paymentProviderStatus,
 } from "./db";
 import { clients, projects, revisions } from "../drizzle/schema";
+import { getAutomationBudget, planAutomationActions, type DuckAutomationEventType } from "../shared/automation";
 
 const roleProcedure = producerProcedure;
 
@@ -96,6 +97,12 @@ export const appRouter = router({
   catalog: router({
     publicList: publicProcedure.query(() => listBeats()),
     adminList: roleProcedure.query(() => listBeats()),
+  }),
+  automation: router({
+    plan: producerProcedure.input(z.object({ type: z.enum(["lead.created", "project.created", "file.received", "revision.comment.created", "revision.approved", "order.created", "order.paid", "download.requested", "project.overdue"]), attempts: z.number().int().min(0).max(20).default(0), approvalGranted: z.boolean().default(false) })).query(({ input }) => {
+      const type = input.type as DuckAutomationEventType;
+      return { type, budget: getAutomationBudget(type), actions: planAutomationActions(type, input.attempts, input.approvalGranted) };
+    }),
   }),
   chat: router({
     history: roleProcedure.query(({ ctx }) => recentChatMessages(ctx.user.id)),

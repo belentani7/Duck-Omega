@@ -258,3 +258,12 @@
 - [x] Adicionar testes HTTP reais para upload cobrindo autenticação, MIME, limite e metadados
 - [x] Adicionar testes HTTP reais para signed-url cobrindo 401, 404, 403 e acessos autorizados
 - [x] Adicionar testes HTTP reais para webhook cobrindo assinatura, raw body, idempotência e transição
+
+## Recalibração de voz Duck
+- [x] Auditar amostras autorizadas do HTML, portfólio e contexto para extrair traços verificáveis da voz Duck
+- [x] Criar guia de tom que priorize Duck como produtor e deixe Belentani como camada opcional
+- [x] Aplicar copy principal mais própria de Duck nas rotas missão, Hub, catálogo e ferramentas
+- [x] Ajustar traduções sem transformar slogans de Belentani em centro da experiência
+- [x] Atualizar expectativas dos testes de i18n para a nova copy Duck mantendo alinhamento de locales
+- [x] Validar a nova hierarquia verbal em mobile, desktop e quatro idiomas
+- [ ] Salvar checkpoint da recalibração de voz Duck
