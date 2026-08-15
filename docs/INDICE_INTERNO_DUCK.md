@@ -54,6 +54,12 @@ La reutilización segura exige conservar hashes, atribución, licencia, origen, 
 | `docs/INVENTARIO_FUENTES_EXHAUSTIVO.md` | Inventario reproducible de fuentes locales y externas |
 | `.github/workflows/quality.yml` | Quality gate de typecheck y tests en push/pull request |
 
-## 7. Decisión provisional
+## 7. Inventario de repositorios y webs
+
+La cuenta GitHub `belentani7` contiene una familia amplia de repositorios generados o experimentales. Los nombres claramente relacionados con Duck o con el ecosistema musical incluyen `DUCK`, `Duck-green`, `Duck-Omega`, `Duck-Europe`, `Duck-Glassmorphism-`, `heyduck`, `belentani_Omega` y `Netlify`; también aparecen proyectos no musicales como `manosabiertas`, `Cruzando-el-charco`, `Belentani.cv-ai` y numerosos repositorios `belentani-###`. Ninguno se ha seleccionado como destino del Duck Hub porque el repositorio de destino debe confirmarse explícitamente y el token expuesto anteriormente debe estar revocado.
+
+Las webs y referencias locales se agrupan en: `duck-hub` como proyecto actual; `audit_unpack/01-STUDIO-OS` como referencia de Studio OS; `audit_unpack/02-ECOSYSTEM` como núcleo previo; `audit_unpack/03-TOOLKIT-GEMA-1` como experiencia HTML; `audit_unpack/04-STUDIO-LOCAL` como herramientas de producción local; `audit_unpack/05-HERRAMIENTAS-PREMIUM`; `audit_unpack/06-EXPERIENCIA-INMERSIVA`; `audit_unpack/08-ENVIO-GEMA-01`; `audit_unpack/11-PORTAL-CLIENTES`; y `audit_unpack/12-REFERENCIAS-VISUALES`. Las URLs externas encontradas en estos materiales se tratan como referencias, no como activos de producción, y no se incorporan al producto sin verificar licencia, seguridad y relevancia.
+
+## 8. Decisión provisional
 
 Duck Hub debe ser el producto principal. Studio OS y el Portal de Clientes aportan ideas y módulos, pero no deben fusionarse de forma masiva sin una matriz de dominio. La primera integración prioritaria es CRM → proyectos → entregables → revisiones → catálogo → pedido → licencia → auditoría. La experiencia inmersiva queda como onboarding y branding, no como sustituto del software operativo.

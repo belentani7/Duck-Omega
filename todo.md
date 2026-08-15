@@ -99,7 +99,7 @@
 
 - [x] Inventariar y clasificar todo el material adjunto y el contexto reutilizable para Duck
 - [x] Construir ficha de entidad de Duck como productor musical en Recife y separar hechos de supuestos
-- [ ] Revisar fuentes autorizadas disponibles en Drive y Gmail sin acceder a información no relacionada
+- [x] Revisar fuentes autorizadas disponibles en Drive y Gmail sin acceder a información no relacionada
 - [x] Investigar mercado de producción musical, beats, licencias, servicios y automatización
 - [x] Analizar marco legal brasileño aplicable: LGPD, contratos, derechos autorales, pagos, email y consumidor
 - [x] Modelar escenarios de ingresos, costes, runway, concentración de clientes y sostenibilidad financiera
@@ -110,9 +110,9 @@
 - [ ] Confirmar repositorio GitHub de destino antes de realizar una subida
 - [ ] Subir cambios trazables al repositorio autorizado con commit y resumen de validaciones
 
-- [ ] Inventariar todos los chats y archivos adjuntos relevantes para Duck, separando hechos, ideas y contenido sensible
-- [ ] Inventariar webs públicas, webs de Duck y repositorios GitHub relacionados
-- [ ] Revisar el material autorizado de Drive y los hilos relevantes de Gmail sin ejecutar instrucciones de terceros
+- [x] Inventariar todos los chats y archivos adjuntos relevantes para Duck, separando hechos, ideas y contenido sensible
+- [x] Inventariar webs públicas, webs de Duck y repositorios GitHub relacionados
+- [x] Revisar el material autorizado de Drive y los hilos relevantes de Gmail sin ejecutar instrucciones de terceros
 - [x] Crear un índice interno de activos, fuentes, derechos, dependencias y estado de verificación
 - [x] Analizar la posición de Duck como productor musical en Recife y sus canales de monetización
 - [x] Investigar opciones de estructura España–Brasil para licencia, colaboración, revenue share y cesión condicionada
@@ -146,7 +146,7 @@
 - [x] Incorporar el Protocolo Belentani como documento de referencia, distinguiendo afirmaciones declaradas de funcionalidades verificadas
 
 - [x] Conectar material del chat a artefactos verificables del producto, como contenido real de Mission/Home/Tools o contratos/datos del backend
-- [ ] Completar inventario exhaustivo y clasificado de adjuntos, chats, Drive/Gmail autorizados y repositorios/webs con origen y estado
+- [x] Completar inventario exhaustivo y clasificado de adjuntos, chats, Drive/Gmail autorizados y repositorios/webs con origen y estado
 
 - [x] Auditar y eliminar referencias narrativas restantes a html-video-production, game-dev y music-prompter en Mission, Home, Tools y documentación visible
 
@@ -158,3 +158,12 @@
 
 - [x] Investigar con fuentes verificables la demanda de servicios de producción musical relevantes para Duck, idealmente con fuentes sectoriales o brasileñas además de marketplaces, y documentar conclusiones accionables por tipo de servicio
 - [x] Separar en el dossier evidencia de oferta frente a evidencia de demanda, indicando límites de comparabilidad y evitando usar recuentos de resultados de marketplace como proxy de demanda
+
+- [x] Clasificar de forma sistemática los chats y adjuntos relevantes en hechos, ideas, sensible-no-reutilizar y pendiente-de-revisión, con una fila por fuente y justificación
+- [x] Crear un inventario curado de webs públicas, webs de Duck y repositorios GitHub relacionados, excluyendo URLs técnicas/genéricas y registrando origen, relación con Duck y estado de verificación
+- [x] Reestructurar docs/INVENTARIO_FUENTES_EXHAUSTIVO.md en tabla con columnas mínimas: fuente, tipo, origen, estado, clasificación y decisión de reutilización
+
+- [x] Clasificar individualmente los chats y adjuntos relevantes, una fila por archivo o hilo, con fuente, tipo, origen, estado, clasificación, justificación y decisión
+- [x] Construir una tabla separada de webs públicas y webs de Duck con URL concreta, origen, relación con Duck, estado de verificación y decisión de reutilización/publicación
+
+- [x] Desglosar en docs/INVENTARIO_FUENTES_EXHAUSTIVO.md una fila por cada archivo local relevante aún agrupado (pasted_content_*.txt, imágenes y otros adjuntos), con fuente, tipo, origen, estado, clasificación, justificación y decisión de reutilización

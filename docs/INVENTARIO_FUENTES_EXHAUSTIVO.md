@@ -1,375 +1,143 @@
-# Inventario exhaustivo de fuentes Duck
+# Inventario exhaustivo y curado de fuentes Duck
 
-Generado automáticamente a partir de nombres y rutas locales; la clasificación no implica autorización de publicación.
+**Fecha:** 15 de agosto de 2026. **Propósito:** registrar origen, relación, estado de verificación y decisión de reutilización sin importar material sensible por defecto. El volcado automático previo se conserva en `docs/INVENTARIO_FUENTES_EXHAUSTIVO_RAW.md`.
 
-## Adjuntos recibidos
-- `upload/10-ZIPS.zip` — - `upload/pasted_content.txt` — - `upload/pasted_content_11.txt` — - `upload/pasted_content_2.txt` — - `upload/pasted_content_5.txt` — - `upload/pasted_content_8.txt` — - `upload/pasted_content_10.txt` — - `upload/pasted_content_9.txt` — - `upload/nnn.png` — - `upload/pasted_content_12.txt` — - `upload/ChatGPTImage14ago2026,13_35_01.png` — - `upload/ChatGPTImage14ago2026,13_35_08.png` — - `upload/pasted_content_7.txt` — - `upload/pasted_content_14.txt` — - `upload/README.md` — - `upload/ChatGPTImage14ago2026,13_35_26.png` — - `upload/ChatGPTImage14ago2026,13_35_15.png` — - `upload/ChatGPTImage14ago2026,14_31_53.png` — - `upload/belentani-red-artifact.webp` — - `upload/ChatGPTImage14ago2026,13_35_36.png` — - `upload/INVENTARIO-COMPLETO-DEFINICIONES.txt` — - `upload/Gemini_Generated_Image_h043unh043unh043.webp` — - `upload/pasted_content_13.txt` — - `upload/ChatGPTImage14ago2026,13_35_32.png` — - `upload/ChatGPTImage13ago2026,02_56_40.png` — - `upload/duck-green-artifact.webp` — - `upload/ChatGPTImage13ago2026,03_10_24.png` — - `upload/pasted_content_15.txt` — - `upload/ChatGPTImage13ago2026,03_02_33.png` — - `upload/Untitled2(2).png` — - `upload/copilot_image_1780517769334.jpeg` — - `upload/file_00000000447871f49a4cc68abd4b4f62.jpg` — - `upload/file_000000000fb88210ad871e5f263f3cac.jpg` — - `upload/file_000000005f3071f4b54a4cb5d66452b8.jpg` — - `upload/file_000000007a3081f4a91766fc0439581d.png` — - `upload/pasted_content_3.txt` — - `upload/file_00000000eeec8246a3b99d9b489d6dfb(1).png` — - `upload/pasted_content_6.txt` — - `upload/ChatGPTImage13ago2026,03_02_26.png` — - `upload/pasted_content_4.txt` — - `upload/file_000000003d507246940e08ea63626196.png` — - `upload/pasted_content_16.txt` — - `upload/chat-DesenvolvimentoProfissionalcomIA.txt` — - `upload/www.gov.br_inpi_pt-br_servicos_marcas_guia-basico_1786776021826.md` — - `upload/www.gov.br_pt-br_servicos_solicitar-o-registro-de-marca-de-produto-ou-servico_1786776029278.md` — - `upload/www.planalto.gov.br_ccivil_03_leis_l8078compilado.htm_1786776445113.md` — - `upload/www.gov.br_mdh_pt-br_acesso-a-informacao_politica-de-privacidade_1786776557082.md` — - `upload/www.mercadopago.com.br_developers_pt_docs_checkout-pro_additional-content_notifications_webhooks_1786776582735.md` — tipo ext=zip
-tipo ext=txt
-tipo ext=txt
-tipo ext=txt
-tipo ext=txt
-tipo ext=txt
-tipo ext=txt
-tipo ext=txt
-tipo ext=png
-tipo ext=txt
-tipo ext=png
-tipo ext=png
-tipo ext=txt
-tipo ext=txt
-tipo ext=md
-tipo ext=png
-tipo ext=png
-tipo ext=png
-tipo ext=webp
-tipo ext=png
-tipo ext=txt
-tipo ext=webp
-tipo ext=txt
-tipo ext=png
-tipo ext=png
-tipo ext=webp
-tipo ext=png
-tipo ext=txt
-tipo ext=png
-tipo ext=png
-tipo ext=jpeg
-tipo ext=jpg
-tipo ext=jpg
-tipo ext=jpg
-tipo ext=png
-tipo ext=txt
-tipo ext=png
-tipo ext=txt
-tipo ext=png
-tipo ext=txt
-tipo ext=png
-tipo ext=txt
-tipo ext=txt
-tipo ext=md
-tipo ext=md
-tipo ext=md
-tipo ext=md
-tipo ext=md
+> Las etiquetas `hecho`, `idea`, `sensible-no-reutilizar` y `pendiente-de-revisión` describen el estado de trazabilidad, no la calidad o la verdad absoluta del material.
 
-## Proyectos extraídos
-- `audit_unpack/01-STUDIO-OS/README.md`
-- `audit_unpack/01-STUDIO-OS/docs/AUDITORIA-3000-PONTOS.csv`
-- `audit_unpack/01-STUDIO-OS/docs/AUDITORIA-3000-RESUMO.json`
-- `audit_unpack/01-STUDIO-OS/docs/aesthetic-study.md`
-- `audit_unpack/01-STUDIO-OS/docs/client-channel.md`
-- `audit_unpack/01-STUDIO-OS/docs/tools.md`
-- `audit_unpack/01-STUDIO-OS/duck-studio-manual.pdf`
-- `audit_unpack/01-STUDIO-OS/evidence/assistant-widget.png`
-- `audit_unpack/01-STUDIO-OS/evidence/automations-round2.png`
-- `audit_unpack/01-STUDIO-OS/evidence/calendar-view.png`
-- `audit_unpack/01-STUDIO-OS/evidence/client-portal.png`
-- `audit_unpack/01-STUDIO-OS/evidence/command-palette.png`
-- `audit_unpack/01-STUDIO-OS/evidence/dashboard-overview.png`
-- `audit_unpack/01-STUDIO-OS/evidence/dashboard-round2.png`
-- `audit_unpack/01-STUDIO-OS/evidence/invoice-dialog.png`
-- `audit_unpack/01-STUDIO-OS/evidence/onboarding-step-1.png`
-- `audit_unpack/01-STUDIO-OS/evidence/onboarding-step-2.png`
-- `audit_unpack/01-STUDIO-OS/evidence/owner-dashboard.png`
-- `audit_unpack/01-STUDIO-OS/evidence/processing-chains-round2.png`
-- `audit_unpack/01-STUDIO-OS/evidence/project-detail.png`
-- `audit_unpack/01-STUDIO-OS/evidence/projects-view.png`
-- `audit_unpack/01-STUDIO-OS/evidence/qc-checklist.png`
-- `audit_unpack/01-STUDIO-OS/evidence/waveform-player.png`
-- `audit_unpack/01-STUDIO-OS/index.html`
-- `audit_unpack/01-STUDIO-OS/manual-assets/client.png`
-- `audit_unpack/01-STUDIO-OS/manual-assets/cover.png`
-- `audit_unpack/01-STUDIO-OS/manual-assets/tools.png`
-- `audit_unpack/01-STUDIO-OS/source/.gitignore`
-- `audit_unpack/01-STUDIO-OS/source/Caddyfile`
-- `audit_unpack/01-STUDIO-OS/source/bun.lock`
-- `audit_unpack/01-STUDIO-OS/source/components.json`
-- `audit_unpack/01-STUDIO-OS/source/eslint.config.mjs`
-- `audit_unpack/01-STUDIO-OS/source/next-env.d.ts`
-- `audit_unpack/01-STUDIO-OS/source/next.config.ts`
-- `audit_unpack/01-STUDIO-OS/source/package.json`
-- `audit_unpack/01-STUDIO-OS/source/postcss.config.mjs`
-- `audit_unpack/01-STUDIO-OS/source/tailwind.config.ts`
-- `audit_unpack/01-STUDIO-OS/source/tsconfig.json`
-- `audit_unpack/01-STUDIO-OS/source/worklog.md`
-- `audit_unpack/02-ECOSYSTEM/.gitignore`
-- `audit_unpack/02-ECOSYSTEM/.gitkeep`
-- `audit_unpack/02-ECOSYSTEM/.prettierignore`
-- `audit_unpack/02-ECOSYSTEM/.prettierrc`
-- `audit_unpack/02-ECOSYSTEM/client/index.html`
-- `audit_unpack/02-ECOSYSTEM/components.json`
-- `audit_unpack/02-ECOSYSTEM/drizzle.config.ts`
-- `audit_unpack/02-ECOSYSTEM/drizzle/0000_fancy_sue_storm.sql`
-- `audit_unpack/02-ECOSYSTEM/drizzle/0001_bored_sabra.sql`
-- `audit_unpack/02-ECOSYSTEM/drizzle/relations.ts`
-- `audit_unpack/02-ECOSYSTEM/drizzle/schema.ts`
-- `audit_unpack/02-ECOSYSTEM/package.json`
-- `audit_unpack/02-ECOSYSTEM/patches/wouter@3.7.1.patch`
-- `audit_unpack/02-ECOSYSTEM/pnpm-lock.yaml`
-- `audit_unpack/02-ECOSYSTEM/server/auth.logout.test.ts`
-- `audit_unpack/02-ECOSYSTEM/server/db.ts`
-- `audit_unpack/02-ECOSYSTEM/server/duck.test.ts`
-- `audit_unpack/02-ECOSYSTEM/server/duckRouters.ts`
-- `audit_unpack/02-ECOSYSTEM/server/routers.ts`
-- `audit_unpack/02-ECOSYSTEM/server/storage.ts`
-- `audit_unpack/02-ECOSYSTEM/shared/const.ts`
-- `audit_unpack/02-ECOSYSTEM/shared/types.ts`
-- `audit_unpack/02-ECOSYSTEM/template.json`
-- `audit_unpack/02-ECOSYSTEM/todo.md`
-- `audit_unpack/02-ECOSYSTEM/tsconfig.json`
-- `audit_unpack/02-ECOSYSTEM/vite.config.ts`
-- `audit_unpack/02-ECOSYSTEM/vite.config.ts.bak`
-- `audit_unpack/02-ECOSYSTEM/vitest.config.ts`
-- `audit_unpack/03-TOOLKIT-GEMA-1/DuckStudioToolkit_A_Gema_1.html`
-- `audit_unpack/03-TOOLKIT-GEMA-1/duck-toolkit-screenshot.png`
-- `audit_unpack/04-STUDIO-LOCAL/.gitignore`
-- `audit_unpack/04-STUDIO-LOCAL/AGENTS.md`
-- `audit_unpack/04-STUDIO-LOCAL/ARQUITETURA-WIN11-FL-STUDIO.md`
-- `audit_unpack/04-STUDIO-LOCAL/AUDITORIA-FINAL.md`
-- `audit_unpack/04-STUDIO-LOCAL/BASE-CONHECIMENTO-PTBR.json`
-- `audit_unpack/04-STUDIO-LOCAL/CATALOGO-PREMIUM-BENCHMARK.md`
-- `audit_unpack/04-STUDIO-LOCAL/CATALOGO-RECURSOS.json`
-- `audit_unpack/04-STUDIO-LOCAL/CHECKLIST-ACEITACAO.md`
-- `audit_unpack/04-STUDIO-LOCAL/GITHUB-CLONES-MANIFEST.tsv`
-- `audit_unpack/04-STUDIO-LOCAL/GITHUB-CLONES.md`
-- `audit_unpack/04-STUDIO-LOCAL/HTML-OFFLINE.md`
-- `audit_unpack/04-STUDIO-LOCAL/MANIFEST-SHA256.tsv`
-- `audit_unpack/04-STUDIO-LOCAL/MAPA-CONHECIMENTO-PRODUTOR-PTBR.md`
-- `audit_unpack/04-STUDIO-LOCAL/MODELO-LOCAL-E-BASE-OFFLINE.md`
-- `audit_unpack/04-STUDIO-LOCAL/PC-ALVO.md`
-- `audit_unpack/04-STUDIO-LOCAL/PROMPT-MESTRE-DUCK-STUDIO.md`
-- `audit_unpack/04-STUDIO-LOCAL/README.md`
-- `audit_unpack/04-STUDIO-LOCAL/RECURSOS-AUDIO-PLUGINS.md`
-- `audit_unpack/04-STUDIO-LOCAL/REFERENCIAS-LOCAIS.tsv`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/agente.html`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/index.html`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/instrumentos.html`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/memoria.html`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/mixer.html`
-- `audit_unpack/04-STUDIO-LOCAL/html-offline/recursos.html`
-- `audit_unpack/04-STUDIO-LOCAL/scripts/browser-smoke.cjs`
-- `audit_unpack/04-STUDIO-LOCAL/scripts/verify-manifest.ps1`
-- `audit_unpack/04-STUDIO-LOCAL/scripts/verify-spec.ps1`
-- `audit_unpack/05-HERRAMIENTAS-PREMIUM/MANUAL-FERRAMENTAS-DUCK-PREMIUM-2026-08-14.pdf`
-- `audit_unpack/05-HERRAMIENTAS-PREMIUM/MAPA_MANOS_ABIERTAS_2026-08-14.txt`
-- `audit_unpack/05-HERRAMIENTAS-PREMIUM/PROMPT-MAESTRO-DUCK-2026-08-14.md`
-- `audit_unpack/05-HERRAMIENTAS-PREMIUM/PROMPT-MAESTRO-DUCK-PREMIUM-2026-08-14.md`
-- `audit_unpack/05-HERRAMIENTAS-PREMIUM/SCRIPTS/gerar-manual-premium-duck.py`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/ASSET-PROVENANCE.tsv`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/AUDIT-TOOLS.md`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/AUDIT.md`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/EXCLUSIONS.md`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/LINK-AUDIT.tsv`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/MANIFEST-SHA256.tsv`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/README.md`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/THIRD-PARTY-NOTICES.md`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/scripts/audit-pack.ps1`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/scripts/smoke-browser.cjs`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/scripts/verify-pack.ps1`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/web/app.js`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/web/index.html`
-- `audit_unpack/06-EXPERIENCIA-INMERSIVA/web/styles.css`
-- `audit_unpack/07-GEMA-LAB/assets/duck-logo.png`
-- `audit_unpack/07-GEMA-LAB/assets/duck.css`
-- `audit_unpack/07-GEMA-LAB/assets/gsap.min.js`
-- `audit_unpack/08-ENVIO-GEMA-01/DUCK-STUDIO-OS-GEMA-01.zip`
-- `audit_unpack/08-ENVIO-GEMA-01/EMAIL-DUCK-GEMA-01.eml`
-- `audit_unpack/08-ENVIO-GEMA-01/INICIAR-EXPERIENCIA-DUCK.html`
-- `audit_unpack/08-ENVIO-GEMA-01/LEIA-ME-ANTES-DE-ENVIAR.txt`
-- `audit_unpack/08-ENVIO-GEMA-01/MANIFESTO-SHA256.txt`
-- `audit_unpack/08-ENVIO-GEMA-01/QA-BROWSER.json`
-- `audit_unpack/08-ENVIO-GEMA-01/QA-DESKTOP.png`
-- `audit_unpack/08-ENVIO-GEMA-01/QA-MOBILE.png`
-- `audit_unpack/08-ENVIO-GEMA-01/QA-REVELACAO.png`
-- `audit_unpack/08-ENVIO-GEMA-01/VERIFICACAO.json`
-- `audit_unpack/09-MANUALES/duck-studio-manual-v1-5-paginas.pdf`
-- `audit_unpack/09-MANUALES/duck-studio-manual.pdf`
-- `audit_unpack/09-MANUALES/page-1.png`
-- `audit_unpack/09-MANUALES/page-2.png`
-- `audit_unpack/09-MANUALES/page-3.png`
-- `audit_unpack/09-MANUALES/page-4.png`
-- `audit_unpack/09-MANUALES/page-5.png`
-- `audit_unpack/10-ZIPS/DUCK-STUDIO-OS-GEMA-01.zip`
-- `audit_unpack/10-ZIPS/duck-ecosystem (1).zip`
-- `audit_unpack/10-ZIPS/duck-ecosystem 3(1).zip`
-- `audit_unpack/10-ZIPS/duck-ecosystem.zip`
-- `audit_unpack/10-ZIPS/duck-studio-delivery-protected.zip`
-- `audit_unpack/10-ZIPS/duck-studio-delivery.zip`
-- `audit_unpack/10-ZIPS/duck.tar`
-- `audit_unpack/10-ZIPS/files (1).zip`
-- `audit_unpack/11-PORTAL-CLIENTES/.env`
-- `audit_unpack/11-PORTAL-CLIENTES/.gitignore`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/build.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/dev.pid`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/dev.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/mini-services-build.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/mini-services-install.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/mini-services-start.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/.zscripts/start.sh`
-- `audit_unpack/11-PORTAL-CLIENTES/Caddyfile`
-- `audit_unpack/11-PORTAL-CLIENTES/agent-ctx/components-creation-main-agent.md`
-- `audit_unpack/11-PORTAL-CLIENTES/agent-ctx/task1-main.md`
-- `audit_unpack/11-PORTAL-CLIENTES/android/.gitignore`
-- `audit_unpack/11-PORTAL-CLIENTES/android/build.gradle`
-- `audit_unpack/11-PORTAL-CLIENTES/android/capacitor.settings.gradle`
-- `audit_unpack/11-PORTAL-CLIENTES/android/gradle.properties`
-- `audit_unpack/11-PORTAL-CLIENTES/android/gradlew`
-- `audit_unpack/11-PORTAL-CLIENTES/android/gradlew.bat`
-- `audit_unpack/11-PORTAL-CLIENTES/android/settings.gradle`
-- `audit_unpack/11-PORTAL-CLIENTES/android/variables.gradle`
-- `audit_unpack/11-PORTAL-CLIENTES/bun.lock`
-- `audit_unpack/11-PORTAL-CLIENTES/capacitor.config.ts`
-- `audit_unpack/11-PORTAL-CLIENTES/components.json`
-- `audit_unpack/11-PORTAL-CLIENTES/db/custom.db`
-- `audit_unpack/11-PORTAL-CLIENTES/desktop-app/main.cjs`
-- `audit_unpack/11-PORTAL-CLIENTES/desktop-app/package.json`
-- `audit_unpack/11-PORTAL-CLIENTES/desktop/main.cjs`
-- `audit_unpack/11-PORTAL-CLIENTES/download/README.md`
-- `audit_unpack/11-PORTAL-CLIENTES/eslint.config.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/mini-services/.gitkeep`
-- `audit_unpack/11-PORTAL-CLIENTES/next-env.d.ts`
-- `audit_unpack/11-PORTAL-CLIENTES/next.config.ts`
-- `audit_unpack/11-PORTAL-CLIENTES/package.json`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-admin.png`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-chat.err.log`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-chat.out.log`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-client.png`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-login-settled.png`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-login.png`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-web.err.log`
-- `audit_unpack/11-PORTAL-CLIENTES/portal-web.out.log`
-- `audit_unpack/11-PORTAL-CLIENTES/postcss.config.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/prisma/schema.prisma`
-- `audit_unpack/11-PORTAL-CLIENTES/prisma/seed.ts`
-- `audit_unpack/11-PORTAL-CLIENTES/public/logo.svg`
-- `audit_unpack/11-PORTAL-CLIENTES/public/robots.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/release/AUDITORIA-500.json`
-- `audit_unpack/11-PORTAL-CLIENTES/release/AUDITORIA-500.md`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/audit-500.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/build-android.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/package-final.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/prepare-standalone.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/prepare-web-package.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/scripts/repair-demo-data.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/tailwind.config.ts`
-- `audit_unpack/11-PORTAL-CLIENTES/tests/visual-smoke.mjs`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/bash_1785802351080_95c73df697f0.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/bash_1785917318741_3e1fae9edfd5.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1783498468971_421e4e27e346.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1783498496063_d4fa7d9a39ce.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1783498500068_cd053cdd49ad.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1783498505227_30f33a0df01c.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785802133668_44e8cdfded47.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785802134212_421e4e27e346.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785917775066_2e6173cdc903.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785923534218_65ffc92e6854.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785923537249_9e22ca2f79da.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tool-results/read_1785923540403_b1e249da72c1.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/tsconfig.json`
-- `audit_unpack/11-PORTAL-CLIENTES/tsconfig.tsbuildinfo`
-- `audit_unpack/11-PORTAL-CLIENTES/upload/Pasted Content_1785916081842.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/upload/admin-clients.png`
-- `audit_unpack/11-PORTAL-CLIENTES/upload/admin-dashboard.png`
-- `audit_unpack/11-PORTAL-CLIENTES/upload/chat-Portal de Automatizaci├│n de Clientes.txt`
-- `audit_unpack/11-PORTAL-CLIENTES/worklog.md`
-- `audit_unpack/12-REFERENCIAS-VISUALES/duck logo.png`
-- `audit_unpack/12-REFERENCIAS-VISUALES/duck-green-artifact-desktop.png`
-- `audit_unpack/12-REFERENCIAS-VISUALES/duck-toolkit-screenshot.png`
-- `audit_unpack/IMAGENES/ChatGPT Image 13 ago 2026, 02_56_40.png`
-- `audit_unpack/IMAGENES/ChatGPT Image 13 ago 2026, 03_02_26.png`
-- `audit_unpack/IMAGENES/ChatGPT Image 13 ago 2026, 03_02_33.png`
-- `audit_unpack/IMAGENES/ChatGPT Image 13 ago 2026, 03_10_24.png`
-- `audit_unpack/IMAGENES/DEFINICION-DE-IMAGENES.md`
-- `audit_unpack/IMAGENES/Gemini_Generated_Image_8uq86t8uq86t8uq8.png`
-- `audit_unpack/IMAGENES/Gemini_Generated_Image_aaqdgbaaqdgbaaqd.png`
-- `audit_unpack/IMAGENES/Gemini_Generated_Image_h043unh043unh043.png`
-- `audit_unpack/IMAGENES/Gemini_Generated_Image_qgubceqgubceqgub.png`
-- `audit_unpack/IMAGENES/Untitled 2 (2).png`
-- `audit_unpack/IMAGENES/Untitled 2.png`
-- `audit_unpack/IMAGENES/belentani-red-artifact.png`
-- `audit_unpack/IMAGENES/copilot_image_1780517769334.jpeg`
-- `audit_unpack/IMAGENES/d7a3afdc-618f-4551-bac7-6dba646cd93f.jpg`
-- `audit_unpack/IMAGENES/duck-green-artifact.png`
-- `audit_unpack/IMAGENES/file_000000007a3081f4a91766fc0439581d.png`
-- `audit_unpack/IMAGENES/nnn.png`
-- `audit_unpack/MANUAL/DUCK_ZION_MANUAL_PREMIUM.html`
-- `audit_unpack/MANUAL/DUCK_ZION_MANUAL_PREMIUM.pdf`
-- `audit_unpack/MANUAL/media/duck-green-artifact.png`
-- `audit_unpack/MANUAL/media/duck-logo.png`
-- `audit_unpack/MANUAL/media/duck-toolkit-screenshot.png`
-- `audit_unpack/PROMPTS/PROMPT-MAESTRO-DUCK-ZION.md`
-- `audit_unpack/PROMPTS/PROMPT-MEJORAR-TODO-GENERAR-PDF.md`
+## Fuentes locales y corpus recibido
 
-## Proyecto Duck Hub
-- `duck-hub/.github/workflows/quality.yml`
-- `duck-hub/client/index.html`
-- `duck-hub/client/public/.gitkeep`
-- `duck-hub/client/src/App.tsx`
-- `duck-hub/client/src/const.ts`
-- `duck-hub/client/src/index.css`
-- `duck-hub/client/src/main.tsx`
-- `duck-hub/docs/ANEXO_ESTRATEGICO_PT_BR.md`
-- `duck-hub/docs/AUDITORIA_MOBILE_PT.md`
-- `duck-hub/docs/AUTOMATIZACIONES_DUCK_OPERATIVAS.md`
-- `duck-hub/docs/DUCK_CODE_SHA256.txt`
-- `duck-hub/docs/ENTREGA_DUCK_PT.md`
-- `duck-hub/docs/ESTRATEGIA_DUCK_EMPRESA_ES_BR.md`
-- `duck-hub/docs/INDICE_INTERNO_DUCK.md`
-- `duck-hub/docs/INVENTARIO_FUENTES_EXHAUSTIVO.md`
-- `duck-hub/docs/MATERIAL_REUTILIZADO_DUCK.md`
-- `duck-hub/docs/PROTOCOLO_BELENTANI_REFERENCIA.md`
-- `duck-hub/docs/decisions/ADR-001-automatizacoes-orientadas-a-eventos.md`
-- `duck-hub/docs/entity_card_duck.md`
-- `duck-hub/docs/modelo_financiero_duck.xlsx`
-- `duck-hub/drizzle/0000_handy_thunderbird.sql`
-- `duck-hub/drizzle/0001_clumsy_satana.sql`
-- `duck-hub/drizzle/0002_dry_molecule_man.sql`
-- `duck-hub/drizzle/0003_ambiguous_violations.sql`
-- `duck-hub/drizzle/0004_vengeful_firestar.sql`
-- `duck-hub/drizzle/meta/0000_snapshot.json`
-- `duck-hub/drizzle/meta/0001_snapshot.json`
-- `duck-hub/drizzle/meta/0002_snapshot.json`
-- `duck-hub/drizzle/meta/0003_snapshot.json`
-- `duck-hub/drizzle/meta/0004_snapshot.json`
-- `duck-hub/drizzle/meta/_journal.json`
-- `duck-hub/drizzle/migrations/.gitkeep`
-- `duck-hub/drizzle/relations.ts`
-- `duck-hub/drizzle/schema.ts`
-- `duck-hub/server/_core/context.ts`
-- `duck-hub/server/_core/cookies.ts`
-- `duck-hub/server/_core/dataApi.ts`
-- `duck-hub/server/_core/env.ts`
-- `duck-hub/server/_core/heartbeat.ts`
-- `duck-hub/server/_core/imageGeneration.ts`
-- `duck-hub/server/_core/index.ts`
-- `duck-hub/server/_core/llm.ts`
-- `duck-hub/server/_core/map.ts`
-- `duck-hub/server/_core/notification.ts`
-- `duck-hub/server/_core/oauth.ts`
-- `duck-hub/server/_core/sdk.ts`
-- `duck-hub/server/_core/storageProxy.ts`
-- `duck-hub/server/_core/systemRouter.ts`
-- `duck-hub/server/_core/trpc.ts`
-- `duck-hub/server/_core/vite.ts`
-- `duck-hub/server/_core/voiceTranscription.ts`
-- `duck-hub/server/auth.logout.test.ts`
-- `duck-hub/server/automation.test.ts`
-- `duck-hub/server/catalog.guard.test.ts`
-- `duck-hub/server/checkout.integration.test.ts`
-- `duck-hub/server/db.ts`
-- `duck-hub/server/duck-hub.test.ts`
-- `duck-hub/server/httpRoutes.ts`
-- `duck-hub/server/mission.integration.test.ts`
-- `duck-hub/server/routers.ts`
-- `duck-hub/server/storage.ts`
-- `duck-hub/shared/_core/errors.ts`
-- `duck-hub/shared/automation.ts`
-- `duck-hub/shared/const.ts`
-- `duck-hub/shared/types.ts`
+| Fuente | Tipo | Origen | Estado | Clasificación | Decisión de reutilización |
+|---|---|---|---|---|---|
+| `/home/ubuntu/upload/pasted_content*.txt` | Chats/contexto | Adjuntos recibidos | Leídos y normalizados parcialmente | hecho + idea; revisar sensibilidad por archivo | Usar solo resúmenes y requisitos ya trasladados al código |
+| `/home/ubuntu/upload/chat-DesenvolvimentoProfissionalcomIA.txt` | Chat profesional | Adjuntos recibidos | Leído para principios técnicos | idea | Reutilizar como criterios de calidad, no como datos personales |
+| `/home/ubuntu/upload/README.md` | Documento de entrega | Adjuntos recibidos | Leído | hecho declarado | Reutilizar como referencia narrativa, contrastando con el código |
+| `/home/ubuntu/upload/INVENTARIO-COMPLETO-DEFINICIONES.txt` | Definiciones | Adjuntos recibidos | Leído/contrastado parcialmente | idea | Reutilizar vocabulario y requisitos, no afirmar ejecución no verificada |
+| `/home/ubuntu/upload/10-ZIPS.zip` | Paquete comprimido | Adjuntos recibidos | Extraído en `audit_unpack` | pendiente-de-revisión | No ejecutar; usar solo archivos auditados y clasificados |
+| `/home/ubuntu/audit_unpack/01-STUDIO-OS` | Proyecto/referencia | Corpus extraído | Auditado como referencia | idea | Reutilizar patrones de CRM, proyectos, sesiones y recursos |
+| `/home/ubuntu/audit_unpack/02-ECOSYSTEM` | Proyecto full stack previo | Corpus extraído | Auditado parcialmente | idea + pendiente-de-revisión | Reutilizar aprendizajes; no copiar secretos ni datos |
+| `/home/ubuntu/audit_unpack/03-TOOLKIT-GEMA-1` | HTML narrativo | Corpus extraído | Auditado visualmente | idea | Reutilizar narrativa/branding, no sustituir software operativo |
+| `/home/ubuntu/audit_unpack/04-STUDIO-LOCAL` | Herramientas locales | Corpus extraído | Auditado como referencia | idea | Reutilizar catálogo de recursos y flujos offline como inspiración |
+| `/home/ubuntu/audit_unpack/05-HERRAMIENTAS-PREMIUM` | Manuales/prompts | Corpus extraído | Revisado | idea | Reutilizar conceptos, no credenciales ni instrucciones no verificadas |
+| `/home/ubuntu/audit_unpack/06-EXPERIENCIA-INMERSIVA` | HTML/branding | Corpus extraído | Auditado con manifest y exclusiones | idea | Reutilizar capa inmersiva y proveniencia, no activos sin licencia |
+| `/home/ubuntu/audit_unpack/08-ENVIO-GEMA-01` | Paquete de entrega | Corpus extraído | Hash/QA revisados | hecho declarado + idea narrativa | Usar como referencia del protocolo, no como prueba de funcionalidades actuales |
+| `/home/ubuntu/audit_unpack/11-PORTAL-CLIENTES` | Portal previo | Corpus extraído | Revisado como fuente de módulos | idea + pendiente-de-revisión | Reutilizar dominio CRM/portal; excluir `.env`, bases, logs y seed data |
+| `/home/ubuntu/audit_unpack/12-REFERENCIAS-VISUALES` | Imágenes/logo | Corpus extraído | Origen individual pendiente | pendiente-de-revisión | No publicar hasta verificar derechos/proveniencia |
 
-## Fuentes externas consultadas
-- Planalto: Ley 9.610/1998, Código de Defensa del Consumidor y Decreto 7.962/2013.
-- ANPD/AEPD/INPI/BOE: protección de datos, transferencias, marcas y convenio España–Brasil.
-- ECAD: derechos de autor y fonogramas.
-- Mercado Pago Brasil: Webhooks, reembolsos/cancelaciones, Orders y conciliación.
-- Serpro y política oficial de privacidad: consentimiento, oposición y marketing directo.
+## Google Drive y Gmail
+
+| Fuente | Tipo | Origen | Estado | Clasificación | Decisión de reutilización |
+|---|---|---|---|---|---|
+| `🎉 LUPA - Entrega Final del Proyecto.md [93ECE026].url.terabox.uploading.cfg` | Registro text/plain, 847 bytes | Google Drive, ID `1Eio7F1CNXTkIeq7olJWlhlpasdcKiMyA` | Metadatos revisados; contenido no importado | pendiente-de-revisión | No reutilizar hasta identificar el destino y confirmar seguridad |
+| Hilo `Arte que Veste`, 27/06/2026 | Email + posible `loja.zip` | Gmail, thread `19f0a7fe31cda200` | Encabezado/snippet revisados | hecho de existencia + pendiente de contenido | No importar el ZIP; conservar referencia y pedir autorización específica |
+| Hilo `conjunto`, 05/08/2026 | Email autoenviado con 16 adjuntos | Gmail, thread `19f44e2b48bef684` | Encabezado, snippet y nombres revisados | sensible-no-reutilizar + idea | No importar `.eml`, chats, ZIP, imágenes ni contactos |
+| Bienvenida de Bandcamp | Email de servicio | Gmail | Detectado por búsqueda; no leído en profundidad | hecho de existencia | No reutilizar; solo señal contextual de canal |
+| Avisos GitHub/OAuth/tokens | Seguridad/credenciales | Gmail | Detectados y excluidos | sensible-no-reutilizar | Nunca copiar, leer en profundidad, publicar o usar como fuente de producto |
+
+## Repositorios y webs relacionados
+
+| Fuente | Tipo | Origen | Estado | Clasificación | Decisión de reutilización |
+|---|---|---|---|---|---|
+| `belentani7/DUCK` | Repositorio GitHub | Cuenta GitHub del usuario | Localizado; destino no confirmado | pendiente-de-revisión | No subir ni modificar sin confirmación |
+| `belentani7/Duck-green` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado; repositorio previo | idea + pendiente-de-revisión | Referencia visual potencial; no asumir que es destino |
+| `belentani7/Duck-Omega` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado; repositorio previo | idea + pendiente-de-revisión | Referencia potencial; no asumir ownership operativo |
+| `belentani7/Duck-Europe` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado | idea + pendiente-de-revisión | Referencia España–Brasil potencial; no modificar |
+| `belentani7/Duck-Glassmorphism-` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado | idea + pendiente-de-revisión | Referencia visual; no modificar |
+| `belentani7/heyduck` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado | pendiente-de-revisión | Revisar solo si el usuario confirma relación |
+| `belentani7/belentani_Omega` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado como ecosistema de artista | idea | Referencia de posicionamiento; no copiar material automáticamente |
+| `belentani7/Netlify` | Repositorio GitHub público | Cuenta GitHub del usuario | Localizado; descripción genérica | pendiente-de-revisión | No usar como destino por defecto |
+| `duck-hub` / preview Manus | Web/app actual | Proyecto activo | Verificado en navegador y build | hecho | Núcleo operativo reutilizable y mantenible |
+| `audit_unpack/*` HTML locales | Webs/referencias locales | Corpus recibido | Verificados por ruta y auditorías | idea | No publicar como webs separadas; usar solo aprendizajes clasificados |
+| URLs oficiales de Planalto, ANPD, AEPD, INPI, BOE, ECAD, Mercado Pago, ABMI, Pro-Música, UBC, Airbit, BeatStars, TuneCore, SoundBetter, Fiverr e ITA | Fuentes públicas | Investigación web | Consultadas y citadas en dossier | hecho externo | Mantener enlaces y citas; no copiar contenido protegido más allá del análisis |
+| URLs de dependencias, localhost, CDN y documentación técnica detectadas en corpus | Referencias técnicas | Archivos extraídos | No relacionadas directamente con Duck | pendiente-de-revisión | Excluir del inventario comercial y del producto salvo dependencia explícita |
+
+## Reglas de seguridad y publicación
+
+No se importan al repositorio conversaciones privadas, adjuntos `.eml`, chats de WhatsApp, vCards, números telefónicos, capturas personales, bases de datos, `.env`, tokens, cookies, credenciales ni logs. Los activos visuales se publican solo tras verificar proveniencia y licencia. El destino GitHub sigue pendiente de confirmación; el token compartido previamente debe revocarse antes de cualquier subida. El inventario no autoriza por sí mismo la publicación o cesión de ningún activo.
+
+## Detalle individual de hilos y adjuntos relevantes
+
+| Fuente individual | Tipo | Origen | Estado | Clasificación | Justificación | Decisión |
+|---|---|---|---|---|---|---|
+| Hilo `Arte que Veste` / `19f0a7fe31cda200` | Email | Gmail | Encabezado y snippet revisados | hecho de existencia + pendiente | Menciona `loja.zip` y proyecto enviado a Duck | No importar ZIP sin autorización |
+| Hilo `conjunto` / `19f44e2b48bef684` | Email | Gmail | Encabezado, snippet y adjuntos listados | sensible-no-reutilizar | Paquete autoenviado con chats y material mixto | Conservar solo referencia |
+| `Nem tao pronto assim.eml` | Email adjunto | Gmail/conjunto | Nombre identificado; cuerpo no leído | sensible-no-reutilizar | Conversación privada potencial | No copiar |
+| `Acho que esta bom pra voce testar..eml` | Email adjunto | Gmail/conjunto | Nombre identificado; cuerpo no leído | sensible-no-reutilizar | Material de prueba no clasificado | No copiar |
+| `Demo packed and saved on cloud server encripted as eternal love.eml` | Email adjunto | Gmail/conjunto | Nombre identificado; cuerpo no leído | pendiente-de-revisión | Puede contener instrucciones o enlaces | No ejecutar ni importar |
+| `Chat ex.eml` | Email adjunto | Gmail/conjunto | Nombre identificado; cuerpo no leído | sensible-no-reutilizar | Conversación privada | No copiar |
+| `Thank you for reporting abuse on Google Cloud Platform.eml` | Aviso de servicio | Gmail/conjunto | Nombre identificado | sensible-no-reutilizar | Comunicación de cuenta/seguridad | Excluir |
+| `Chat de WhatsApp con +34 673 17 57 44.eml` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Contiene contacto personal | Excluir |
+| `Chat de WhatsApp con Thiago Luiz.eml` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Conversación de tercero | Excluir |
+| `Solicitud de compartir Plan Belentani Digimon Nivel 5.eml` | Notificación | Gmail/conjunto | Nombre identificado | pendiente-de-revisión | Puede referir a un archivo compartido | No abrir sin relación confirmada |
+| `ChatGPT Image 7 jul 2026, 06_45_08.png` | Imagen | Gmail/conjunto | Nombre identificado; no descargada | pendiente-de-revisión | Proveniencia y derechos no verificados | No publicar |
+| `Chat de WhatsApp con Dominic Montalban.txt` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Conversación privada | Excluir |
+| `Chat de WhatsApp con Thiago Luiz.txt` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Conversación privada | Excluir |
+| `Chat de WhatsApp con +34 673 17 57 44.txt` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Contacto personal | Excluir |
+| `Chat de WhatsApp con Mikko Suop Whats.txt` | Chat adjunto | Gmail/conjunto | Nombre identificado; no leído | sensible-no-reutilizar | Conversación privada | Excluir |
+| `Chat de WhatsApp con +34 673 17 57 44.zip` | ZIP de chat | Gmail/conjunto | Nombre identificado; no abierto | sensible-no-reutilizar | Contenido privado comprimido | Excluir |
+| `Chat de WhatsApp con Thiago Luiz.zip` | ZIP de chat | Gmail/conjunto | Nombre identificado; no abierto | sensible-no-reutilizar | Contenido privado comprimido | Excluir |
+| `c362bc7b-d2f3-43ba-88a8-4051f02d0f67.png` | Imagen | Gmail/conjunto | Nombre identificado; no descargada | pendiente-de-revisión | Proveniencia no documentada | No publicar |
+| `pasted_content.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Requisitos y contexto del chat | Solo fragmentos normalizados |
+| `pasted_content_2.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Requisitos del producto | Solo fragmentos normalizados |
+| `pasted_content_3.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Requisitos y narrativa | Solo fragmentos normalizados |
+| `pasted_content_4.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Material de trabajo | No importar literalmente |
+| `pasted_content_5.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Requisitos y decisiones | Solo decisiones verificadas |
+| `pasted_content_6.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea + sensible | Puede contener material privado | No publicar contenido bruto |
+| `pasted_content_7.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Narrativa y producto | Reutilizar solo resumen |
+| `pasted_content_8.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Alcance operativo | Contrastar con código |
+| `pasted_content_9.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Exploración de producto | No publicar literalmente |
+| `pasted_content_10.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea + sensible | Contexto mixto | Excluir datos personales |
+| `pasted_content_11.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Decisiones de experiencia | Solo requisitos verificados |
+| `pasted_content_12.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Protocolo y entrega | Reutilizar como referencia |
+| `pasted_content_13.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Material conceptual | No publicar literalmente |
+| `pasted_content_14.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | idea | Material conceptual | Solo resumen normalizado |
+| `pasted_content_15.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | hecho + idea | Entregables y alcance | Contrastar con build |
+| `pasted_content_16.txt` | Texto/chat | Upload local | Ruta inventariada; uso selectivo | pendiente-de-revisión | Origen contextual no revalidado | No reutilizar sin revisión |
+| `chat-DesenvolvimentoProfissionalcomIA.txt` | Chat profesional | Upload local | Leído parcialmente | idea | Principios técnicos y de proceso | Reutilizar criterios, no datos |
+| `README.md` | Documento | Upload local | Leído | hecho declarado | Instrucciones de entrega | Usar como referencia, no prueba |
+| `INVENTARIO-COMPLETO-DEFINICIONES.txt` | Definiciones | Upload local | Leído parcialmente | idea | Vocabulario y alcance | Normalizar antes de usar |
+| `Untitled2(2).png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen/licencia no confirmados | No publicar |
+| `copilot_image_1780517769334.jpeg` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Imagen generada o recibida sin ficha | No publicar |
+| `file_000000000fb88210ad871e5f263f3cac.jpg` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `file_000000005f3071f4b54a4cb5d66452b8.jpg` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `file_00000000447871f49a4cc68abd4b4f62.jpg` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `file_000000007a3081f4a91766fc0439581d.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `file_00000000eeec8246a3b99d9b489d6dfb(1).png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `file_000000003d507246940e08ea63626196.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `nnn.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Origen no documentado | No publicar |
+| `ChatGPTImage13ago2026,02_56_40.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage13ago2026,03_02_26.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage13ago2026,03_02_33.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage13ago2026,03_10_24.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_01.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_08.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_15.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_26.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_32.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,13_35_36.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `ChatGPTImage14ago2026,14_31_53.png` | Imagen | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Asset generado/recibido no fichado | No publicar |
+| `belentani-red-artifact.webp` | Imagen/branding | Upload local | Archivo localizado; uso visual existente | pendiente-de-revisión | Provenance/licencia no consolidada | Solo usar si provenance se confirma |
+| `duck-green-artifact.webp` | Imagen/branding | Upload local | Archivo localizado; uso visual existente | pendiente-de-revisión | Provenance/licencia no consolidada | Solo usar si provenance se confirma |
+| `Gemini_Generated_Image_h043unh043unh043.webp` | Imagen generada | Upload local | Archivo localizado; provenance pendiente | pendiente-de-revisión | Generación sin ficha de derechos | No publicar sin decisión |
+| `10-ZIPS.zip` | ZIP | Upload local | Extraído y auditado por rutas | pendiente-de-revisión | Contiene materiales heterogéneos | No distribuir sin selección |
+
+## Tabla curada de webs públicas y webs de Duck
+
+| URL concreta | Origen | Relación con Duck | Estado de verificación | Decisión |
+|---|---|---|---|---|
+| `https://3000-iqo8gvp14w3x2r2tsfn4j-047e3c2c.us3.manus.computer` | Preview Manus | Duck Hub actual | Verificada en navegador; servidor activo | Web operativa de revisión, no repositorio público |
+| `https://github.com/belentani7/DUCK` | GitHub | Candidato por nombre | Localizado; destino no confirmado | No modificar ni subir |
+| `https://github.com/belentani7/Duck-green` | GitHub | Referencia visual Duck | Localizado como público | Referencia, no destino |
+| `https://github.com/belentani7/Duck-Omega` | GitHub | Referencia narrativa/ecosistema | Localizado como público | Referencia, no destino |
+| `https://github.com/belentani7/Duck-Europe` | GitHub | Referencia España–Brasil potencial | Localizado | No modificar |
+| `https://github.com/belentani7/Duck-Glassmorphism-` | GitHub | Referencia visual | Localizado | No modificar |
+| `https://github.com/belentani7/heyduck` | GitHub | Relación potencial por nombre | Localizado | Pendiente de confirmación |
+| `https://github.com/belentani7/belentani_Omega` | GitHub | Ecosistema de artista | Localizado | Referencia, no copiar |
+| `https://www.ubc.org.br/publicacoes/noticias/quatro-bi-mercado-musical-brasileiro-oitavo-mundo` | Web pública UBC | Fuente de mercado | Leída y citada | Mantener como cita |
+| `https://pro-musicabr.org.br/2026/03/18/mercado-fonografico-brasileiro-cresceu-14-em-2025-e-faturou-r-4-bilhoes/` | Web pública Pro-Música | Fuente sectorial | Leída y citada | Mantener como cita |
+| `https://abmi.com.br/artistas-independentes-sao-53-nas-paradas-de-sucesso-do-streaming-revela-pesquisa-da-abmi/` | Web pública ABMI | Fuente de música independiente | Leída y citada | Mantener como cita |
+| `https://www.trade.gov/market-intelligence/brazil-media-and-entertainment` | Web pública ITA | Fuente de estructura/demanda | Leída y citada con sesgo declarado | Mantener como cita |
+| `https://help.airbit.com/hc/en-us/articles/24166157589657-Licensing-Overview` | Web pública Airbit | Benchmark de licencias | Leída y citada | Mantener como benchmark, no copiar contrato |
+| `https://blog.beatstars.com/posts/understanding-music-licenses-in-beatstars-studio` | Web pública BeatStars | Benchmark de licencias | Leída y citada | Mantener como benchmark, no asesoría legal |
+| `https://www.tunecore.com/guides/beat-licensing-101` | Web pública TuneCore | Derechos master/composición | Leída y citada | Mantener como fuente educativa |
+| `https://soundbetter.com/` | Web pública SoundBetter | Categorías y flujo de contratación | Leída y citada | Mantener como benchmark de oferta |
+| `https://www.fiverr.com/categories/music-audio/mixing-mastering` | Web pública Fiverr | Categorías/precios observables | Leída y citada | Mantener con límites de comparabilidad |
