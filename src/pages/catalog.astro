@@ -6,7 +6,7 @@ import BeatGrid from "../components/BeatGrid.astro";
 <BaseLayout title="Loja de beats" description="Catálogo de beats do Duck">
   <Nav active="/catalog" />
   <main class="shell catalog-page">
-    <section class="catalog-hero"><div><span class="eyebrow">DUCK / CATÁLOGO PÚBLICO</span><h1>Instrumentais para desbloquear sua próxima <em>versão.</em></h1><p>Previews protegidos, licenças claras e entrega segura. Escolha o caminho da sua próxima faixa.</p></div><div class="catalog-note glass"><span>◈</span><b>PROTOCOLO DE ATIVO</b><small>Watermark antes da decisão.<br />URL assinada depois da confirmação.</small></div></section>
+    <section class="catalog-hero"><div><span class="eyebrow">DUCK / <span data-i18n="catalog">CATÁLOGO</span> <span data-i18n="publicLabel">PÚBLICO</span></span><h1 data-i18n="nextVersion">Instrumentais para desbloquear sua próxima versão.</h1><p data-i18n="catalogLead">Previews protegidos, licenças claras e entrega segura. Escolha o caminho da sua próxima faixa.</p></div><div class="catalog-note glass"><span>◈</span><b data-i18n="assetProtocol">PROTOCOLO DE ATIVO</b><small><span data-i18n="watermark">Watermark antes da decisão.</span><br /><span data-i18n="signedUrl">URL assinada depois da confirmação.</span></small></div></section>
     <BeatGrid />
   </main>
 </BaseLayout>

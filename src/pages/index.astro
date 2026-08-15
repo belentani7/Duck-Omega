@@ -7,25 +7,25 @@ import Nav from "../components/Nav.astro";
   <main class="shell mission">
     <section class="hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">TRANSMISSÃO RESTRITA · 01 / 05</span>
-        <h1>A produção é o segredo.<br /><em>O sistema é a chave.</em></h1>
-        <p>Uma missão para transformar o caos invisível de um estúdio em um fluxo que pode ser entendido, protegido e entregue.</p>
-        <div class="hero-actions"><a class="primary focus-ring" href="/hub">Iniciar transmissão <span>→</span></a><a class="secondary focus-ring" href="#protocolo">Ver protocolo ↓</a></div>
+        <span class="eyebrow" data-i18n="restricted">TRANSMISSÃO RESTRITA · 01 / 05</span>
+        <h1><span data-i18n="productionSecret">A produção é o segredo.</span><br /><em data-i18n="systemKey">O sistema é a chave.</em></h1>
+        <p data-i18n="missionLead">Uma missão para transformar o caos invisível de um estúdio em um fluxo que pode ser entendido, protegido e entregue.</p>
+        <div class="hero-actions"><a class="primary focus-ring" href="/hub" data-i18n="startTransmission">Iniciar transmissão →</a><a class="secondary focus-ring" href="#protocolo" data-i18n="seeProtocol">Ver protocolo ↓</a></div>
       </div>
       <div class="signal glass">
-        <div class="signal-top"><span><i></i> CANAL SEGURO</span><b class="mono">01 / 05</b></div>
-        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / SINAL</span><h2>O sinal foi encontrado</h2><p>Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p></div>
+        <div class="signal-top"><span><i></i> <span data-i18n="secureChannel">CANAL SEGURO</span></span><b class="mono">01 / 05</b></div>
+        <div class="signal-core"><span class="signal-icon">⌁</span><span class="eyebrow">01 / <span data-i18n="signal">SINAL</span></span><h2 data-i18n="signalFound">O sinal foi encontrado</h2><p data-i18n="unifiedLead">Duck Hub é o núcleo operacional de um produtor: clientes, projetos, arquivos, beats e pagamentos deixam de viver em ilhas separadas.</p></div>
         <div class="progress"><span></span><i></i><i></i><i></i><i></i></div>
       </div>
     </section>
     <section class="command-deck" aria-labelledby="command-title">
-      <div><span class="eyebrow">NÚCLEO UNIFICADO</span><h2 id="command-title">Uma missão. Quatro canais.</h2><p>Entre pelo protocolo e escolha o próximo movimento sem sair do mesmo sistema.</p></div>
-      <div class="command-links"><a class="command-link focus-ring" href="/hub"><span>◈</span><b>Hub operacional</b><small>Clientes · projetos · receita</small> →</a><a class="command-link focus-ring" href="/catalog"><span>♫</span><b>Loja de beats</b><small>Licenças · previews · entrega</small> →</a><a class="command-link focus-ring" href="/ferramentas"><span>✦</span><b>Ferramentas</b><small>Recursos · automações · checklist</small> →</a></div>
+      <div><span class="eyebrow" data-i18n="unifiedCore">NÚCLEO UNIFICADO</span><h2 id="command-title" data-i18n="oneMission">Uma missão. Quatro canais.</h2><p data-i18n="unifiedLead">Entre pelo protocolo e escolha o próximo movimento sem sair do mesmo sistema.</p></div>
+      <div class="command-links"><a class="command-link focus-ring" href="/hub"><span>◈</span><b data-i18n="operationalHub">Hub operacional</b><small data-i18n="clientsProjects">Clientes · projetos · receita</small> →</a><a class="command-link focus-ring" href="/catalog"><span>♫</span><b data-i18n="beatsStore">Loja de beats</b><small data-i18n="licensesDelivery">Licenças · previews · entrega</small> →</a><a class="command-link focus-ring" href="/ferramentas"><span>✦</span><b data-i18n="tools">Ferramentas</b><small data-i18n="resources">Recursos · automações · checklist</small> →</a></div>
     </section>
     <section id="protocolo" class="protocol-grid">
-      <article class="glass protocol"><span>01</span><h3>Núcleo real</h3><p>Banco de dados, autenticação e regras de acesso não são decorativos.</p></article>
-      <article class="glass protocol"><span>02</span><h3>Arquivos protegidos</h3><p>Cada entrega pode ser versionada e distribuída por URL assinada.</p></article>
-      <article class="glass protocol"><span>03</span><h3>Missão persistente</h3><p>Seu progresso fica persistido para usuários autenticados.</p></article>
+      <article class="glass protocol"><span>01</span><h3 data-i18n="realCore">Núcleo real</h3><p data-i18n="realCoreText">Banco de dados, autenticação e regras de acesso não são decorativos.</p></article>
+      <article class="glass protocol"><span>02</span><h3 data-i18n="protectedFiles">Arquivos protegidos</h3><p data-i18n="protectedFilesText">Cada entrega pode ser versionada e distribuída por URL assinada.</p></article>
+      <article class="glass protocol"><span>03</span><h3 data-i18n="persistentMission">Missão persistente</h3><p data-i18n="persistentMissionText">Seu progresso fica persistido para usuários autenticados.</p></article>
     </section>
   </main>
 </BaseLayout>

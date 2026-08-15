@@ -1,26 +1,26 @@
 ---
 const { active = "" } = Astro.props;
 const links = [
-  ["/", "Missão"],
-  ["/hub", "Hub"],
-  ["/catalog", "Beats"],
-  ["/ferramentas", "Ferramentas"],
+  ["/", "mission"],
+  ["/hub", "hub"],
+  ["/catalog", "beats"],
+  ["/ferramentas", "tools"],
 ];
 ---
 <header class="topbar">
   <div class="shell topbar-inner">
-    <a class="brand focus-ring" href="/" aria-label="Duck Hub, início">
+    <a class="brand focus-ring" href="/" aria-label="Duck Hub, início" data-i18n-aria="mission">
       <span class="brand-mark">♪</span>
-      <span><strong>DUCK / OMEGA</strong><small>SISTEMA DE MISSÃO</small></span>
+      <span><strong>DUCK / OMEGA</strong><small data-i18n="system">SISTEMA DE MISSÃO</small></span>
     </a>
     <nav class="desktop-nav" aria-label="Navegação principal">
-      {links.map(([href, label]) => <a class:list={["nav-link", { active: active === href }]} class="focus-ring" href={href}>{label}</a>)}
+      {links.map(([href, key]) => <a class:list={["nav-link", { active: active === href }]} class="focus-ring" href={href} data-i18n={key}>{key}</a>)}
     </nav>
-    <a class="status focus-ring" href="/hub"><span></span> API ONLINE <b>Entrar →</b></a>
+    <a class="status focus-ring" href="/hub"><span></span> <span data-i18n="apiOnline">API ONLINE</span> <b data-i18n="signIn">Entrar →</b></a>
   </div>
 </header>
 <nav class="mobile-nav" aria-label="Navegação mobile">
-  {links.map(([href, label]) => <a class:list={["mobile-link", { active: active === href }]} class="focus-ring" href={href}><span>{label === "Missão" ? "⌁" : label === "Hub" ? "◈" : label === "Beats" ? "♫" : "✦"}</span>{label}</a>)}
+  {links.map(([href, key]) => <a class:list={["mobile-link", { active: active === href }]} class="focus-ring" href={href}><span>{key === "mission" ? "⌁" : key === "hub" ? "◈" : key === "beats" ? "♫" : "✦"}</span><span data-i18n={key}>{key}</span></a>)}
 </nav>
 <style>
   .topbar { position: relative; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.07); }

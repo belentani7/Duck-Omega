@@ -210,3 +210,13 @@
 - [ ] Adicionar testes/evidência do CRM com histórico de projetos por cliente, histórico de faturas e operações backend/UI reais
 - [ ] Adicionar testes/evidência de criação, acompanhamento, datas e estados de entregáveis dentro de projetos
 - [ ] Converter ferramentas, automações e central de recursos em fluxos backend reais end-to-end, ou manter explicitamente como pendente sem marcar como completo
+
+- [x] Auditar todos os textos, rotas e componentes Astro que precisam de tradução para português brasileiro, espanhol, inglês e francês
+- [x] Criar catálogo de traduções tipado e seletor de idioma persistente com português brasileiro como padrão
+- [x] Aplicar traduções às rotas missão, Hub, catálogo, ferramentas, navegação, estados vazios e mensagens operacionais
+- [x] Auditar visualmente as quatro versões linguísticas no viewport mobile 390x844 e corrigir overflow, truncamento e acessibilidade
+- [x] Validar typecheck, astro:check, testes, build e salvar checkpoint da internacionalização
+
+- [x] Traduzir os detalhes residuais da fila do Hub (Revisão de mix, Hoje, Amanhã, Responder briefing, dias) e o delta de receita em todos os idiomas
+- [x] Traduzir ou justificar os rótulos técnicos visíveis de categoria (PROJETO, OPERAÇÃO, RECURSOS, ANÁLISE, PÚBLICO e SINAL) nas rotas Astro
+- [x] Repetir a auditoria mobile dos quatro idiomas após as últimas correções e registrar evidência final sem strings operacionais mistas

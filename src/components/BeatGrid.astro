@@ -1,5 +1,5 @@
 <section class="catalog-section" aria-labelledby="beats-heading">
-  <div class="section-head"><div><span class="eyebrow">GEMA 01 / CATÁLOGO</span><h2 id="beats-heading">Beats para a próxima versão.</h2></div><span id="catalog-status" class="status-label">Sincronizando...</span></div>
+  <div class="section-head"><div><span class="eyebrow" data-i18n="catalogEyebrow">GEMA 01 / CATÁLOGO</span><h2 id="beats-heading" data-i18n="nextVersion">Beats para a próxima versão.</h2></div><span id="catalog-status" class="status-label" data-i18n="syncing">Sincronizando...</span></div>
   <div id="beat-grid" class="beat-grid" aria-live="polite">
     <article class="beat-skeleton glass"></article><article class="beat-skeleton glass"></article><article class="beat-skeleton glass"></article>
   </div>
@@ -8,7 +8,8 @@
   import { gsap } from "gsap";
   const grid = document.querySelector("#beat-grid");
   const status = document.querySelector("#catalog-status");
-  const money = (cents: number) => new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(cents / 100);
+  const messages = () => (window as any).__DUCK_TRANSLATIONS__?.[(window as any).__DUCK_LOCALE__] ?? { syncing: "Sincronizando...", catalogReady: "O catálogo está pronto.", addFirstGem: "Adicione a primeira Gema pelo Hub para iniciar a operação.", noCatalog: "Canal temporariamente offline.", tryAgain: "O núcleo continua protegido. Tente novamente.", beats: "beats", availability: "Disponível", reserved: "Reservado", nonExclusive: "Não exclusiva", exclusive: "Exclusiva", continue: "Continuar →", instrumental: "Instrumental", texture: "Textura pronta para receber a sua próxima ideia." };
+  const money = (cents: number) => new Intl.NumberFormat((window as any).__DUCK_LOCALE__ === "en" ? "en-US" : (window as any).__DUCK_LOCALE__ === "fr" ? "fr-FR" : (window as any).__DUCK_LOCALE__ === "es" ? "es-ES" : "pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(cents / 100);
   const trpcGet = async (path: string) => {
     const input = encodeURIComponent(JSON.stringify({ 0: { json: null } }));
     const response = await fetch(`/api/trpc/${path}?batch=1&input=${input}`);
@@ -16,14 +17,17 @@
     const payload = await response.json();
     return payload?.[0]?.result?.data?.json ?? [];
   };
+  let cachedBeats: any[] = [];
   const render = (beats: any[]) => {
+    cachedBeats = beats;
+    const t = messages();
     if (!grid || !status) return;
-    status.textContent = `${beats.length} ${beats.length === 1 ? "beat disponível" : "beats disponíveis"}`;
+    status.textContent = `${beats.length} ${t.beats || "beats"} ${t.available || "disponíveis"}`;
     if (!beats.length) {
-      grid.innerHTML = `<div class="empty glass"><span>♫</span><h3>O catálogo está pronto.</h3><p>Adicione a primeira Gema pelo Hub para iniciar a operação.</p></div>`;
+      grid.innerHTML = `<div class="empty glass"><span>♫</span><h3>${t.catalogReady}</h3><p>${t.addFirstGem}</p></div>`;
       return;
     }
-    grid.innerHTML = beats.map((beat: any) => `<article class="beat-card glass" data-beat-card><div class="beat-art"><span class="beat-orb">♫</span><span class="mono beat-index">${String(beat.id).padStart(2, "0")}</span></div><div class="beat-body"><div class="beat-meta"><span>${beat.genre || "Instrumental"}</span><span>${beat.bpm || "—"} BPM</span></div><h3>${beat.title}</h3><p>${beat.description || "Textura pronta para receber a sua próxima ideia."}</p><div class="license-row"><button class="license active" data-license="non_exclusive" data-price="${beat.nonExclusivePriceCents}">Não exclusiva <b>${money(beat.nonExclusivePriceCents)}</b></button><button class="license" data-license="exclusive" data-price="${beat.exclusivePriceCents}">Exclusiva <b>${money(beat.exclusivePriceCents)}</b></button></div><div class="card-footer"><span class="availability">${beat.availability === "available" ? "Disponível" : "Reservado"}</span><button class="buy-button focus-ring" data-buy data-id="${beat.id}" data-title="${beat.title}">Continuar →</button></div></div></article>`).join("");
+    grid.innerHTML = beats.map((beat: any) => `<article class="beat-card glass" data-beat-card><div class="beat-art"><span class="beat-orb">♫</span><span class="mono beat-index">${String(beat.id).padStart(2, "0")}</span></div><div class="beat-body"><div class="beat-meta"><span>${beat.genre || t.instrumental}</span><span>${beat.bpm || "—"} BPM</span></div><h3>${beat.title}</h3><p>${beat.description || t.texture}</p><div class="license-row"><button class="license active" data-license="non_exclusive" data-price="${beat.nonExclusivePriceCents}">${t.nonExclusive} <b>${money(beat.nonExclusivePriceCents)}</b></button><button class="license" data-license="exclusive" data-price="${beat.exclusivePriceCents}">${t.exclusive} <b>${money(beat.exclusivePriceCents)}</b></button></div><div class="card-footer"><span class="availability">${beat.availability === "available" ? t.available : t.reserved}</span><button class="buy-button focus-ring" data-buy data-id="${beat.id}" data-title="${beat.title}">${t.continue}</button></div></div></article>`).join("");
     grid.querySelectorAll<HTMLElement>("[data-beat-card]").forEach((card, index) => {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!reduce) gsap.fromTo(card, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .55, delay: index * .07, ease: "power3.out" });
@@ -33,7 +37,8 @@
       card.querySelector<HTMLButtonElement>("[data-buy]")?.addEventListener("click", () => { const title = card.querySelector("h3")?.textContent || "beat"; window.location.href = `/catalog?beat=${encodeURIComponent(title)}`; });
     });
   };
-  trpcGet("catalog.publicList").then(render).catch(() => { if (status) status.textContent = "Catálogo offline"; if (grid) grid.innerHTML = `<div class="empty glass"><span>◌</span><h3>Canal temporariamente offline.</h3><p>O núcleo continua protegido. Tente novamente em alguns instantes.</p></div>`; });
+  trpcGet("catalog.publicList").then(render).catch(() => { const t = messages(); if (status) status.textContent = t.noCatalog; if (grid) grid.innerHTML = `<div class="empty glass"><span>◌</span><h3>${t.noCatalog}</h3><p>${t.tryAgain}</p></div>`; });
+  window.addEventListener("duck-locale-applied", () => render(cachedBeats));
 </script>
 <style>
   .catalog-section { padding: 76px 0 120px; }

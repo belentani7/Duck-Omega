@@ -1,8 +1,10 @@
 ---
+import { translations, localeLabels, type DuckLocale } from "../lib/i18n";
 const { title = "Duck Hub", description = "Núcleo operacional do produtor Duck" } = Astro.props;
+const translationPayload = JSON.stringify(translations);
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-duck-locale="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -12,7 +14,48 @@ const { title = "Duck Hub", description = "Núcleo operacional do produtor Duck"
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
+    <div class="language-switcher" aria-label="Seleção de idioma">
+      <span aria-hidden="true">◎</span>
+      <label for="duck-language" class="sr-only">Idioma</label>
+      <select id="duck-language" class="focus-ring" aria-label="Idioma">
+        {(Object.entries(localeLabels) as [DuckLocale, string][]).map(([locale, label]) => <option value={locale}>{label}</option>)}
+      </select>
+    </div>
+    <script define:vars={{ translationPayload }}>
+      window.__DUCK_TRANSLATIONS__ = JSON.parse(translationPayload);
+      window.__DUCK_LOCALE__ = new URLSearchParams(window.location.search).get("lang") || localStorage.getItem("duck-hub-locale") || "pt-BR";
+    </script>
     <slot />
+    <script define:vars={{ translationPayload }}>
+      const dictionary = JSON.parse(translationPayload);
+      const storageKey = "duck-hub-locale";
+      const supported = Object.keys(dictionary);
+      const select = document.querySelector("#duck-language");
+      const applyLocale = (locale) => {
+        const active = supported.includes(locale) ? locale : "pt-BR";
+        const messages = dictionary[active];
+        window.__DUCK_TRANSLATIONS__ = dictionary;
+        window.__DUCK_LOCALE__ = active;
+        document.documentElement.lang = active;
+        document.documentElement.dataset.duckLocale = active;
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          const key = node.dataset.i18n;
+          if (key && messages[key]) node.textContent = messages[key];
+        });
+        document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
+          const key = node.dataset.i18nAria;
+          if (key && messages[key]) node.setAttribute("aria-label", messages[key]);
+        });
+        if (select) select.value = active;
+        localStorage.setItem(storageKey, active);
+        window.dispatchEvent(new CustomEvent("duck-locale-applied", { detail: active }));
+      };
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      const saved = requested || localStorage.getItem(storageKey) || "pt-BR";
+      applyLocale(saved);
+      select?.addEventListener("change", (event) => applyLocale(event.target.value));
+      window.addEventListener("duck-locale-change", (event) => applyLocale(event.detail));
+    </script>
   </body>
 </html>
 
@@ -29,5 +72,7 @@ const { title = "Duck Hub", description = "Núcleo operacional do produtor Duck"
   .glass { border: 1px solid rgba(167, 243, 208, .10); background: linear-gradient(145deg, rgba(12, 28, 21, .92), rgba(7, 16, 12, .78)); box-shadow: 0 22px 70px rgba(0,0,0,.25); backdrop-filter: blur(18px); }
   .focus-ring:focus-visible { outline: 2px solid #34d399; outline-offset: 3px; }
   .noise { position: fixed; inset: 0; pointer-events: none; opacity: .035; z-index: 20; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+  .language-switcher { position:fixed; z-index:30; top:20px; right:18px; display:flex; align-items:center; gap:5px; padding:4px 7px; border:1px solid rgba(167,243,208,.14); border-radius:9px; background:rgba(5,14,10,.72); backdrop-filter:blur(16px); color:#5ee4b1; font-size:11px; } .language-switcher select { border:0; outline:0; color:#b8f5d8; background:transparent; font:500 10px 'DM Mono',monospace; letter-spacing:.08em; } .language-switcher option { color:#07110c; background:#dff7e9; } .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  @media (max-width:720px) { .language-switcher { top:14px; right:14px; } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
