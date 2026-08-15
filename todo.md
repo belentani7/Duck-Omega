@@ -200,10 +200,10 @@
 - [x] Sincronizar Mission.tsx para que el estado unlocked derive del backend para usuarios autenticados, eliminando o invalidando el fallback de localStorage cuando missionProgress indique bloqueado
 - [x] Añadir test o validación del caso en que localStorage contiene desbloqueo pero el backend retorna unlocked: 0, garantizando que el núcleo permanezca bloqueado en la UI
 
-- [ ] Añadir prueba de integración del checkout pending → paid que verifique contractKey, actividad y comportamiento idempotente con contrato existente
+- [x] Añadir prueba de integración del checkout pending → paid que verifique contractKey, actividad y comportamiento idempotente con contrato existente
 - [x] Separar y robustecer el post-pago para registrar un estado recuperable cuando falle la generación/subida del PDF, sin dejar el pedido pagado sin seguimiento
 - [x] Hacer independiente la notificación al productor, manejar retorno false de notifyOwner y registrar el fallo para reintento
-- [ ] Añadir pruebas de notificación por cada compra pagada, incluso si el contrato falla o ya existe
+- [x] Añadir pruebas de notificación por cada compra pagada, incluso si el contrato falla o ya existe
 
 - [x] Conectar shared/paymentProvider.ts al flujo real de checkout para resolver provider sin hardcodear test y bloquear Mercado Pago sin credenciales
 - [x] Añadir pruebas del checkout que verifiquen selección/configuración de proveedor y rechazo seguro cuando Mercado Pago no está configurado
