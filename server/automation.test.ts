@@ -3,6 +3,7 @@ import {
   canProcessAutomation,
   getAutomationBudget,
   hasSeenIdempotencyKey,
+  planAutomationActions,
 } from "../shared/automation";
 
 describe("Duck automation contract", () => {
@@ -22,5 +23,11 @@ describe("Duck automation contract", () => {
     const seen = new Set(["mp-event-123"]);
     expect(hasSeenIdempotencyKey(seen, "mp-event-123")).toBe(true);
     expect(hasSeenIdempotencyKey(seen, "mp-event-456")).toBe(false);
+  });
+
+  it("plans safe internal actions for payment and overdue events", () => {
+    expect(planAutomationActions("order.paid", 0, true)).toEqual(["record_activity", "queue_delivery", "queue_statement"]);
+    expect(planAutomationActions("order.paid", 0, false)).toEqual(["open_exception"]);
+    expect(planAutomationActions("project.overdue", 0, false)).toContain("open_exception");
   });
 });

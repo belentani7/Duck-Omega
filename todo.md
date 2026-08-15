@@ -238,4 +238,4 @@
 - [x] Especificar stack no-code e limites de cada ferramenta para operação assíncrona
 - [x] Criar minuta informativa de Split Sheet & Termos de Produção em Markdown, marcada para revisão jurídica
 - [x] Integrar no Duck Hub artefatos operacionais da expansão sem criar credenciais reais nem dados fictícios
-- [ ] Validar o plano com fontes, testes/documentação e salvar checkpoint da expansão Brasil–Espanha
+- [x] Validar o plano com fontes, testes/documentação e salvar checkpoint da expansão Brasil–Espanha

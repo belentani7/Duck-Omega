@@ -49,6 +49,26 @@ export function hasSeenIdempotencyKey(
   return seenKeys.has(idempotencyKey);
 }
 
+export type AutomationAction =
+  | "record_activity"
+  | "queue_notification"
+  | "queue_contract"
+  | "queue_delivery"
+  | "queue_statement"
+  | "open_exception";
+
+const ACTIONS: Record<DuckAutomationEventType, readonly AutomationAction[]> = {
+  "lead.created": ["record_activity", "queue_notification"],
+  "project.created": ["record_activity", "queue_notification"],
+  "file.received": ["record_activity", "queue_contract"],
+  "revision.comment.created": ["record_activity", "queue_notification"],
+  "revision.approved": ["record_activity", "queue_delivery"],
+  "order.created": ["record_activity", "queue_contract"],
+  "order.paid": ["record_activity", "queue_delivery", "queue_statement"],
+  "download.requested": ["record_activity"],
+  "project.overdue": ["record_activity", "queue_notification", "open_exception"],
+};
+
 export function canProcessAutomation(
   type: DuckAutomationEventType,
   attempts: number,
@@ -56,4 +76,12 @@ export function canProcessAutomation(
 ): boolean {
   const budget = getAutomationBudget(type);
   return attempts < budget.maxAttempts && (!budget.requiresApproval || approvalGranted);
+}
+
+export function planAutomationActions(
+  type: DuckAutomationEventType,
+  attempts: number,
+  approvalGranted: boolean,
+): readonly AutomationAction[] {
+  return canProcessAutomation(type, attempts, approvalGranted) ? ACTIONS[type] : ["open_exception"];
 }
