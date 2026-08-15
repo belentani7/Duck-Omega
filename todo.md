@@ -48,7 +48,7 @@
 - [ ] Implementar RBAC real para Owner, Produtor e Cliente por procedimento e recurso
 - [ ] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
 - [ ] Completar projetos com datas e gestão funcional de entregáveis
-- [ ] Implementar revisões com comentários por timestamp e limite validado no servidor
+- [x] Implementar revisões com comentários por timestamp e limite validado no servidor
 - [ ] Proteger upload e download por autenticação, ownership e versionamento real
 - [x] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
 - [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única

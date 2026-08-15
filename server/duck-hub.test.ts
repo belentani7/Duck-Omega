@@ -52,6 +52,12 @@ describe("Duck Hub core contracts", () => {
 
   it("validates timestamp comments before calling the backend", async () => {
     await expect(appRouter.createCaller(ownerContext).projects.addComment({ revisionId: 1, body: "Entrada no refrão", timestampMs: -1 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).projects.addComment({ revisionId: 1, body: "Entrada no refrão", timestampMs: 0 })).rejects.toThrow(/revisão|database|connect/i);
+  });
+
+  it("enforces the server-side revision limit bounds", async () => {
+    await expect(appRouter.createCaller(ownerContext).projects.create({ clientId: 1, title: "Projeto válido", revisionLimit: 21 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).projects.create({ clientId: 1, title: "Projeto válido", revisionLimit: -1 })).rejects.toThrow();
   });
 });
 
