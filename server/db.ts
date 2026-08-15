@@ -196,6 +196,20 @@ export async function getFileMetadata(fileId: number) {
   return rows[0];
 }
 
+export async function getFileByStorageKey(storageKey: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(files).where(eq(files.storageKey, storageKey)).limit(1);
+  return rows[0];
+}
+
+export async function getClientByUserId(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(clients).where(eq(clients.userId, userId)).limit(1);
+  return rows[0];
+}
+
 
 export async function createFileRecord(input: typeof files.$inferInsert) {
   const db = await getDb();

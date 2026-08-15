@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { Express, Request, Response } from "express";
-import { createFileRecord, recordPaymentEvent, transitionOrder } from "./db";
+import { createFileRecord, getClientByUserId, getFileByStorageKey, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
 
@@ -8,6 +8,12 @@ export function safeEqualHex(expected: string, received: string) {
   const a = Buffer.from(expected, "hex");
   const b = Buffer.from(received, "hex");
   return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+export function canAccessStoredFile(user: { id: number; role?: string }, file: { uploadedBy: number; clientId?: number | null; visibility: string }, userClientId?: number) {
+  if (user.role === "owner" || user.role === "producer") return true;
+  if (file.uploadedBy === user.id) return true;
+  return file.visibility === "client" && file.clientId != null && userClientId === file.clientId;
 }
 
 export function registerHttpRoutes(app: Express) {
@@ -37,7 +43,11 @@ export function registerHttpRoutes(app: Express) {
     try {
       const user = await sdk.authenticateRequest(req as any);
       if (!user?.id) return res.status(401).json({ error: "Autenticação necessária" });
-      const url = await storageGetSignedUrl(req.params.key);
+      const file = await getFileByStorageKey(req.params.key);
+      if (!file) return res.status(404).json({ error: "Arquivo não encontrado" });
+      const userClient = user.role === "client" ? await getClientByUserId(user.id) : undefined;
+      if (!canAccessStoredFile(user, file, userClient?.id)) return res.status(403).json({ error: "Acesso ao arquivo não autorizado" });
+      const url = await storageGetSignedUrl(file.storageKey);
       return res.json({ url, expiresInSeconds: 300 });
     } catch (error) {
       console.error("[Files] signed url failed", error);

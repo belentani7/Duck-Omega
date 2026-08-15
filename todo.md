@@ -52,7 +52,7 @@
 - [ ] Proteger upload e download por autenticação, ownership e versionamento real
 - [x] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
 - [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única
-- [ ] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
+- [x] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
 - [x] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
 - [ ] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
 - [x] Conectar desbloqueio da missão a estado persistido no backend
@@ -247,3 +247,7 @@
 - [x] Inspecionar a conta GitHub BELENTANI e identificar repositórios públicos livres para possível destino
 - [x] Atualizar a estratégia de independência financeira com metas sustentáveis, consentimento e validação profissional
 - [x] Documentar a decisão de repositório e o estado de publicação sem subir nada sem autorização explícita
+- [x] Remover o warning de chave duplicada `beats` no dicionário i18n sem perder traduções
+- [x] Adicionar testes HTTP reais para upload cobrindo autenticação, MIME, limite e metadados
+- [x] Adicionar testes HTTP reais para signed-url cobrindo 401, 404, 403 e acessos autorizados
+- [x] Adicionar testes HTTP reais para webhook cobrindo assinatura, raw body, idempotência e transição

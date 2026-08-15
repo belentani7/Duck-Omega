@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { safeEqualHex } from "./httpRoutes";
+import { canAccessStoredFile, safeEqualHex } from "./httpRoutes";
 
 describe("HTTP security contracts", () => {
   it("accepts equal hexadecimal signatures", () => {
@@ -18,5 +18,15 @@ describe("HTTP security contracts", () => {
 
   it("rejects malformed hexadecimal input when its decoded bytes differ", () => {
     expect(safeEqualHex("zz", "00")).toBe(false);
+  });
+
+  it("enforces file ownership and client assignment", () => {
+    const file = { uploadedBy: 7, clientId: 22, visibility: "client" };
+    expect(canAccessStoredFile({ id: 1, role: "owner" }, file)).toBe(true);
+    expect(canAccessStoredFile({ id: 2, role: "producer" }, file)).toBe(true);
+    expect(canAccessStoredFile({ id: 7, role: "client" }, file)).toBe(true);
+    expect(canAccessStoredFile({ id: 9, role: "client" }, file, 22)).toBe(true);
+    expect(canAccessStoredFile({ id: 9, role: "client" }, file, 23)).toBe(false);
+    expect(canAccessStoredFile({ id: 9, role: "client" }, { ...file, visibility: "private" }, 22)).toBe(false);
   });
 });
