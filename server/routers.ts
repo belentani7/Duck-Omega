@@ -16,6 +16,7 @@ import {
   listBeats,
   listClients,
   listProjects,
+  listDeliverables,
   listRevisionComments,
   recentChatMessages,
   saveChatMessage,
@@ -67,6 +68,7 @@ export const appRouter = router({
     })).mutation(({ ctx, input }) => createRevision({ ...input, requestedBy: ctx.user.id })),
     addComment: protectedProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(({ ctx, input }) => addRevisionComment({ ...input, authorId: ctx.user.id })),
     comments: protectedProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(({ input }) => listRevisionComments(input.revisionId)),
+    deliverables: producerProcedure.input(z.object({ projectId: z.number().int().positive() })).query(({ input }) => listDeliverables(input.projectId)),
   }),
   checkout: router({
     createTestOrder: publicProcedure.input(z.object({ buyerEmail: z.string().email(), clientId: z.number().int().positive().optional(), beatId: z.number().int().positive(), licenseType: z.enum(["exclusive", "non_exclusive"]), totalCents: z.number().int().positive() })).mutation(({ input }) => createTestOrder(input)),

@@ -78,7 +78,9 @@ export async function createClient(input: typeof clients.$inferInsert) {
   const db = await getDb();
   if (!db) return undefined;
   const result = await db.insert(clients).values(input);
-  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  if (id) await recordActivity({ type: "client.created", title: "Novo cliente cadastrado", detail: input.name, entityType: "client", entityId: id });
+  return id;
 }
 
 export async function listProjects(clientId?: number) {
@@ -91,7 +93,9 @@ export async function createProject(input: typeof projects.$inferInsert) {
   const db = await getDb();
   if (!db) return undefined;
   const result = await db.insert(projects).values(input);
-  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  if (id) await recordActivity({ type: "project.created", title: "Novo projeto criado", detail: input.title, entityType: "project", entityId: id });
+  return id;
 }
 
 export async function listBeats() {
@@ -158,7 +162,9 @@ export async function createRevision(input: typeof revisions.$inferInsert) {
   if (count >= project.revisionLimit) throw new Error("O limite de revisões do projeto foi atingido");
   const result = await db.insert(revisions).values(input);
   await db.update(projects).set({ revisionCount: count + 1, status: "review" }).where(eq(projects.id, input.projectId));
-  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  if (id) await recordActivity({ type: "revision.requested", title: "Nova revisão solicitada", detail: input.summary ?? "Revisão do projeto", entityType: "revision", entityId: id, actorId: input.requestedBy });
+  return id;
 }
 
 export async function getFileMetadata(fileId: number) {
@@ -210,7 +216,10 @@ export async function createTestOrder(input: { buyerEmail: string; clientId?: nu
   if (!db) return { id: 0, status: "pending" as const };
   const orderResult = await db.insert(orders).values({ buyerEmail: input.buyerEmail, clientId: input.clientId, provider: "test", totalCents: input.totalCents, status: "pending" });
   const orderId = Number(orderResult[0]?.insertId ?? 0);
-  if (orderId) await db.insert(orderItems).values({ orderId, beatId: input.beatId, licenseType: input.licenseType, unitPriceCents: input.totalCents });
+  if (orderId) {
+    await db.insert(orderItems).values({ orderId, beatId: input.beatId, licenseType: input.licenseType, unitPriceCents: input.totalCents });
+    await recordActivity({ type: "order.created", title: "Novo pedido de beat", detail: input.buyerEmail, entityType: "order", entityId: orderId });
+  }
   return { id: orderId, status: "pending" as const };
 }
 
@@ -243,4 +252,19 @@ export async function transitionOrder(orderId: number, nextStatus: "paid" | "fai
 
 export function canTransitionOrder(current: string, next: string) {
   return orderTransitions[current]?.includes(next) ?? false;
+}
+
+
+export async function listDeliverables(projectId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(deliverables).where(eq(deliverables.projectId, projectId)).orderBy(desc(deliverables.createdAt));
+}
+
+
+export async function recordActivity(input: typeof activity.$inferInsert) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.insert(activity).values(input);
+  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
 }
