@@ -39,6 +39,21 @@ Gmail devolvió hilos relacionados con `final_designs.zip`, `duck_qr.html`, `tod
 
 La reutilización segura exige conservar hashes, atribución, licencia, origen, fecha y decisión. Los datos personales, conversaciones privadas, credenciales, tokens, cookies, bases locales y material de terceros deben excluirse del repositorio público. Todo asset debe recibir una clasificación: `propio-verificado`, `propio-pendiente`, `tercero-con-licencia`, `tercero-no-publicable` o `sensible-no-reutilizar`.
 
-## 6. Decisión provisional
+## 6. Documentos estratégicos añadidos
+
+| Documento | Función |
+|---|---|
+| `docs/ESTRATEGIA_DUCK_EMPRESA_ES_BR.md` | Estrategia, escenarios, matriz España–Brasil, consumidor, email y pagos |
+| `docs/modelo_financiero_duck.xlsx` | Supuestos editables, ingresos, costes, caja de 12 meses y riesgos |
+| `docs/entity_card_duck.md` | Identidad de trabajo y campos pendientes de verificación |
+| `docs/AUTOMATIZACIONES_DUCK_OPERATIVAS.md` | Contrato de eventos, presupuestos, backlog y controles |
+| `docs/decisions/ADR-001-automatizacoes-orientadas-a-eventos.md` | Decisión formal de arquitectura de automatizaciones |
+| `docs/ANEXO_ESTRATEGICO_PT_BR.md` | Resumen operativo para Duck en portugués brasileño |
+| `docs/PROTOCOLO_BELENTANI_REFERENCIA.md` | Protocolo recibido, separado de hechos verificables |
+| `docs/MATERIAL_REUTILIZADO_DUCK.md` | Mapa del material del chat hacia código y decisiones |
+| `docs/INVENTARIO_FUENTES_EXHAUSTIVO.md` | Inventario reproducible de fuentes locales y externas |
+| `.github/workflows/quality.yml` | Quality gate de typecheck y tests en push/pull request |
+
+## 7. Decisión provisional
 
 Duck Hub debe ser el producto principal. Studio OS y el Portal de Clientes aportan ideas y módulos, pero no deben fusionarse de forma masiva sin una matriz de dominio. La primera integración prioritaria es CRM → proyectos → entregables → revisiones → catálogo → pedido → licencia → auditoría. La experiencia inmersiva queda como onboarding y branding, no como sustituto del software operativo.

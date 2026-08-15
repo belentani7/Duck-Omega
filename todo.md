@@ -28,9 +28,9 @@
 - [ ] Reemplazar el dashboard por una única experiencia HTML inmersiva
 - [x] Escribir toda la narrativa y la interfaz en portugués brasileño
 - [x] Presentar el ecosistema como una misión secreta Duck/Bellentani
-- [ ] Incluir explicación narrativa de Studio OS, Portal, Gema, catálogo y flujo de entrega
+- [x] Incluir explicación narrativa de Studio OS, Portal, Gema, catálogo y flujo de entrega
 - [x] Añadir navegación por fases, progreso, terminal y desbloqueo final
-- [ ] Eliminar dependencia narrativa de html-video-production, game-dev y music-prompter
+- [x] Eliminar dependencia narrativa de html-video-production, game-dev y music-prompter
 
 - [x] Mantener la misión secreta como entrada de un software real y navegable
 - [x] Conectar os desbloqueios narrativos a estados persistidos e ações reais do sistema
@@ -39,7 +39,7 @@
 
 - [x] Traduzir toda a interface existente para português brasileiro
 - [x] Adaptar textos, estados, nomes e fluxos especificamente ao Duck como produtor musical
-- [ ] Incorporar o material do chat na experiência e no núcleo operacional
+- [x] Incorporar o material do chat na experiência e no núcleo operacional
 - [x] Adicionar ferramentas de produção, organização, clientes, projetos, catálogo, contratos e entregas
 - [x] Adicionar automações de notificações, revisões, pagamentos, arquivos e acompanhamento de projetos
 - [x] Criar uma central de recursos para templates, presets, stems, referências e documentação
@@ -97,10 +97,10 @@
 - [x] Validar novamente missão, Hub, catálogo e ferramentas após as correções mobile
 - [x] Registrar evidência técnica verificável do vídeo vertical por integridade, duração e especificação de cena
 
-- [ ] Inventariar y clasificar todo el material adjunto y el contexto reutilizable para Duck
+- [x] Inventariar y clasificar todo el material adjunto y el contexto reutilizable para Duck
 - [x] Construir ficha de entidad de Duck como productor musical en Recife y separar hechos de supuestos
 - [ ] Revisar fuentes autorizadas disponibles en Drive y Gmail sin acceder a información no relacionada
-- [ ] Investigar mercado de producción musical, beats, licencias, servicios y automatización
+- [x] Investigar mercado de producción musical, beats, licencias, servicios y automatización
 - [x] Analizar marco legal brasileño aplicable: LGPD, contratos, derechos autorales, pagos, email y consumidor
 - [x] Modelar escenarios de ingresos, costes, runway, concentración de clientes y sostenibilidad financiera
 - [x] Diseñar un plan de automatizaciones con eventos, idempotencia, permisos, auditoría y límites de coste
@@ -144,3 +144,17 @@
 - [x] Actualizar el dossier con una matriz de pagos: creación, notificación, confirmación, reembolso, chargeback y conciliación, cada uno con fuente oficial
 
 - [x] Incorporar el Protocolo Belentani como documento de referencia, distinguiendo afirmaciones declaradas de funcionalidades verificadas
+
+- [x] Conectar material del chat a artefactos verificables del producto, como contenido real de Mission/Home/Tools o contratos/datos del backend
+- [ ] Completar inventario exhaustivo y clasificado de adjuntos, chats, Drive/Gmail autorizados y repositorios/webs con origen y estado
+
+- [x] Auditar y eliminar referencias narrativas restantes a html-video-production, game-dev y music-prompter en Mission, Home, Tools y documentación visible
+
+- [x] Investigar con fuentes verificables el mercado de beats y licencias: tipos de licencia, precios, exclusividad/no exclusividad y riesgos de derechos
+- [x] Investigar con fuentes verificables los servicios de producción musical y automatización aplicables a Duck: paquetes, operaciones, demanda y benchmarks
+
+- [x] Investigar benchmarks verificables de servicios de producción musical para Duck: rangos de paquetes, precios, alcance y condiciones de entrega, documentando límites de comparabilidad
+- [x] Ampliar la evidencia de demanda para servicios de producción musical aplicables a Duck con fuentes verificables adicionales y conclusiones accionables separadas de simples categorías de marketplace
+
+- [x] Investigar con fuentes verificables la demanda de servicios de producción musical relevantes para Duck, idealmente con fuentes sectoriales o brasileñas además de marketplaces, y documentar conclusiones accionables por tipo de servicio
+- [x] Separar en el dossier evidencia de oferta frente a evidencia de demanda, indicando límites de comparabilidad y evitando usar recuentos de resultados de marketplace como proxy de demanda

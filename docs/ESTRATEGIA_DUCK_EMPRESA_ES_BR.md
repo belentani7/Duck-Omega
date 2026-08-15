@@ -200,3 +200,68 @@ La regla es **proveedor primero, navegador nunca**: una redirección o botón de
 [13]: https://www.mercadopago.com.br/developers/pt/docs/checkout-pro/additional-settings/refunds-and-cancellations "Mercado Pago — Reembolsos y cancelaciones"
 [14]: https://www.mercadopago.com.br/developers/pt/docs/checkout-api-orders/refunds-cancellations "Mercado Pago — Orders, reembolsos y cancelaciones"
 [15]: https://www.mercadopago.com.br/developers/pt/docs/links-and-debts/conciliation "Mercado Pago — Conciliación"
+
+## 12. Mercado musical brasileño y oportunidad Duck
+
+La UBC, al resumir datos de IFPI y Pro-Música publicados el 18 de marzo de 2026, reporta que el mercado brasileño de música grabada alcanzó aproximadamente R$ 3,958 mil millones en 2025, con crecimiento interanual de 14,1 %, situando a Brasil como el octavo mercado mundial. El streaming representó la locomotora del crecimiento y el segmento digital brasileño alcanzó aproximadamente R$ 3,4 mil millones; el artículo también destaca el aumento de derechos conexos y el crecimiento del vinilo [16].
+
+La oportunidad de Duck no debe depender de una sola fuente de streaming. El producto puede capturar valor en cinco capas: servicios de producción y mezcla; beats con licencias diferenciadas; paquetes de stems y entregas seguras; contratos y administración documental; y herramientas operativas para clientes recurrentes. La automatización debe reducir tiempo administrativo, no sustituir el criterio creativo ni prometer ingresos inevitables.
+
+El mismo informe alerta sobre fraude de streaming y uso de obras para entrenar IA sin permiso o transparencia. Para Duck, esto refuerza la necesidad de hojas de derechos por beat, registro de versiones, watermark en previews, trazabilidad de entregas, cláusulas de uso de IA y bloqueo de liberación cuando la titularidad no esté clara.
+
+[16]: https://www.ubc.org.br/publicacoes/noticias/quatro-bi-mercado-musical-brasileiro-oitavo-mundo "UBC — mercado musical brasileño 2025"
+
+## 13. Licencias de beats: modelo operativo verificable
+
+Las guías de BeatStars, Airbit y TuneCore coinciden en que Duck no debería presentar un beat como una venta absoluta por defecto, sino como una licencia con derechos de uso definidos. Airbit distingue licencias no exclusivas y exclusivas, y explica que la licencia no exclusiva permite reutilizar el mismo instrumental con varios artistas, con límites configurables sobre copias, presentaciones, streams, duración y archivos entregados. También señala que una estructura habitual ofrece varios niveles, desde archivo comprimido hasta WAV y stems, con precios orientativos publicados por la propia plataforma de aproximadamente USD 10–40 para niveles bajos y USD 70–150 para niveles altos no exclusivos [17].
+
+BeatStars describe una modalidad regular/no exclusiva, una exclusiva y una gratuita de prueba no comercial. Su guía advierte que las plantillas son orientación y no asesoría legal. La modalidad no exclusiva mantiene el control del productor sobre el beat y puede generar ingresos recurrentes; la exclusiva aumenta el precio porque limita futuras licencias del instrumental, aunque deben preservarse y documentarse los derechos de compradores anteriores [18].
+
+TuneCore explica la separación entre dos activos: la grabación sonora o master y la composición subyacente. Sus rangos orientativos para el mercado de plataformas sitúan licencias no exclusivas alrededor de USD 30–150 y exclusivas alrededor de USD 300–1.000 o más, pero deben tratarse como benchmarks de plataformas, no como precios recomendados para Duck ni como equivalentes directos al mercado brasileño [19].
+
+La implementación de Duck Hub debe modelar por licencia: territorio, plazo, medios, número de streams o copias, número de videoclips, stems incluidos, atribución, porcentaje de composición, derechos sobre el master, Content ID, sincronización, posibilidad de sublicencia, tratamiento de compradores anteriores, política de reembolso y firma/aceptación. No debe generarse un contrato final ni liberarse un archivo de alta calidad cuando falte la cadena de titularidad o existan samples/loops sin licencia verificable.
+
+[17]: https://help.airbit.com/hc/en-us/articles/24166157589657-Licensing-Overview "Airbit — Licensing Overview"
+[18]: https://blog.beatstars.com/posts/understanding-music-licenses-in-beatstars-studio "BeatStars — Music Licenses in Studio"
+[19]: https://www.tunecore.com/guides/beat-licensing-101 "TuneCore — Beat Licensing 101"
+
+## 14. Servicios de producción y automatización: benchmark operativo
+
+SoundBetter organiza la oferta alrededor de productores, beat makers, mezcla, mastering, composición, vocalistas e instrumentistas, y muestra un flujo de proyecto basado en briefing, propuestas, contratación, financiación y liberación del pago al completar el trabajo [20]. Su bolsa de trabajos contiene solicitudes de producción de canciones, mezcla, mastering, instrumentales, álbumes y colaboraciones, lo que sirve como señal cualitativa de que los paquetes de Duck deben ser comprensibles por entregable y no solo por “horas de estudio” [21].
+
+Fiverr agrupa música y audio en producción, composición, beat making, mezcla/mastering, edición, afinación vocal, jingles, canciones personalizadas, sonido para anuncios, remix, diseño sonoro, samples y plugins. También recomienda que el cliente defina briefing, deadline, presupuesto, materiales de entrada y entregables antes de ordenar [22]. No se deben copiar sus precios ni asumir que la presencia de una categoría equivale a demanda local; sí puede reutilizarse la taxonomía para estructurar el catálogo de Duck.
+
+La conclusión accionable es una escalera de paquetes: diagnóstico/briefing; beat o instrumental con licencia; producción de canción; mezcla y master; paquete de lanzamiento con stems y assets; y retainer mensual con capacidad reservada. Duck Hub debe convertir cada paquete en una plantilla de proyecto con checklist de archivos de entrada, alcance, número de revisiones, fecha objetivo, entregables, derechos, estado de pago y criterio de aceptación. Las automatizaciones de mayor valor son la creación idempotente del proyecto tras propuesta aceptada, recordatorios de material faltante, registro de revisión, protección de archivos, notificación solo después de pago confirmado y liberación controlada tras aceptación.
+
+[20]: https://soundbetter.com/ "SoundBetter — categorías y flujo de contratación"
+[21]: https://soundbetter.com/jobs "SoundBetter — bolsa de trabajos de producción musical"
+[22]: https://www.fiverr.com/categories/music-audio "Fiverr — categorías y preparación de proyectos de música y audio"
+
+## 15. Benchmarks observables y límites de comparabilidad
+
+Los benchmarks públicos no constituyen una tarifa oficial para Recife. En un perfil brasileño de SoundBetter, un proveedor publica USD 250 para arreglo y mezcla, USD 550 para producción completa con mezcla y master, USD 150 para mezcla, USD 30 para master y un plazo de siete días hábiles para la primera versión [23]. Otro perfil de SoundBetter publica USD 400 por mezcla, USD 70 por master, USD 350 por mezcla y master, cuatro a seis días de entrega y tres revisiones [24]. Estos datos son ofertas individuales, dependen de reputación, género, alcance y plataforma, y no deben convertirse automáticamente a BRL ni copiarse sin validar costes, impuestos y capacidad de Duck.
+
+La página de categoría de Fiverr muestra más de 6.300 resultados en mezcla/mastering y precios de entrada observables entre USD 10 y USD 135 en varios anuncios, con entregas de aproximadamente uno a tres días en algunos casos [25]. La dispersión revela un mercado estratificado, no un precio de equilibrio: las ofertas de entrada suelen tener límites de stems, duración, revisiones o profundidad de servicio que no son comparables con producción completa. El dato de volumen de resultados se interpreta como disponibilidad de oferta en la plataforma, no como demanda pagadora de Recife.
+
+Un artículo comercial de una agencia de producción publica rangos de USD 500–1.500 por single de servicio completo, USD 1.800–4.000 por EP de cuatro canciones, USD 3.500–8.000 por álbum de ocho canciones y USD 300–800 por instrumental preparado para sincronización [26]. Al provenir de un proveedor que vende esos servicios, su evidencia tiene sesgo comercial y debe usarse como benchmark de alcance y empaquetado, no como estudio independiente de mercado. Aun así, refuerza que el paquete completo debe especificar composición, producción, mezcla, master, stems/ADM, revisiones, plazos, splits, metadatos y derechos.
+
+Para Duck, la decisión correcta es probar tres bandas en BRL mediante ventas reales: una entrada limitada por alcance, una producción intermedia y un paquete completo con mayor acompañamiento. Cada banda debe registrar horas, costes directos, revisiones, reembolsos, conversión y margen. Solo después de diez o más propuestas comparables debería ajustarse el precio; los benchmarks en USD sirven para formular hipótesis, no para garantizar rentabilidad.
+
+[23]: https://www.soundbetter.com/profiles/645030-meucci "SoundBetter — perfil brasileño Meucci"
+[24]: https://www.soundbetter.com/profiles/534510-audiob "SoundBetter — perfil AudioB"
+[25]: https://www.fiverr.com/categories/music-audio/mixing-mastering "Fiverr — categoría Mixing & Mastering"
+[26]: https://audiomixingmastering.com/blog/music-production-agency-2025-what-it-does-costs-how-to-pick-one "Audio Mixing Mastering — rangos publicados por proveedor"
+
+## 16. Evidencia de demanda versus oferta
+
+La evidencia de demanda sectorial debe separarse de los listados de proveedores. ABMI reportó, en una investigación basada en datos de plataformas y entrevistas con 60 empresas del ecosistema independiente, que el 53,5 % de los artistas que pasaron por el Top 200 de Spotify en su muestra eran independientes y que el 50 % de la facturación de las empresas investigadas procedía de plataformas digitales [27]. Es una evidencia histórica de participación y digitalización del segmento independiente, no una medición actual de pedidos de mezcla de Duck ni una garantía de conversión.
+
+La Pro-Música Brasil reportó para 2025 R$ 3,958 mil millones de facturación fonográfica, R$ 3,4 mil millones de ingresos digitales y una expansión de 14,1 %. El informe también señala aumento de derechos conexos y que las inversiones de las productoras fonográficas incluyen descubrimiento, desarrollo, producción, marketing y distribución [28]. Esto respalda demanda estructural para obras, producción y administración de derechos, pero no prueba por sí solo que un artista de Recife pagará a Duck.
+
+El U.S. Commercial Service, en una nota de inteligencia comercial de noviembre de 2025, describe un sector brasileño fragmentado con aproximadamente 19.530 empresas registradas, 88 % microempresas y casi la mitad como empresas unipersonales. La misma fuente identifica oportunidades para soluciones de software, gestión de derechos, monetización, micropagos, analytics y distribución cloud, y señala que el mercado grabado está impulsado por streaming [29]. Por ser una fuente de promoción comercial y no un censo de clientes de Duck, se usa como señal de estructura y necesidades, no como estimación de TAM/SAM/SOM.
+
+La conclusión accionable por tipo de servicio es: para **producción y mezcla**, validar la demanda mediante briefs y propuestas pagadas de artistas independientes; para **beats y licencias**, medir descargas de preview, solicitudes de stems, conversión por tier y conflictos de derechos; para **administración**, vender paquetes de metadata, split sheets y entregas porque el crecimiento digital aumenta la necesidad de trazabilidad; y para **software**, no vender a terceros hasta que Duck Hub registre uso interno, tiempos ahorrados y errores evitados. Los marketplaces aportan evidencia de oferta y formatos, mientras que ABMI, Pro-Música y la nota de ITA aportan señales de estructura y demanda sectorial; ninguno sustituye un experimento comercial local.
+
+[27]: https://abmi.com.br/artistas-independentes-sao-53-nas-paradas-de-sucesso-do-streaming-revela-pesquisa-da-abmi/ "ABMI — Pesquisa do Mercado Brasileiro da Música Independente"
+[28]: https://pro-musicabr.org.br/2026/03/18/mercado-fonografico-brasileiro-cresceu-14-em-2025-e-faturou-r-4-bilhoes/ "Pro-Música Brasil — mercado fonográfico 2025"
+[29]: https://www.trade.gov/market-intelligence/brazil-media-and-entertainment "U.S. Commercial Service — Brazil Media and Entertainment"
