@@ -22,6 +22,7 @@ import { notifyOwner } from "./_core/notification";
 import { storeContractPdf } from "./contracts";
 import { contractEffect, notificationEffect } from "../shared/paymentEffects";
 import { isProductionPaymentReady, resolvePaymentProvider, type PaymentProviderName } from "../shared/paymentProvider";
+import { planAutomationActions, type DuckAutomationEventType } from "../shared/automation";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -120,8 +121,16 @@ export async function createClient(input: typeof clients.$inferInsert) {
   if (!db) return undefined;
   const result = await db.insert(clients).values(input);
   const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
-  if (id) await recordActivity({ type: "client.created", title: "Novo cliente cadastrado", detail: input.name, entityType: "client", entityId: id });
+  if (id) { await recordActivity({ type: "client.created", title: "Novo cliente cadastrado", detail: input.name, entityType: "client", entityId: id }); await executeAutomationEvent({ type: "lead.created", entityType: "client", entityId: id, actorId: undefined }); }
   return id;
+}
+
+export async function updateClientNotes(input: { clientId: number; notes: string }) {
+  const db = await getDb();
+  if (!db) return undefined;
+  await db.update(clients).set({ notes: input.notes }).where(eq(clients.id, input.clientId));
+  await recordActivity({ type: "client.notes.updated", title: "Notas do cliente atualizadas", detail: input.notes.slice(0, 180), entityType: "client", entityId: input.clientId });
+  return { clientId: input.clientId, notes: input.notes };
 }
 
 export async function listProjects(clientId?: number) {
@@ -130,12 +139,20 @@ export async function listProjects(clientId?: number) {
   return db.select().from(projects).where(clientId ? eq(projects.clientId, clientId) : undefined).orderBy(desc(projects.updatedAt));
 }
 
+export async function updateProjectSchedule(input: { projectId: number; status?: "discovery" | "in_progress" | "review" | "delivered"; dueDate?: Date | null }) {
+  const db = await getDb();
+  if (!db) return undefined;
+  await db.update(projects).set({ ...(input.status ? { status: input.status } : {}), ...(input.dueDate !== undefined ? { dueDate: input.dueDate } : {}) }).where(eq(projects.id, input.projectId));
+  await recordActivity({ type: "project.schedule.updated", title: "Prazo do projeto atualizado", detail: `Projeto #${input.projectId}`, entityType: "project", entityId: input.projectId });
+  return { projectId: input.projectId, status: input.status, dueDate: input.dueDate };
+}
+
 export async function createProject(input: typeof projects.$inferInsert) {
   const db = await getDb();
   if (!db) return undefined;
   const result = await db.insert(projects).values(input);
   const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
-  if (id) await recordActivity({ type: "project.created", title: "Novo projeto criado", detail: input.title, entityType: "project", entityId: id });
+  if (id) { await recordActivity({ type: "project.created", title: "Novo projeto criado", detail: input.title, entityType: "project", entityId: id }); await executeAutomationEvent({ type: "project.created", entityType: "project", entityId: id, actorId: undefined }); }
   return id;
 }
 
@@ -234,8 +251,15 @@ export async function createRevision(input: typeof revisions.$inferInsert) {
   const result = await db.insert(revisions).values(input);
   await db.update(projects).set({ revisionCount: count + 1, status: "review" }).where(eq(projects.id, input.projectId));
   const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
-  if (id) await recordActivity({ type: "revision.requested", title: "Nova revisão solicitada", detail: input.summary ?? "Revisão do projeto", entityType: "revision", entityId: id, actorId: input.requestedBy });
+  if (id) { await recordActivity({ type: "revision.requested", title: "Nova revisão solicitada", detail: input.summary ?? "Revisão do projeto", entityType: "revision", entityId: id, actorId: input.requestedBy }); await executeAutomationEvent({ type: "revision.comment.created", entityType: "revision", entityId: id, actorId: input.requestedBy }); }
   return id;
+}
+
+export async function listResourceMetadata() {
+  const db = await getDb();
+  if (isTestWithoutDatabase()) return isolatedFileMetadata.map(({ id, fileName, projectId, clientId, version, visibility, mimeType, sizeBytes, createdAt }) => ({ id, fileName, projectId, clientId, version, visibility, mimeType, sizeBytes, createdAt }));
+  if (!db) return [];
+  return db.select({ id: files.id, fileName: files.fileName, projectId: files.projectId, clientId: files.clientId, version: files.version, visibility: files.visibility, mimeType: files.mimeType, sizeBytes: files.sizeBytes, createdAt: files.createdAt }).from(files).orderBy(desc(files.createdAt)).limit(100);
 }
 
 export async function getFileMetadata(fileId: number) {
@@ -313,7 +337,9 @@ export async function addRevisionComment(input: typeof revisionComments.$inferIn
   const revision = await db.select().from(revisions).where(eq(revisions.id, input.revisionId)).limit(1);
   if (!revision[0]) throw new Error("Revisão não encontrada");
   const result = await db.insert(revisionComments).values(input);
-  return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  if (id) await executeAutomationEvent({ type: "revision.comment.created", entityType: "revisionComment", entityId: id, actorId: input.authorId });
+  return id;
 }
 
 export async function listRevisionComments(revisionId: number) {
@@ -380,6 +406,7 @@ export async function transitionOrder(orderId: number, nextStatus: "paid" | "fai
   await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, orderId));
 
   if (current.status === "pending" && nextStatus === "paid") {
+    await executeAutomationEvent({ type: "order.paid", entityType: "order", entityId: orderId, actorId: undefined, approvalGranted: true });
     const item = await db
       .select({ beatTitle: beats.title, licenseType: orderItems.licenseType, buyerEmail: orders.buyerEmail, totalCents: orders.totalCents, provider: orders.provider, createdAt: orders.createdAt })
       .from(orderItems)
@@ -433,7 +460,7 @@ export async function createDeliverable(input: typeof deliverables.$inferInsert)
   if (!project) throw new Error("Projeto não encontrado");
   const result = await db.insert(deliverables).values(input);
   const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
-  if (id) await recordActivity({ type: "deliverable.created", title: "Novo entregável criado", detail: input.title, entityType: "project", entityId: input.projectId });
+  if (id) { await recordActivity({ type: "deliverable.created", title: "Novo entregável criado", detail: input.title, entityType: "project", entityId: input.projectId }); await executeAutomationEvent({ type: "revision.approved", entityType: "deliverable", entityId: id, actorId: undefined, approvalGranted: false }); }
   return id;
 }
 
@@ -445,6 +472,7 @@ export async function updateDeliverableStatus(input: { deliverableId: number; st
   if (!current) throw new Error("Entregável não encontrado");
   await db.update(deliverables).set({ status: input.status, dueDate: input.dueDate }).where(eq(deliverables.id, input.deliverableId));
   await recordActivity({ type: "deliverable.updated", title: "Estado do entregável atualizado", detail: `${current.title}: ${input.status}`, entityType: "project", entityId: current.projectId });
+  await executeAutomationEvent({ type: input.status === "approved" ? "revision.approved" : "project.created", entityType: "deliverable", entityId: input.deliverableId, actorId: undefined, approvalGranted: input.status === "approved" });
   return { id: input.deliverableId, projectId: current.projectId, status: input.status, dueDate: input.dueDate };
 }
 
@@ -454,6 +482,14 @@ export async function recordActivity(input: typeof activity.$inferInsert) {
   if (!db) return undefined;
   const result = await db.insert(activity).values(input);
   return result[0]?.insertId ? Number(result[0].insertId) : undefined;
+}
+
+export async function executeAutomationEvent(input: { type: DuckAutomationEventType; entityType: string; entityId: number; actorId?: number; attempts?: number; approvalGranted?: boolean }) {
+  const actions = planAutomationActions(input.type, input.attempts ?? 0, input.approvalGranted ?? false);
+  for (const action of actions) {
+    await recordActivity({ type: `automation.${action}`, title: `Automação: ${action}`, detail: JSON.stringify({ eventType: input.type, attempts: input.attempts ?? 0, approvalGranted: input.approvalGranted ?? false }), entityType: input.entityType, entityId: input.entityId, actorId: input.actorId });
+  }
+  return { type: input.type, actions, exception: actions.includes("open_exception") };
 }
 
 

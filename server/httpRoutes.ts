@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { Express, Request, Response } from "express";
-import { createFileRecord, getClientByUserId, getFileByStorageKey, getNextFileVersion, getProject, recordPaymentEvent, transitionOrder } from "./db";
+import { createFileRecord, executeAutomationEvent, getClientByUserId, getFileByStorageKey, getNextFileVersion, getProject, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
 
@@ -46,6 +46,7 @@ export function registerHttpRoutes(app: Express) {
       const version = await getNextFileVersion({ fileName, projectId: normalizedProjectId, clientId: normalizedClientId });
       const stored = await storagePut(`duck/files/${user.id}/${sha256}-v${version}-${fileName}`, buffer, mimeType);
       const id = await createFileRecord({ fileName, mimeType, sizeBytes: buffer.byteLength, sha256, storageKey: stored.key, uploadedBy: user.id, projectId: normalizedProjectId, clientId: normalizedClientId, visibility: requestedVisibility, version });
+      if (id) await executeAutomationEvent({ type: "file.received", entityType: "file", entityId: id, actorId: user.id });
       return res.status(201).json({ id, key: stored.key, url: stored.url, sha256, version });
     } catch (error) {
       console.error("[Files] upload failed", error);

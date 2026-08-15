@@ -31,6 +31,10 @@ import {
   saveChatMessage,
   paymentProviderStatus,
   getRevisionAccessContext,
+  listResourceMetadata,
+  executeAutomationEvent,
+  updateClientNotes,
+  updateProjectSchedule,
 } from "./db";
 import { clients, projects, revisions } from "../drizzle/schema";
 import { getAutomationBudget, planAutomationActions, type DuckAutomationEventType } from "../shared/automation";
@@ -75,6 +79,7 @@ export const appRouter = router({
       notes: z.string().max(5000).optional(),
       healthScore: z.number().int().min(0).max(100).default(80),
     })).mutation(({ input }) => createClient(input)),
+    updateNotes: roleProcedure.input(z.object({ clientId: z.number().int().positive(), notes: z.string().max(5000) })).mutation(({ input }) => updateClientNotes(input)),
   }),
   projects: router({
     list: roleProcedure.input(z.object({ clientId: z.number().int().positive().optional() }).optional()).query(({ input }) => listProjects(input?.clientId)),
@@ -83,8 +88,9 @@ export const appRouter = router({
       title: z.string().min(2).max(180),
       description: z.string().max(5000).optional(),
       revisionLimit: z.number().int().min(0).max(20).default(2),
-      dueDate: z.date().optional(),
+      dueDate: z.coerce.date().optional(),
     })).mutation(({ input }) => createProject(input)),
+    updateSchedule: roleProcedure.input(z.object({ projectId: z.number().int().positive(), status: z.enum(["discovery", "in_progress", "review", "delivered"]).optional(), dueDate: z.coerce.date().nullable().optional() })).mutation(({ input }) => updateProjectSchedule(input)),
     requestRevision: roleProcedure.input(z.object({
       projectId: z.number().int().positive(),
       fileId: z.number().int().positive().optional(),
@@ -117,11 +123,15 @@ export const appRouter = router({
     publicList: publicProcedure.query(() => listBeats()),
     adminList: roleProcedure.query(() => listBeats()),
   }),
+  resources: router({
+    list: roleProcedure.query(() => listResourceMetadata()),
+  }),
   automation: router({
     plan: producerProcedure.input(z.object({ type: z.enum(["lead.created", "project.created", "file.received", "revision.comment.created", "revision.approved", "order.created", "order.paid", "download.requested", "project.overdue"]), attempts: z.number().int().min(0).max(20).default(0), approvalGranted: z.boolean().default(false) })).query(({ input }) => {
       const type = input.type as DuckAutomationEventType;
       return { type, budget: getAutomationBudget(type), actions: planAutomationActions(type, input.attempts, input.approvalGranted) };
     }),
+    execute: producerProcedure.input(z.object({ type: z.enum(["lead.created", "project.created", "file.received", "revision.comment.created", "revision.approved", "order.created", "order.paid", "download.requested", "project.overdue"]), entityType: z.string().min(1).max(64), entityId: z.number().int().positive(), attempts: z.number().int().min(0).max(20).default(0), approvalGranted: z.boolean().default(false) })).mutation(({ ctx, input }) => executeAutomationEvent({ ...input, type: input.type as DuckAutomationEventType, actorId: ctx.user.id })),
   }),
   chat: router({
     history: roleProcedure.query(({ ctx }) => recentChatMessages(ctx.user.id)),

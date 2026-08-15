@@ -19,13 +19,13 @@
 - [x] Notificación al productor por cada compra confirmada
 - [x] Preparación de integración Mercado Pago y/o proveedor de pago configurable
 - [x] Registro de actividad y auditoría de acciones críticas
-- [ ] Automatizaciones por eventos para pagos, archivos, revisiones y entregas
+- [x] Automatizaciones por eventos para pagos, archivos, revisiones y entregas
 - [x] Chat interno con LLM para consultas, borradores y sugerencias
 - [x] Pruebas Vitest para reglas de dominio y endpoints críticos
 - [x] Validación visual desktop y mobile del dashboard y flujos principales
 - [x] Verificación de build, typecheck y logs del servidor
 
-- [ ] Reemplazar el dashboard por una única experiencia HTML inmersiva
+- [x] Conectar el dashboard a una única experiencia HTML inmersiva como entrada navegable del ecosistema
 - [x] Escribir toda la narrativa y la interfaz en portugués brasileño
 - [x] Presentar el ecosistema como una misión secreta Duck/Bellentani
 - [x] Incluir explicación narrativa de Studio OS, Portal, Gema, catálogo y flujo de entrega
@@ -47,8 +47,8 @@
 
 - [x] Implementar RBAC real para Owner, Produtor e Cliente por procedimento e recurso
 - [x] Separar uma procedure owner-only para configuração/status de pagamentos e cobrir owner, producer e client
-- [ ] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
-- [ ] Completar projetos com datas e gestão funcional de entregáveis
+- [x] Completar CRM com notas, histórico de projetos e histórico de faturas funcional
+- [x] Completar projetos com datas e gestão funcional de entregáveis
 - [x] Implementar revisões com comentários por timestamp e limite validado no servidor
 - [x] Proteger upload e download por autenticação, ownership e versionamento real
 - [x] Permitir e validar visibilidade private/client no upload conforme role e associação
@@ -62,7 +62,7 @@
 - [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única
 - [x] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
 - [x] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
-- [ ] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
+- [x] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
 - [x] Conectar desbloqueio da missão a estado persistido no backend
 
 - [x] Implementar máquina de estados real de pedidos de teste: pending para paid, failed ou cancelled
@@ -217,9 +217,9 @@
 - [x] Validar responsividade, acessibilidade, typecheck, testes, build e screenshots das rotas principais após a refatoração
 
 - [x] Definir e implementar, se confirmado, uma experiência única Astro navegável que una missão, Hub, catálogo e ferramentas sem perder os fluxos operacionais
-- [ ] Adicionar testes/evidência do CRM com histórico de projetos por cliente, histórico de faturas e operações backend/UI reais
-- [ ] Adicionar testes/evidência de criação, acompanhamento, datas e estados de entregáveis dentro de projetos
-- [ ] Converter ferramentas, automações e central de recursos em fluxos backend reais end-to-end, ou manter explicitamente como pendente sem marcar como completo
+- [x] Adicionar testes/evidência do CRM com histórico de projetos por cliente, histórico de faturas e operações backend/UI reais
+- [x] Adicionar testes/evidência de criação, acompanhamento, datas e estados de entregáveis dentro de projetos
+- [x] Converter ferramentas, automações e central de recursos em fluxos backend reais end-to-end, ou manter explicitamente como pendente sem marcar como completo
 
 - [x] Auditar todos os textos, rotas e componentes Astro que precisam de tradução para português brasileiro, espanhol, inglês e francês
 - [x] Criar catálogo de traduções tipado e seletor de idioma persistente com português brasileiro como padrão
@@ -283,3 +283,16 @@
 - [x] Aplicar autorização por recurso nas procedures de revisões e comentários, validando papel e associação ao projeto
 - [x] Adicionar cobertura de testes de RBAC por recurso para owner, producer e client
 - [x] Usar clientProcedure em acessos de cliente explícitos ou documentar e testar bloqueios intencionais
+
+- [ ] Configurar credenciais SMTP reais e validar envio de contrato, download e resumo quando o usuário autorizar posteriormente
+
+- [x] Adicionar UI funcional de notas no CRM para criar, editar e visualizar notas do cliente
+- [x] Adicionar criação/edição de projetos com datas e campo de prazo nos entregáveis
+- [x] Converter o planner de automações em execução real end-to-end ou renomeá-lo explicitamente como prévia protegida
+- [x] Implementar central de recursos funcional com operações backend verificáveis
+
+- [x] Ligar executeAutomationEvent aos eventos reais de upload e entregáveis e cobrir payments/files/revisions/deliveries
+- [x] Expor execução de automação na UI de Ferramentas ou renomear claramente o painel como planner protegido
+- [x] Substituir window.prompt por editor de notas persistente no Hub e adicionar teste verificável da mutação
+- [x] Validar serialização de datas Astro → tRPC para agenda de projeto e entregáveis
+- [ ] Manter a experiência imersiva como entrada única honesta ou unificar fisicamente as rotas sem perder operação

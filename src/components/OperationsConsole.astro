@@ -1,0 +1,135 @@
+<section class="ops-console glass" aria-labelledby="ops-title">
+  <div class="ops-head">
+    <div>
+      <span class="eyebrow">DUCK STUDIO / OPERAÇÃO</span>
+      <h2 id="ops-title">CRM e projetos no mesmo pulso.</h2>
+      <p>Consulte clientes, histórico e entregáveis sem sair do Hub.</p>
+    </div>
+    <button class="secondary focus-ring" id="ops-refresh" type="button">Sincronizar ↻</button>
+  </div>
+
+  <div class="ops-grid">
+    <article class="ops-card">
+      <div class="ops-card-head"><div><span class="eyebrow">01 / CRM</span><h3>Clientes ativos</h3></div><span class="ops-count" id="clients-count">—</span></div>
+      <div class="ops-list" id="clients-list"><span class="ops-muted">Aguardando sessão autenticada…</span></div>
+      <form class="ops-form" id="client-form">
+        <input name="name" required minlength="2" maxlength="160" placeholder="Nome do cliente" aria-label="Nome do cliente" />
+        <input name="email" required type="email" placeholder="email@cliente.com" aria-label="Email do cliente" />
+        <textarea name="notes" maxlength="5000" placeholder="Notas do cliente" aria-label="Notas do cliente"></textarea>
+        <button class="primary" type="submit">Adicionar cliente</button>
+      </form>
+    </article>
+
+    <article class="ops-card">
+      <div class="ops-card-head"><div><span class="eyebrow">02 / PROJETOS</span><h3>Projetos em curso</h3></div><span class="ops-count" id="projects-count">—</span></div>
+      <div class="ops-list" id="projects-list"><span class="ops-muted">Carregando fila operacional…</span></div>
+      <form class="ops-form" id="deliverable-form">
+        <input name="projectId" required type="number" min="1" placeholder="ID do projeto" aria-label="ID do projeto" />
+        <input name="title" required minlength="2" maxlength="180" placeholder="Novo entregável" aria-label="Título do entregável" />
+        <input name="dueDate" type="date" aria-label="Prazo do entregável" />
+        <button class="primary" type="submit">Criar entregável</button>
+      </form>
+    </article>
+  </div>
+  <form class="schedule-form" id="schedule-form"><input name="projectId" required type="number" min="1" placeholder="ID do projeto" aria-label="ID do projeto para agenda" /><input name="dueDate" type="date" aria-label="Prazo do projeto" /><select name="status" aria-label="Estado do projeto"><option value="discovery">Discovery</option><option value="in_progress">Em progresso</option><option value="review">Revisão</option><option value="delivered">Entregue</option></select><button class="secondary" type="submit">Atualizar agenda</button></form>
+  <p class="ops-status" id="ops-status" role="status" aria-live="polite"></p>
+  <div class="history-drawer" id="history-drawer" hidden>
+    <div class="ops-card-head"><div><span class="eyebrow">03 / HISTÓRICO</span><h3 id="history-title">Histórico do cliente</h3></div><button class="secondary" id="history-close" type="button">Fechar</button></div>
+    <div class="notes-editor" id="notes-editor" hidden><textarea id="notes-input" maxlength="5000" placeholder="Notas internas do cliente"></textarea><button class="primary" id="notes-save" type="button">Salvar notas</button></div><div class="history-columns"><div><b>Projetos</b><div id="history-projects" class="ops-list"></div></div><div><b>Faturas</b><div id="history-orders" class="ops-list"></div></div><div><b>Atividade</b><div id="history-activity" class="ops-list"></div></div></div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector('.ops-console');
+  if (root) {
+    const $ = (selector) => root.querySelector(selector);
+    const status = (message, error = false) => { const node = $('#ops-status'); if (node) { node.textContent = message; node.dataset.error = error ? 'true' : 'false'; } };
+    const call = async (path, input, method = 'GET') => {
+      const options = { method, credentials: 'include', headers: { 'content-type': 'application/json' } };
+      const url = method === 'GET' ? `/api/trpc/${path}?input=${encodeURIComponent(JSON.stringify({ json: input ?? {} }))}` : `/api/trpc/${path}`;
+      if (method !== 'GET') options.body = JSON.stringify({ json: input ?? {} });
+      const response = await fetch(url, options);
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || payload.error) throw new Error(payload.error?.json?.message || payload.error?.message || 'Falha ao sincronizar o Hub.');
+      return payload.result?.data?.json ?? payload.result?.data;
+    };
+    const line = (title, detail, action) => {
+      const item = document.createElement('div'); item.className = 'ops-line';
+      const copy = document.createElement('div'); const strong = document.createElement('strong'); strong.textContent = title; const small = document.createElement('small'); small.textContent = detail || 'Sem detalhes'; copy.append(strong, small); item.append(copy);
+      if (action) { const button = document.createElement('button'); button.className = 'text-action'; button.type = 'button'; button.textContent = 'Histórico →'; button.addEventListener('click', action); item.append(button); }
+      return item;
+    };
+    const render = (selector, values, empty) => { const node = $(selector); if (!node) return; node.replaceChildren(); if (!values?.length) { const emptyNode = document.createElement('span'); emptyNode.className = 'ops-muted'; emptyNode.textContent = empty; node.append(emptyNode); return; } values.forEach(value => node.append(value)); };
+    const projectLine = async project => {
+      const item = line(project.title, `${project.status} · ${project.dueDate ? new Date(project.dueDate).toLocaleDateString() : 'sem prazo'}`);
+      try {
+        const deliverables = await call('projects.deliverables', { projectId: project.id });
+        if (deliverables?.length) {
+          const list = document.createElement('div'); list.className = 'deliverable-list';
+          deliverables.forEach(deliverable => {
+            const row = document.createElement('label'); row.className = 'deliverable-row';
+            const text = document.createElement('span'); text.textContent = `${deliverable.title} · ${deliverable.dueDate ? new Date(deliverable.dueDate).toLocaleDateString() : 'sem prazo'}`;
+            const select = document.createElement('select'); ['pending', 'in_progress', 'review', 'approved'].forEach(optionValue => { const option = document.createElement('option'); option.value = optionValue; option.textContent = optionValue; option.selected = optionValue === deliverable.status; select.append(option); });
+            select.addEventListener('change', async () => { try { await call('projects.updateDeliverable', { deliverableId: deliverable.id, status: select.value }, 'POST'); status('Estado do entregável atualizado.'); } catch (error) { status(error.message, true); } });
+            row.append(text, select); list.append(row);
+          });
+          item.append(list);
+        }
+      } catch { /* a project row remains visible even when deliverable access is denied */ }
+      return item;
+    };
+    const load = async () => {
+      status('Sincronizando dados operacionais…');
+      try {
+        const [clients, projects] = await Promise.all([call('clients.list'), call('projects.list', {})]);
+        $('#clients-count').textContent = String(clients?.length ?? 0).padStart(2, '0');
+        $('#projects-count').textContent = String(projects?.length ?? 0).padStart(2, '0');
+        render('#clients-list', (clients || []).map(client => line(client.name, `${client.email} · ${client.notes || 'sem notas'}`, () => showHistory(client, true))), 'Nenhum cliente cadastrado.');
+        render('#projects-list', await Promise.all((projects || []).map(projectLine)), 'Nenhum projeto cadastrado.');
+        status('Hub sincronizado.');
+      } catch (error) { render('#clients-list', [], 'Faça login para carregar os clientes.'); render('#projects-list', [], 'Faça login para carregar os projetos.'); status(error.message, true); }
+    };
+    let notesClient = null;
+    const editNotes = client => { notesClient = client; const editor = $('#notes-editor'); const input = $('#notes-input'); if (input) input.value = client.notes || ''; if (editor) editor.hidden = false; input?.focus(); };
+    $('#notes-save')?.addEventListener('click', async () => { if (!notesClient) return; try { await call('clients.updateNotes', { clientId: notesClient.id, notes: $('#notes-input')?.value || '' }, 'POST'); $('#notes-editor').hidden = true; await load(); status('Notas do cliente atualizadas.'); } catch (error) { status(error.message, true); } });
+    const showHistory = async (client, withEdit = false) => {
+      try {
+        const history = await call('clients.history', { clientId: client.id });
+        $('#history-title').textContent = `Histórico · ${client.name}${withEdit ? ' · notas editáveis' : ''}`;
+        const projectValues = (history.projects || []).map(item => line(item.title, item.status));
+        const orderValues = (history.orders || []).map(item => line(`Pedido #${item.id}`, `${item.status} · ${item.totalCents ? `R$ ${(item.totalCents / 100).toFixed(2)}` : 'sem valor'}`));
+        const activityValues = (history.activity || []).map(item => line(item.title, item.detail || 'atividade registrada'));
+        render('#history-projects', projectValues, 'Sem projetos.'); render('#history-orders', orderValues, 'Sem faturas.'); render('#history-activity', activityValues, 'Sem atividade.'); $('#history-drawer').hidden = false; if (withEdit) editNotes(client);
+      } catch (error) { status(error.message, true); }
+    };
+    $('#history-close')?.addEventListener('click', () => { $('#history-drawer').hidden = true; });
+    $('#ops-refresh')?.addEventListener('click', load);
+    $('#client-form')?.addEventListener('submit', async event => { event.preventDefault(); const form = new FormData(event.currentTarget); try { await call('clients.create', { name: form.get('name'), email: form.get('email'), notes: form.get('notes') || undefined }, 'POST'); event.currentTarget.reset(); await load(); status('Cliente criado e adicionado ao CRM.'); } catch (error) { status(error.message, true); } });
+    $('#deliverable-form')?.addEventListener('submit', async event => { event.preventDefault(); const form = new FormData(event.currentTarget); try { await call('projects.createDeliverable', { projectId: Number(form.get('projectId')), title: form.get('title'), dueDate: form.get('dueDate') ? new Date(`${form.get('dueDate')}T12:00:00`).toISOString() : undefined }, 'POST'); event.currentTarget.reset(); await load(); status('Entregável criado e associado ao projeto.'); } catch (error) { status(error.message, true); } });
+    $('#schedule-form')?.addEventListener('submit', async event => { event.preventDefault(); const form = new FormData(event.currentTarget); try { await call('projects.updateSchedule', { projectId: Number(form.get('projectId')), status: form.get('status'), dueDate: form.get('dueDate') ? new Date(`${form.get('dueDate')}T12:00:00`).toISOString() : null }, 'POST'); event.currentTarget.reset(); await load(); status('Agenda e estado do projeto atualizados.'); } catch (error) { status(error.message, true); } });
+    load();
+  }
+</script>
+
+<style>
+  .ops-console { margin-top:16px; padding:24px; border-radius:22px; }
+  .ops-head,.ops-card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; }
+  .ops-head h2 { margin:9px 0 8px; font-size:clamp(23px,3vw,34px); letter-spacing:-.05em; }
+  .ops-head p { margin:0; color:#71857a; font-size:13px; }
+  .ops-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:24px; }
+  .ops-card { padding:18px; border:1px solid rgba(255,255,255,.08); border-radius:16px; background:rgba(0,0,0,.16); }
+  .ops-card h3 { margin:8px 0 0; font-size:18px; letter-spacing:-.04em; }
+  .ops-count { color:#5ee4b1; font:18px 'DM Mono',monospace; }
+  .ops-list { display:grid; gap:0; min-height:60px; margin-top:18px; }
+  .ops-line { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 0; border-top:1px solid rgba(255,255,255,.07); }
+  .ops-line strong,.ops-line small { display:block; } .ops-line strong { font-size:12px; } .ops-line small { margin-top:4px; color:#74877e; font-size:10px; }
+  .deliverable-list { display:grid; gap:6px; margin:10px 0 0 0; padding-left:10px; border-left:1px solid rgba(94,228,177,.22); } .deliverable-row { display:flex; align-items:center; justify-content:space-between; gap:8px; color:#91a99c; font-size:10px; } .deliverable-row select { max-width:100px; border:1px solid rgba(255,255,255,.1); border-radius:6px; color:#9de7c5; background:#07150f; font-size:9px; }
+  .ops-muted { color:#71857a; font-size:11px; }
+  .text-action { border:0; color:#5ee4b1; background:none; cursor:pointer; font:10px 'DM Mono',monospace; }
+  .ops-form,.schedule-form { display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:7px; margin-top:18px; } .schedule-form { padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(0,0,0,.12); }
+  .ops-form input,.ops-form textarea,.schedule-form input,.schedule-form select { min-width:0; padding:11px 12px; border:1px solid rgba(255,255,255,.1); border-radius:9px; color:#dceae3; background:rgba(255,255,255,.04); outline:none; font-size:11px; } .ops-form input:focus { border-color:#5ee4b1; }
+  .ops-form .primary { border:0; cursor:pointer; padding:10px 12px; font-size:10px; }
+  .ops-status { min-height:18px; margin:17px 0 0; color:#5ee4b1; font:10px 'DM Mono',monospace; } .ops-status[data-error="true"] { color:#ff9b9b; }
+  .history-drawer { margin-top:16px; padding:18px; border:1px solid rgba(94,228,177,.2); border-radius:16px; background:rgba(52,211,153,.04); } .notes-editor { display:grid; grid-template-columns:1fr auto; gap:8px; margin-top:18px; } .notes-editor textarea { min-height:70px; padding:11px; border:1px solid rgba(255,255,255,.1); border-radius:9px; color:#dceae3; background:rgba(255,255,255,.04); resize:vertical; } .history-columns { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px; } .history-columns > div > b { color:#a8bab0; font-size:11px; }
+  @media (max-width:720px) { .ops-console { padding:17px; } .ops-head { flex-direction:column; } .ops-grid,.history-columns { grid-template-columns:1fr; } .ops-form,.schedule-form { grid-template-columns:1fr; } }
+</style>
