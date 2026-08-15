@@ -1,0 +1,59 @@
+client/src/App.tsx:6:import ErrorBoundary from "./components/ErrorBoundary";
+client/src/App.tsx:27:    <ErrorBoundary>
+client/src/App.tsx:34:    </ErrorBoundary>
+client/src/_core/hooks/useAuth.ts:3:import { TRPCClientError } from "@trpc/client";
+client/src/_core/hooks/useAuth.ts:25:    onSuccess: () => {
+client/src/_core/hooks/useAuth.ts:35:        error instanceof TRPCClientError &&
+client/src/_core/hooks/useAuth.ts:60:      loading: meQuery.isLoading || logoutMutation.isPending,
+client/src/_core/hooks/useAuth.ts:67:    meQuery.isLoading,
+client/src/_core/hooks/useAuth.ts:69:    logoutMutation.isPending,
+client/src/_core/hooks/useAuth.ts:74:    if (meQuery.isLoading || logoutMutation.isPending) return;
+client/src/_core/hooks/useAuth.ts:88:    logoutMutation.isPending,
+client/src/_core/hooks/useAuth.ts:89:    meQuery.isLoading,
+client/src/components/AIChatBox.tsx:33:  isLoading?: boolean;
+client/src/components/AIChatBox.tsx:69: * - Loading states
+client/src/components/AIChatBox.tsx:80: *     onSuccess: (response) => {
+client/src/components/AIChatBox.tsx:87: *     onError: (error) => {
+client/src/components/AIChatBox.tsx:103: *       isLoading={chatMutation.isPending}
+client/src/components/AIChatBox.tsx:116:  isLoading = false,
+client/src/components/AIChatBox.tsx:171:    if (!trimmedInput || isLoading) return;
+client/src/components/AIChatBox.tsx:215:                      disabled={isLoading}
+client/src/components/AIChatBox.tsx:232:                  isLastMessage && !isLoading && minHeightForLastMessage > 0;
+client/src/components/AIChatBox.tsx:283:              {isLoading && (
+client/src/components/AIChatBox.tsx:323:          disabled={!input.trim() || isLoading}
+client/src/components/AIChatBox.tsx:326:          {isLoading ? (
+client/src/components/ErrorBoundary.tsx:10:  hasError: boolean;
+client/src/components/ErrorBoundary.tsx:11:  error: Error | null;
+client/src/components/ErrorBoundary.tsx:14:class ErrorBoundary extends Component<Props, State> {
+client/src/components/ErrorBoundary.tsx:17:    this.state = { hasError: false, error: null };
+client/src/components/ErrorBoundary.tsx:20:  static getDerivedStateFromError(error: Error): State {
+client/src/components/ErrorBoundary.tsx:21:    return { hasError: true, error };
+client/src/components/ErrorBoundary.tsx:25:    if (this.state.hasError) {
+client/src/components/ErrorBoundary.tsx:62:export default ErrorBoundary;
+client/src/components/Map.tsx:106:      console.error("Failed to load Google Maps script");
+client/src/components/ui/carousel.tsx:37:    throw new Error("useCarousel must be used within a <Carousel />");
+client/src/components/ui/chart.tsx:29:    throw new Error("useChart must be used within a <ChartContainer />");
+client/src/components/ui/field.tsx:184:function FieldError({
+client/src/components/ui/field.tsx:235:  FieldError,
+client/src/components/ui/form.tsx:53:    throw new Error("useFormField should be used within <FormField>");
+client/src/components/ui/input-group.tsx:27:        // Error state.
+client/src/components/ui/sidebar.tsx:49:    throw new Error("useSidebar must be used within a SidebarProvider.");
+client/src/components/ui/spinner.tsx:9:      aria-label="Loading"
+client/src/contexts/ThemeContext.tsx:61:    throw new Error("useTheme must be used within ThemeProvider");
+client/src/main.tsx:4:import { httpBatchLink, TRPCClientError } from "@trpc/client";
+client/src/main.tsx:14:  if (!(error instanceof TRPCClientError)) return;
+client/src/main.tsx:28:    console.error("[API Query Error]", error);
+client/src/main.tsx:36:    console.error("[API Mutation Error]", error);
+client/src/pages/ComponentShowcase.tsx:194:  const [isChatLoading, setIsChatLoading] = useState(false);
+client/src/pages/ComponentShowcase.tsx:218:    setIsChatLoading(true);
+client/src/pages/ComponentShowcase.tsx:222:        content: `Esta é uma **resposta de demonstração**. Em um app real, você chamaria uma mutação tRPC aqui:\n\n\`\`\`typescript\nconst chatMutation = trpc.ai.chat.useMutation({\n  onSuccess: (response) => {\n    setChatMessages(prev => [...prev, {\n      role: "assistant",\n      content: response.choices[0].message.content\n    }]);\n  }\n});\n\nchatMutation.mutate({ messages: newMessages });\n\`\`\`\n\nSua mensagem foi: "${content}"`,
+client/src/pages/ComponentShowcase.tsx:225:      setIsChatLoading(false);
+client/src/pages/ComponentShowcase.tsx:895:                <TabsTrigger value="account">Account</TabsTrigger>
+client/src/pages/ComponentShowcase.tsx:897:                <TabsTrigger value="settings">Settings</TabsTrigger>
+client/src/pages/ComponentShowcase.tsx:951:                      Settings content goes here.
+client/src/pages/ComponentShowcase.tsx:1411:                    isLoading={isChatLoading}
+client/src/pages/Home.tsx:52:    onSuccess: data => setChatMessages(current => [...current, { role: "assistant", content: data.answer }]),
+client/src/pages/Home.tsx:53:    onError: error => toast.error(error.message || "Não foi possível consultar o assistente."),
+client/src/pages/Home.tsx:60:    if (!message || ask.isPending) return;
+client/src/pages/Home.tsx:107:      {chatOpen && <div className="fixed bottom-5 right-5 z-40 flex w-[min(420px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-emerald-800/70 bg-[#0c1512] shadow-2xl shadow-black/60"><div className="flex items-center justify-between border-b border-white/[.07] p-4"><div className="flex items-center gap-2"><Bot size={17} className="text-emerald-300" /><span className="font-medium">Duck Assistant</span></div><Button variant="ghost" size="icon" onClick={() => setChatOpen(false)}><X size={17} /></Button></div><div className="max-h-80 space-y-3 overflow-y-auto p-4">{chatMessages.length === 0 && <div className="rounded-xl bg-emerald-400/10 p-3 text-sm leading-6 text-emerald-100">Posso ajudar a resumir projetos, redigir mensagens ou transformar uma ideia de beat em uma descrição.</div>}{chatMessages.map((message, index) => <div key={index} className={`rounded-xl p-3 text-sm leading-6 ${message.role === "user" ? "ml-8 bg-white/[.06] text-slate-200" : "mr-4 bg-emerald-400/10 text-emerald-100"}`}>{message.content}</div>)}</div><div className="border-t border-white/[.07] p-3"><div className="flex gap-2"><Textarea value={chatInput} onChange={event => setChatInput(event.target.value)} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); submitChat(); } }} placeholder="Pergunte ao Duck Assistant…" className="min-h-11 resize-none border-white/10 bg-white/[.03]" /><Button size="icon" className="shrink-0 self-end bg-emerald-400 text-[#06120d] hover:bg-emerald-300" onClick={submitChat} disabled={ask.isPending}><ArrowUpRight size={17} /></Button></div></div></div>}
+client/src/pages/PublicCatalog.tsx:19:  return <div className="min-h-screen bg-[#070b0a] text-[#e8f3ed]"><div className="pointer-events-none fixed inset-0 opacity-40 [background-image:radial-gradient(circle_at_80%_20%,rgba(16,185,129,.16),transparent_26%)]" /><header className="relative flex items-center justify-between border-b border-white/[.07] px-5 py-5 md:px-12"><Link href="/" className="flex items-center gap-3 text-sm text-slate-300 hover:text-emerald-300"><ArrowLeft size={17} /> Duck Hub</Link><div className="flex items-center gap-2 text-sm text-slate-500"><ShoppingBag size={16} /> Loja de Beats</div></header><main className="relative mx-auto max-w-6xl px-5 py-14 md:px-12"><div className="max-w-2xl"><Badge className="border-emerald-400/20 bg-emerald-400/10 text-emerald-300">DUCK / CATÁLOGO</Badge><h1 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">Instrumentais para desbloquear sua próxima <span className="text-emerald-300">versão.</span></h1><p className="mt-5 max-w-xl text-base leading-7 text-slate-400">Ouça previews com watermark, escolha uma licença e receba seu contrato e arquivos com entrega segura.</p></div><div className="mt-10 max-w-md"><label className="text-xs uppercase tracking-[.18em] text-slate-500">Email para o pedido de teste</label><Input value={buyerEmail} onChange={event => setBuyerEmail(event.target.value)} type="email" placeholder="voce@exemplo.com" className="mt-2 border-white/10 bg-white/[.03]" /></div><div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{beats.data?.length ? beats.data.map(beat => <Card key={beat.id} className="overflow-hidden border-white/[.08] bg-[#0b1210]/90"><div className="flex aspect-[1.55] flex-col items-center justify-center gap-4 bg-gradient-to-br from-emerald-950 to-[#101a16] text-emerald-300"><div className="grid h-16 w-16 place-items-center rounded-full border border-emerald-300/30 bg-emerald-300/10"><Headphones size={24} /></div>{beat.previewKey && beat.previewWatermarked === 1 ? <audio controls preload="none" className="h-8 w-[80%]" src={`/manus-storage/${beat.previewKey}`} aria-label={`Preview protegido de ${beat.title}`} /> : <span className="text-xs text-slate-500">Preview protegido será disponibilizado pelo Duck.</span>}</div><CardContent className="p-5"><div className="flex items-start justify-between gap-4"><div><h2 className="font-medium">{beat.title}</h2><p className="mt-1 text-sm text-slate-500">{beat.genre || "Instrumental"} · {beat.bpm || "—"} BPM {beat.musicalKey ? `· ${beat.musicalKey}` : ""}</p></div><Badge variant="outline" className="border-emerald-400/20 text-emerald-300">{beat.availability === "available" ? "Disponível" : "Reservado"}</Badge></div><div className="mt-5 space-y-4"><div className="grid grid-cols-2 gap-2"><button onClick={() => setLicense("non_exclusive")} className={`rounded-xl border p-3 text-left text-xs ${license === "non_exclusive" ? "border-emerald-400/50 bg-emerald-400/10 text-emerald-200" : "border-white/10 text-slate-500"}`}>Não exclusiva<strong className="mt-1 block text-sm">{money(beat.nonExclusivePriceCents)}</strong></button><button onClick={() => setLicense("exclusive")} className={`rounded-xl border p-3 text-left text-xs ${license === "exclusive" ? "border-emerald-400/50 bg-emerald-400/10 text-emerald-200" : "border-white/10 text-slate-500"}`}>Exclusiva<strong className="mt-1 block text-sm">{money(beat.exclusivePriceCents)}</strong></button></div><Button onClick={() => checkout.mutate({ buyerEmail, beatId: beat.id, licenseType: license, totalCents: license === "exclusive" ? beat.exclusivePriceCents : beat.nonExclusivePriceCents })} disabled={!buyerEmail || checkout.isPending} className="w-full bg-emerald-400 text-[#06120d] hover:bg-emerald-300">{checkout.isPending ? "Criando pedido…" : `Continuar com licença ${license === "exclusive" ? "exclusiva" : "não exclusiva"}`} <ArrowUpRight size={15} /></Button></div></CardContent></Card>) : <div className="col-span-full rounded-3xl border border-dashed border-white/10 bg-white/[.02] p-12 text-center"><Music2 className="mx-auto text-emerald-300" size={26} /><h2 className="mt-4 text-lg font-medium">O catálogo está pronto para o seu primeiro lançamento</h2><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">Ainda não há beats publicados. Quando você adicionar um, ele aparecerá aqui com licenças e preços.</p></div>}</div><div className="mt-12 flex items-center gap-3 rounded-2xl border border-white/[.07] bg-white/[.025] p-5 text-sm text-slate-400"><LockKeyhole size={18} className="text-emerald-300" /> Os downloads privados são entregues por URLs assinadas com expiração curta após a confirmação do pagamento.</div></main></div>;

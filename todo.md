@@ -53,7 +53,7 @@
 - [x] Adicionar preview de áudio com watermark e seleção funcional de licença exclusiva/não exclusiva
 - [x] Corrigir webhook para validar raw body e garantir idempotência por restrição única
 - [ ] Cobrir arquivos, webhook e revisões com testes Vitest dedicados
-- [ ] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
+- [x] Finalizar localização de termos como Discovery, Beat Store, CATALOG e estados técnicos
 - [ ] Transformar ferramentas, automações e central de recursos em fluxos funcionais reais
 - [x] Conectar desbloqueio da missão a estado persistido no backend
 
@@ -167,3 +167,22 @@
 - [x] Construir una tabla separada de webs públicas y webs de Duck con URL concreta, origen, relación con Duck, estado de verificación y decisión de reutilización/publicación
 
 - [x] Desglosar en docs/INVENTARIO_FUENTES_EXHAUSTIVO.md una fila por cada archivo local relevante aún agrupado (pasted_content_*.txt, imágenes y otros adjuntos), con fuente, tipo, origen, estado, clasificación, justificación y decisión de reutilización
+
+- [x] Auditar toda la interfaz y textos del producto por términos residuales en inglés/estados técnicos y corregir cada ocurrencia verificable
+- [x] Añadir evidencia verificable de la auditoría final de localización cubriendo Discovery, Beat Store, CATALOG y estados técnicos restantes
+
+- [x] Traducir todas las cadenas visibles restantes en inglés detectadas por la auditoría (`Cancel`, `Success`, `Error`, `Loading`, `Credit Card`, `PayPal` y cualquier otra visible en páginas accesibles)
+- [x] Repetir la búsqueda de localización sobre todas las páginas/componentes visibles del producto y guardar evidencia limpia de resultados corregidos
+- [x] Actualizar docs/AUDITORIA_LOCALIZACAO_PTBR.md con la lista completa de ocurrencias corregidas, exclusiones justificadas y evidencia de que Discovery, Beat Store, CATALOG y estados técnicos ya no quedan visibles
+
+- [x] Auditar ComponentShowcase.tsx y cualquier ruta accesible por texto renderizado completo, traduciendo etiquetas/ayudas visibles restantes en inglés o justificando marcas y nombres propios
+- [x] Generar y conservar evidencia final reproducible de localización sobre todas las páginas accesibles, separando identificadores internos de texto renderizado
+- [x] Actualizar docs/AUDITORIA_LOCALIZACAO_PTBR.md con el inventario completo de cadenas corregidas, exclusiones justificadas y referencia al resultado final limpio
+
+- [x] Auditar ComponentShowcase.tsx completo por texto renderizado visible y traducir o justificar cada cadena restante (Account, Password, Settings, Home, Components, Alerts, AI ChatBox, Accordion y similares)
+- [x] Mejorar scripts/extract_visible_text.py para excluir fragmentos de código/JSX no renderizado y regenerar docs/AUDITORIA_LOCALIZACAO_RENDERIZADO.txt con salida limpia por ruta
+- [x] Actualizar docs/AUDITORIA_LOCALIZACAO_PTBR.md con el inventario completo de cadenas corregidas, exclusiones justificadas por nombre propio/término técnico y referencia explícita al resultado limpio regenerado
+
+- [x] Revisar manualmente ComponentShowcase.tsx y los componentes auxiliares auditados, registrando justificación explícita para cada cadena restante en inglés/nombre propio (PayPal, @nextjs, Popover, marcas/frameworks) o traducirla si es texto de interfaz
+- [x] Ajustar scripts/extract_visible_text.py para excluir ejemplos/documentación interna y marcas técnicas no operacionales, regenerando docs/AUDITORIA_LOCALIZACAO_RENDERIZADO.txt con salida limpia por ruta
+- [x] Expandir docs/AUDITORIA_LOCALIZACAO_PTBR.md con una tabla/inventario completo de cadenas corregidas, cadenas mantenidas por justificación y referencia al resultado final limpio

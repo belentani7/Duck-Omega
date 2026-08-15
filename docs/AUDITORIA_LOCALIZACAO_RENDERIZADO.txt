@@ -1,0 +1,306 @@
+## pages/ComponentShowcase.tsx
+- Biblioteca de componentes Shadcn/ui
+- Cores de texto
+- Primeiro plano (padrão)
+- Cor de texto padrão para o conteúdo principal
+- Primeiro plano suave
+- Texto suave para informações secundárias
+- Principal
+- Texto na cor principal da marca
+- Primeiro plano secundário
+- Cor de texto de ações secundárias
+- Primeiro plano de destaque
+- Texto de destaque para ênfase
+- Destrutivo
+- Texto de ação destrutiva ou de erro
+- Primeiro plano do cartão
+- Cor de texto sobre fundos de cartões
+- Primeiro plano do popover
+- Cor de texto nos popovers
+- Combinações de cores
+- Fundo principal com texto em primeiro plano
+- Secundário
+- Fundo secundário com texto em primeiro plano
+- Suave
+- Fundo suave com texto em primeiro plano
+- Destaque
+- Fundo de destaque com texto em primeiro plano
+- Fundo destrutivo com texto em primeiro plano
+- Cartão
+- Fundo do cartão com texto em primeiro plano
+- Janela flutuante
+- Fundo do popover com texto em primeiro plano
+- Fundo
+- Fundo padrão com texto em primeiro plano
+- Botões
+- Padrão
+- Contorno
+- Fantasma
+- Link
+- Pequeno
+- Grande
+- Campos de formulário
+- E-mail
+- Mensagem
+- Seleção
+- Maçã
+- Banana
+- Laranja
+- Aceite os termos e condições
+- Modo avião
+- Grupo de opções
+- Opção um
+- Opção dois
+- Controle deslizante
+- Código OTP
+- Seletor de data e hora
+- Selecione data e hora
+- Hora
+- Menu pesquisável
+- Nenhum framework encontrado
+- Mês
+- Ano
+- Exibição de dados
+- Distintivos
+- Avatar
+- CN
+- AB
+- Progresso
+- Esqueleto
+- Paginação
+- Alternador
+- Uma lista das suas faturas recentes.
+- Fatura
+- Situação
+- Método
+- Valor
+- INV001
+- Pago
+- Cartão de crédito
+- INV002
+- Pendente
+- INV003
+- Não pago
+- Transferência bancária
+- Barra de menus
+- Arquivo
+- Nova aba
+- Nova janela
+- Compartilhar
+- Imprimir
+- Editar
+- Desfazer
+- Refazer
+- Exibir
+- Recarregar
+- Forçar recarga
+- Migalhas de navegação
+- Início
+- Componentes
+- Alertas
+- Atenção!
+- Você pode adicionar componentes ao seu app usando a CLI.
+- Erro
+- Sua sessão expirou. Entre novamente.
+- Abas
+- Conta
+- Senha
+- Configurações
+- Faça alterações na sua conta aqui.
+- Nome
+- Salvar alterações
+- Altere sua senha aqui.
+- Senha atual
+- Nova senha
+- Salvar senha
+- Gerencie suas configurações aqui.
+- O conteúdo das configurações aparece aqui.
+- Acordeão
+- É acessível?
+- Sim. Ele segue o padrão de design WAI-ARIA.
+- Tem estilo aplicado?
+- Sim. Ele vem com estilos padrão que combinam com a estética dos outros componentes.
+- Tem animação?
+- Sim. Ele é animado por padrão, mas você pode desativá-lo se preferir.
+- Recolhível
+- @peduarte marcou 3 repositórios como favoritos
+- Sobreposições
+- Abrir diálogo
+- Testar entrada
+- Digite um texto abaixo. Pressione Enter para enviar (composição IME compatível).
+- Entrada
+- Cancelar
+- Enviar
+- Abrir painel
+- Editar perfil
+- Faça alterações no seu perfil aqui. Clique em salvar quando terminar.
+- Abrir gaveta
+- Você tem certeza?
+- Esta ação não pode ser desfeita.
+- Abrir popover
+- Dimensões
+- Defina as dimensões da camada.
+- Passe o mouse
+- Adicionar à biblioteca
+- Menus
+- Menu suspenso
+- Minha conta
+- Perfil
+- Faturamento
+- Equipe
+- Assinatura
+- Clique com o botão direito
+- Cartão ao passar o mouse
+- Framework React — criado e mantido por @vercel.
+- Calendário
+- Carrossel
+- Grupo de alternadores
+- Componentes de layout
+- Proporção (16/9)
+- Proporção 16:9
+- Área rolável
+- Painéis redimensionáveis
+- Painel um
+- Painel dois
+- Notificação
+- Notificação Sonnerificação
+- Sucesso
+- Informação
+- Atenção
+- Carregando
+- Promessa
+- Caixa de chat com IA
+- Componente de chat pronto para uso, integrado ao sistema LLM. Inclui renderização Markdown, rolagem automática e estados de carregamento.
+- Esta é uma demonstração com respostas simuladas. Em um app real, ela seria conectada a uma mutação tRPC.
+- Showcase de componentes Shadcn/ui
+- Digite sua mensagem aqui.
+- Selecione uma fruta
+- Pesquisar frameworks...
+- MM
+- YYYY
+- Digite algo...
+- Alternar itálico
+- Alternar sublinhado
+- Alternar negrito
+- Escreva uma mensagem...
+- Como posso ajudar hoje?
+## pages/Home.tsx
+- Carregando Duck Hub…
+- DUCK
+- STUDIO HUB
+- Estúdio
+- Ecossistema
+- Ferramentas
+- Loja de Beats
+- Ambiente protegido
+- Arquivos privados, atividade e permissões controlados em um único núcleo.
+- Duck / Estúdio
+- Sair
+- Entrar
+- Sistema pronto para criar
+- Transforme cada sessão em um projeto que
+- avança.
+- Clientes, entregas, beats e pagamentos em um espaço criado para o fluxo real do Duck.
+- Novo projeto
+- Ver catálogo
+- Projetos recentes
+- Acompanhe produção e revisões.
+- Ver todos
+- Atividade recente
+- Eventos do estúdio.
+- Atalhos operacionais
+- Duck Assistant
+- Consulte projetos, redija mensagens e explore ideias.
+- Abrir assistente
+- índice de saúde
+- Posso ajudar a resumir projetos, redigir mensagens ou transformar uma ideia de beat em uma descrição.
+- Live
+- Fechar menu
+- Seu primeiro projeto começa aqui
+- Ainda não há atividade
+- Adicionar cliente
+- Enviar entrega
+- Abrir revisões
+- Novo beat
+- Clientes
+- Ainda não há clientes cadastrados
+- Projetos
+- Ainda não há projetos
+- Catálogo
+- Catálogo pronto para seu primeiro beat
+- Pergunte ao Duck Assistant…
+## pages/Mission.tsx
+- DUCK / OMEGA
+- Sistema de missão
+- Acessar Hub
+- A produção é o segredo.
+- O sistema é a chave.
+- Uma missão para transformar o caos invisível de um estúdio em um fluxo que pode ser entendido, protegido e entregue.
+- Iniciar transmissão
+- Ver protocolo
+- Canal seguro
+- Terminal de autorização
+- Desbloqueie o acesso ao núcleo
+- Use o código de ativação para abrir a interface operacional real.
+- Núcleo desbloqueado
+- Núcleo real
+- Arquivos protegidos
+- Missão persistente
+- Gema 01
+- DUCK-OMEGA
+## pages/NotFound.tsx
+- Page Not Found
+- Sorry, the page you are looking for doesn't exist.
+- It may have been moved or deleted.
+- Voltar ao início
+## pages/PublicCatalog.tsx
+- Duck Hub
+- Loja de Beats
+- DUCK / CATÁLOGO
+- Instrumentais para desbloquear sua próxima
+- versão.
+- Ouça previews com watermark, escolha uma licença e receba seu contrato e arquivos com entrega segura.
+- E-mail para o pedido de teste
+- Preview protegido será disponibilizado pelo Duck.
+- Não exclusiva
+- Exclusiva
+- O catálogo está pronto para o seu primeiro lançamento
+- Ainda não há beats publicados. Quando você adicionar um, ele aparecerá aqui com licenças e preços.
+- Os downloads privados são entregues por URLs assinadas com expiração curta após a confirmação do pagamento.
+- voce@exemplo.com
+## pages/Tools.tsx
+- Voltar ao Duck Hub
+- Central de ferramentas
+- DUCK / FERRAMENTAS
+- Tudo que mantém a sessão em movimento.
+- Ferramentas práticas para decidir preços, organizar entregas, acompanhar recursos e ativar automações do estúdio.
+- Calculadora de orçamento
+- Horas estimadas
+- Valor por hora (R$)
+- Revisões incluídas
+- Estimativa inicial
+- A sugestão é um ponto de partida, não substitui a avaliação do projeto.
+- Usar no orçamento
+- Recursos do estúdio
+- Automações do Duck
+- Eventos operacionais preparados para rodar no backend.
+- 4 fluxos
+- Fluxo selecionado para configuração
+- Próximo ciclo de produção
+- Preparação do ambiente
+- ✓ Cliente definido
+- ✓ Referências recebidas
+- ○ Entrega final
+- Criar checklist
+- Analisador de áudio
+- Biblioteca de recursos
+- Saúde da sessão
+- Checklist de entrega
+## components/ErrorBoundary.tsx
+- An unexpected error occurred.
+- Recarregar página
+## components/ManusDialog.tsx
+- ) : null}
+- Faça login no Manus para continuar
+- Entrar com Manus
+- Ilustração do diálogo
