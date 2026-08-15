@@ -66,9 +66,19 @@ describe("Duck Hub operational access contracts", () => {
     await expect(appRouter.createCaller(ownerContext).clients.create({ name: "Cliente válido", email: "email-invalido" })).rejects.toThrow();
   });
 
-  it("keeps project deliverable queries producer-only", async () => {
+  it("exposes client history only to producers and returns a stable aggregate shape", async () => {
+    await expect(appRouter.createCaller(clientContext).clients.history({ clientId: 1 })).rejects.toThrow(/produtor|autoriz/i);
+    await expect(appRouter.createCaller(ownerContext).clients.history({ clientId: 0 })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).clients.history({ clientId: 1 })).resolves.toEqual({ projects: [], orders: [], activity: [] });
+  });
+
+  it("keeps project deliverable queries and mutations producer-only", async () => {
     await expect(appRouter.createCaller(clientContext).projects.deliverables({ projectId: 1 })).rejects.toThrow(/produtor|autoriz/i);
+    await expect(appRouter.createCaller(clientContext).projects.createDeliverable({ projectId: 1, title: "Mix final" })).rejects.toThrow(/produtor|autoriz/i);
+    await expect(appRouter.createCaller(clientContext).projects.updateDeliverable({ deliverableId: 1, status: "approved" })).rejects.toThrow(/produtor|autoriz/i);
     await expect(appRouter.createCaller(ownerContext).projects.deliverables({ projectId: 1 })).resolves.toEqual(expect.any(Array));
+    await expect(appRouter.createCaller(ownerContext).projects.createDeliverable({ projectId: 1, title: "x" })).rejects.toThrow();
+    await expect(appRouter.createCaller(ownerContext).projects.updateDeliverable({ deliverableId: 1, status: "invalid" as "approved" })).rejects.toThrow();
   });
 
   it("keeps mission progress protected and validates step bounds", async () => {

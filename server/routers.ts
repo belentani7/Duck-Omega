@@ -15,8 +15,11 @@ import {
   listActivity,
   listBeats,
   listClients,
+  listClientHistory,
   listProjects,
   listDeliverables,
+  createDeliverable,
+  updateDeliverableStatus,
   listRevisionComments,
   getMissionProgress,
   advanceMission,
@@ -49,6 +52,7 @@ export const appRouter = router({
   }),
   clients: router({
     list: roleProcedure.query(() => listClients()),
+    history: roleProcedure.input(z.object({ clientId: z.number().int().positive() })).query(({ input }) => listClientHistory(input.clientId)),
     create: roleProcedure.input(z.object({
       name: z.string().min(2).max(160),
       company: z.string().max(160).optional(),
@@ -75,6 +79,8 @@ export const appRouter = router({
     addComment: protectedProcedure.input(z.object({ revisionId: z.number().int().positive(), body: z.string().min(1).max(4000), timestampMs: z.number().int().min(0).optional() })).mutation(({ ctx, input }) => addRevisionComment({ ...input, authorId: ctx.user.id })),
     comments: protectedProcedure.input(z.object({ revisionId: z.number().int().positive() })).query(({ input }) => listRevisionComments(input.revisionId)),
     deliverables: producerProcedure.input(z.object({ projectId: z.number().int().positive() })).query(({ input }) => listDeliverables(input.projectId)),
+    createDeliverable: producerProcedure.input(z.object({ projectId: z.number().int().positive(), title: z.string().min(2).max(180), dueDate: z.date().optional() })).mutation(({ input }) => createDeliverable(input)),
+    updateDeliverable: producerProcedure.input(z.object({ deliverableId: z.number().int().positive(), status: z.enum(["pending", "in_progress", "review", "approved"]), dueDate: z.date().optional() })).mutation(({ input }) => updateDeliverableStatus(input)),
   }),
   mission: router({
     progress: protectedProcedure.query(({ ctx }) => getMissionProgress(ctx.user.id)),

@@ -1,4 +1,4 @@
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, or, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser,
@@ -101,6 +101,23 @@ export async function createProject(input: typeof projects.$inferInsert) {
   const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
   if (id) await recordActivity({ type: "project.created", title: "Novo projeto criado", detail: input.title, entityType: "project", entityId: id });
   return id;
+}
+
+export async function listClientHistory(clientId: number) {
+  const db = await getDb();
+  if (!db) return { projects: [], orders: [], activity: [] };
+  const [clientProjects, clientOrders, clientActivity] = await Promise.all([
+    db.select().from(projects).where(eq(projects.clientId, clientId)).orderBy(desc(projects.updatedAt)),
+    db.select().from(orders).where(eq(orders.clientId, clientId)).orderBy(desc(orders.updatedAt)),
+    db.select().from(activity).where(
+      or(
+        and(eq(activity.entityType, "client"), eq(activity.entityId, clientId)),
+        and(eq(activity.entityType, "project"), inArray(activity.entityId, db.select({ id: projects.id }).from(projects).where(eq(projects.clientId, clientId)))),
+        and(eq(activity.entityType, "order"), inArray(activity.entityId, db.select({ id: orders.id }).from(orders).where(eq(orders.clientId, clientId)))),
+      ),
+    ).orderBy(desc(activity.createdAt)).limit(50),
+  ]);
+  return { projects: clientProjects, orders: clientOrders, activity: clientActivity };
 }
 
 export async function listBeats() {
@@ -304,6 +321,28 @@ export async function listDeliverables(projectId: number) {
   const db = await getDb();
   if (!db) return [];
   return db.select().from(deliverables).where(eq(deliverables.projectId, projectId)).orderBy(desc(deliverables.createdAt));
+}
+
+export async function createDeliverable(input: typeof deliverables.$inferInsert) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const project = await getProject(input.projectId);
+  if (!project) throw new Error("Projeto não encontrado");
+  const result = await db.insert(deliverables).values(input);
+  const id = result[0]?.insertId ? Number(result[0].insertId) : undefined;
+  if (id) await recordActivity({ type: "deliverable.created", title: "Novo entregável criado", detail: input.title, entityType: "project", entityId: input.projectId });
+  return id;
+}
+
+export async function updateDeliverableStatus(input: { deliverableId: number; status: "pending" | "in_progress" | "review" | "approved"; dueDate?: Date }) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(deliverables).where(eq(deliverables.id, input.deliverableId)).limit(1);
+  const current = rows[0];
+  if (!current) throw new Error("Entregável não encontrado");
+  await db.update(deliverables).set({ status: input.status, dueDate: input.dueDate }).where(eq(deliverables.id, input.deliverableId));
+  await recordActivity({ type: "deliverable.updated", title: "Estado do entregável atualizado", detail: `${current.title}: ${input.status}`, entityType: "project", entityId: current.projectId });
+  return { id: input.deliverableId, projectId: current.projectId, status: input.status, dueDate: input.dueDate };
 }
 
 
