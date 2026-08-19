@@ -46,6 +46,7 @@ let isolatedOrderId = 1;
 
 type IsolatedMissionProgress = { userId: number; currentStep: number; started: number; unlocked: number };
 const isolatedMissionProgress: IsolatedMissionProgress[] = [];
+const isolatedClientActivity: Array<typeof activity.$inferInsert> = [];
 
 export function resetIsolatedCheckoutAndMission() {
   isolatedOrders.length = 0;
@@ -126,6 +127,10 @@ export async function createClient(input: typeof clients.$inferInsert) {
 }
 
 export async function updateClientNotes(input: { clientId: number; notes: string }) {
+  if (isTestWithoutDatabase()) {
+    isolatedClientActivity.push({ type: "client.notes.updated", title: "Notas do cliente atualizadas", detail: input.notes.slice(0, 180), entityType: "client", entityId: input.clientId });
+    return { clientId: input.clientId, notes: input.notes };
+  }
   const db = await getDb();
   if (!db) return undefined;
   await db.update(clients).set({ notes: input.notes }).where(eq(clients.id, input.clientId));
@@ -140,6 +145,7 @@ export async function listProjects(clientId?: number) {
 }
 
 export async function updateProjectSchedule(input: { projectId: number; status?: "discovery" | "in_progress" | "review" | "delivered"; dueDate?: Date | null }) {
+  if (isTestWithoutDatabase()) return { projectId: input.projectId, status: input.status, dueDate: input.dueDate };
   const db = await getDb();
   if (!db) return undefined;
   await db.update(projects).set({ ...(input.status ? { status: input.status } : {}), ...(input.dueDate !== undefined ? { dueDate: input.dueDate } : {}) }).where(eq(projects.id, input.projectId));
@@ -157,6 +163,13 @@ export async function createProject(input: typeof projects.$inferInsert) {
 }
 
 export async function listClientHistory(clientId: number) {
+  if (isTestWithoutDatabase()) {
+    return {
+      projects: [],
+      orders: [],
+      activity: isolatedClientActivity.filter((item) => item.entityType === "client" && item.entityId === clientId),
+    };
+  }
   const db = await getDb();
   if (!db) return { projects: [], orders: [], activity: [] };
   const [clientProjects, clientOrders, clientActivity] = await Promise.all([
