@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06130f">
+<meta name="description" content="iDuck — um mini sistema operativo verde esmeralda para o ecossistema Duck.">
+<title>iDuck — que fone é esse?</title>
+<style>
+:root{--bg:#03100c;--panel:rgba(7,31,24,.78);--panel2:rgba(11,48,36,.9);--line:rgba(80,255,180,.18);--green:#00e68a;--green2:#7dffca;--lime:#b8ffdf;--purple:#a66cff;--text:#edfff7;--muted:#82aa9d;--shadow:0 24px 80px rgba(0,0,0,.55)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#020806;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;color:inherit}
+body{overflow-x:hidden;background:radial-gradient(circle at 50% -10%,#0b523a 0,transparent 38%),radial-gradient(circle at 85% 70%,rgba(166,108,255,.13),transparent 28%),linear-gradient(145deg,#020806,#061a13 55%,#020806)}
+#boot{position:fixed;inset:0;z-index:9999;background:#020806;display:grid;place-items:center;transition:.8s;pointer-events:none}.bootbox{text-align:center}.duck{font-size:64px;filter:drop-shadow(0 0 30px #00e68a);animation:float 1.8s ease-in-out infinite}.bootbox h1{letter-spacing:.18em;font-size:14px;color:var(--green2)}.bar{height:3px;width:180px;background:#123d2e;border-radius:9px;overflow:hidden;margin:18px auto}.bar i{display:block;height:100%;width:0;background:var(--green);animation:load 1.3s forwards}
+@keyframes load{to{width:100%}}@keyframes float{50%{transform:translateY(-8px) scale(1.04)}}
+.shell{min-height:100vh;padding:18px 18px 100px;max-width:1180px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 2px 20px}.brand{display:flex;align-items:center;gap:12px}.mark{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#0e6849,#032a1d);border:1px solid var(--line);box-shadow:0 0 40px rgba(0,230,138,.16);font-size:25px}.brand strong{font-size:18px;letter-spacing:.05em}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:30px;padding:34px 28px;background:linear-gradient(135deg,rgba(8,48,35,.86),rgba(3,19,14,.86));box-shadow:var(--shadow);min-height:260px}.hero:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-60px;top:-100px;background:radial-gradient(circle,#00e68a55,transparent 65%);filter:blur(5px)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 60%,rgba(166,108,255,.07));pointer-events:none}.eyebrow{color:var(--green);font-size:10px;letter-spacing:.22em;text-transform:uppercase}.hero h1{font-size:clamp(42px,8vw,82px);line-height:.9;margin:12px 0 14px;letter-spacing:-.07em;max-width:760px}.hero h1 span{color:var(--green2)}.hero p{max-width:620px;color:#a9c8bd;line-height:1.55;margin:0}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.pill{border:1px solid var(--line);background:#0a2d21cc;border-radius:999px;padding:10px 15px;color:#dfffee;transition:.2s}.pill:hover{transform:translateY(-2px);border-color:#00e68a66;background:#0c3e2dcc}.pill.primary{background:linear-gradient(135deg,#00a968,#007d4f);border-color:#59ffc1;color:#00160d;font-weight:800}
+.section{margin-top:28px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:13px}.sectionhead h2{font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin:0}.sectionhead span{font-size:11px;color:var(--muted)}
+.apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.app{position:relative;min-height:145px;padding:16px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(10,43,32,.9),rgba(4,20,15,.88));transition:.22s;overflow:hidden}.app:hover{transform:translateY(-4px);border-color:rgba(0,230,138,.45);box-shadow:0 18px 45px rgba(0,0,0,.35)}.app .ico{font-size:30px;margin-bottom:18px}.app b{display:block;font-size:14px}.app small{display:block;color:var(--muted);margin-top:5px;line-height:1.35}.app .spark{position:absolute;width:70px;height:70px;right:-20px;bottom:-20px;border-radius:50%;background:radial-gradient(circle,rgba(166,108,255,.35),transparent 70%)}
+.feature{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}.card{border:1px solid var(--line);border-radius:24px;background:var(--panel);padding:18px}.beat{min-height:230px;background:linear-gradient(145deg,rgba(0,92,59,.45),rgba(6,26,20,.9))}.beat h3{margin:0 0 5px;font-size:20px}.beat p{margin:0;color:var(--muted);font-size:12px}.pads{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin-top:20px}.pad{height:48px;border:1px solid #1d6048;background:#092a1f;border-radius:10px}.pad.on,.pad:active{background:#00b974;box-shadow:0 0 24px #00e68a55;border-color:#75ffcb}.meters{display:flex;align-items:end;gap:4px;height:74px}.meter{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(to top,#007c4f,#7dffca);animation:meter .8s ease-in-out infinite alternate}.meter:nth-child(2n){animation-delay:.2s}.meter:nth-child(3n){animation-delay:.4s}@keyframes meter{to{height:30%}}
+.links{display:grid;gap:8px}.site{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);background:#071d16;padding:12px;border-radius:15px;text-decoration:none;color:var(--text)}.site:hover{background:#0b3024}.site em{font-style:normal;color:var(--green2);font-size:11px}.site strong{font-size:13px}.site small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.window{position:fixed;z-index:1000;left:50%;top:50%;transform:translate(-50%,-50%);width:min(900px,calc(100vw - 24px));height:min(650px,calc(100vh - 80px));background:#04110c;backdrop-filter:blur(24px);border:1px solid #39d99a55;border-radius:24px;box-shadow:0 30px 100px #000b;display:none;overflow:hidden}.window.open{display:block}.winhead{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--line);background:#082219}.winhead b{font-size:12px}.close{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:#0b2d21}.winbody{height:calc(100% - 54px);padding:18px;overflow:auto}.browser{width:100%;height:100%;border:1px solid var(--line);border-radius:16px;background:#071a13;display:grid;place-items:center;text-align:center;padding:30px}.browser h2{font-size:34px;margin:8px}.browser p{color:var(--muted);max-width:560px}.url{font-family:ui-monospace,monospace;color:var(--green2);font-size:11px;word-break:break-all}
+.dock{position:fixed;z-index:900;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;padding:8px;border:1px solid var(--line);background:rgba(3,16,11,.78);backdrop-filter:blur(22px);border-radius:22px;box-shadow:0 15px 55px #0008}.dock button{border:0;background:transparent;border-radius:15px;padding:10px 12px;font-size:20px}.dock button:hover{background:#0b3527}.dock .home{background:#00a968;color:#00150c}
+footer{text-align:center;color:#48695e;font-size:10px;margin-top:30px;letter-spacing:.08em}.purple{color:#b997ff}@media(max-width:700px){.shell{padding:12px 12px 90px}.hero{padding:25px 20px;border-radius:25px}.feature{grid-template-columns:1fr}.apps{grid-template-columns:repeat(2,1fr)}.app{min-height:130px}.pads{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div id="boot"><div class="bootbox"><div class="duck">🦆</div><h1>iDUCK // INITIALIZING ECOSYSTEM</h1><div class="bar"><i></i></div></div></div>
+<main class="shell">
+<header class="top"><div class="brand"><div class="mark">🦆</div><div><strong>iDuck</strong><small>que fone é esse?</small></div></div><div class="status"><i class="dot"></i> DUCK OS ONLINE</div></header>
+<section class="hero"><div class="eyebrow">Duck ecosystem / personal web OS</div><h1>iDuck <span>verde esmeralda.</span></h1><p>Um mini sistema operativo web que junta os sites do ecossistema Duck num só lugar — com Beat, biblioteca, dock, laboratório e portais como apps.</p><div class="hero-actions"><button class="pill primary" onclick="openApp('YouDuck')">Abrir YouDuck ↗</button><button class="pill" onclick="openApp('Duck Beat')">▶ Duck Beat</button><button class="pill" onclick="openApp('Sites')">Ver sites</button></div></section>
+<section class="section"><div class="sectionhead"><h2>Apps Duck</h2><span>touch / click para abrir</span></div><div class="apps">
+<button class="app" onclick="openApp('YouDuck')"><div class="ico">🦆</div><b>YouDuck</b><small>portal principal do ecossistema</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('DuckBook')"><div class="ico">📗</div><b>DuckBook</b><small>biblioteca, notas e conhecimento</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('DickDock')"><div class="ico">🟣</div><b>DickDock</b><small>dock social / utilidades</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('Duck Beat')"><div class="ico">🥁</div><b>Duck Beat</b><small>mini groovebox no navegador</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('Duck Studio')"><div class="ico">🎛️</div><b>Duck Studio</b><small>produção e ferramentas criativas</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('Gema Lab')"><div class="ico">💎</div><b>Gema Lab</b><small>laboratório de experiências Duck</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('Portal')"><div class="ico">🌀</div><b>Portal</b><small>entrada para o universo completo</small><div class="spark"></div></button>
+<button class="app" onclick="openApp('Sites')"><div class="ico">🌐</div><b>Duck Web</b><small>todos os sites num painel</small><div class="spark"></div></button>
+</div></section>
+<section class="section feature"><div class="card beat"><h3>Duck Beat <span class="purple">●</span></h3><p>8-step groovebox — toca no pad e cria o teu loop.</p><div class="meters" id="meters"></div><div class="pads" id="pads"></div></div><div class="card"><div class="sectionhead"><h2>Sites conectados</h2><span>links web, não repos</span></div><div class="links" id="sites"></div></div></section>
+<footer>iDUCK // DUCK ECOSYSTEM // EMERALD BUILD // 2026</footer>
+</main>
+<div class="dock"><button class="home" onclick="window.scrollTo({top:0,behavior:'smooth'})">🦆</button><button onclick="openApp('YouDuck')">◉</button><button onclick="openApp('Duck Beat')">♫</button><button onclick="openApp('DuckBook')">▣</button><button onclick="openApp('Sites')">◎</button></div>
+<div class="window" id="window"><div class="winhead"><b id="winTitle">iDuck</b><button class="close" onclick="closeApp()">×</button></div><div class="winbody" id="winBody"></div></div>
+<script>
+// SITE ROUTES: URLs are intentionally web destinations, not Git repositories.
+// Replace/add deployed URLs here as each Duck site goes live.
+const SITES=[
+ {name:'YouDuck',url:'https://belentani7.github.io/Duck-Omega/',desc:'Duck portal / home'},
+ {name:'DuckBook',url:'https://belentani7.github.io/DuckBook/',desc:'biblioteca web'},
+ {name:'DickDock',url:'https://belentani7.github.io/DickDock/',desc:'dock social / utilities'},
+ {name:'Duck Beat',url:'https://belentani7.github.io/Duck-Omega/beat/',desc:'music web app'},
+ {name:'Duck Studio',url:'https://belentani7.github.io/duck-zion-studio/',desc:'studio web'},
+ {name:'Gema Lab',url:'https://belentani7.github.io/DUCK-A-GEMA-1-LAB/',desc:'creative lab'},
+ {name:'Duck Zion',url:'https://belentani7.github.io/DUCK-ZION-GITHUB/',desc:'Zion portal'},
+ {name:'Belentani Experience',url:'https://belentanip-qaacxo29.manus.space',desc:'site público existente'},
+ {name:'GitHub Pages hub',url:'https://belentani7.github.io/Duck-Omega/',desc:'host do iDuck'}
+];
+const $=s=>document.querySelector(s);
+function renderSites(){ $('#sites').innerHTML=SITES.map(s=>`<a class="site" href="${s.url}" target="_blank" rel="noopener"><span><strong>${s.name}</strong><small>${s.desc}</small></span><em>↗</em></a>`).join(''); }
+function openApp(name){const s=SITES.find(x=>x.name===name);$('#winTitle').textContent=name+' // iDuck';if(s){$('#winBody').innerHTML=`<div class="browser"><div><div style="font-size:52px">🦆</div><h2>${name}</h2><p>${s.desc}</p><div class="url">${s.url}</div><div style="margin-top:22px"><a class="pill primary" href="${s.url}" target="_blank" rel="noopener">Entrar no site ↗</a></div></div></div>`}else if(name==='Sites'){$('#winBody').innerHTML=`<div class="links">${SITES.map(s=>`<a class="site" href="${s.url}" target="_blank" rel="noopener"><span><strong>${s.name}</strong><small>${s.url}</small></span><em>ABRIR</em></a>`).join('')}</div>`}$('#window').classList.add('open');}
+function closeApp(){$('#window').classList.remove('open')}
+const pads=$('#pads');for(let i=0;i<16;i++){const b=document.createElement('button');b.className='pad';b.onclick=()=>b.classList.toggle('on');pads.appendChild(b)}
+const meters=$('#meters');for(let i=0;i<18;i++){const m=document.createElement('i');m.className='meter';m.style.height=(25+Math.random()*65)+'%';meters.appendChild(m)}
+renderSites();setTimeout(()=>{$('#boot').style.opacity='0'},1500);setTimeout(()=>{$('#boot').style.display='none'},2300);
+window.addEventListener('keydown',e=>{if(e.key==='Escape')closeApp()});
+</script>
+</body>
+</html>
