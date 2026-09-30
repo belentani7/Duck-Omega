@@ -1,23 +1,31 @@
 # Duck-Omega
 
-DUCK Omega - ecosistema artistico y productivo del proyecto Duck/Zion (Belentani).
+Ecosistema artistico y productivo del proyecto Duck/Zion.
+
+## Que es
+
+El contenedor del universo Duck: identidad visual, sitio publico y las piezas de produccion
+que giran alrededor. Astro como base, con islas interactivas donde hacen falta.
 
 ## Stack
 
-- Primary language: TypeScript
-- Node project (`package.json` present)
+- **Astro** - sitio y enrutado
+- **TypeScript** - tipado
+- **Drizzle** - capa de datos
+- **Tailwind + shadcn/ui** - sistema visual (`components.json`)
 
-## Getting started
-
-```bash
-git clone https://github.com/belentani7/Duck-Omega.git
-```
+## Puesta en marcha
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
----
+## Estado
 
-License: not specified
+`todo.md` lleva lo pendiente. El ecosistema relacionado vive en `duck-ecosystem`, `duck-2026`
+y `duck-lab`.
+
+## Licencia
+
+Sin licencia declarada en el repositorio.
