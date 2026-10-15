@@ -2,26 +2,24 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this project, please email
-[belentani7pedro@gmail.com](mailto:belentani7pedro@gmail.com)
-instead of using the issue tracker.
+Please report security vulnerabilities via email to belentani7pedro@gmail.com.
 
-Please include:
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if available)
+## Code Scanning
 
-## Security Best Practices
+This project uses GitHub CodeQL for automated security scanning. All security issues detected by CodeQL will be addressed with priority.
 
-- Keep dependencies up to date
-- Use environment variables for sensitive data
-- Review pull requests carefully
-- Never commit `.env` or credentials
+## Dependabot
 
-## Supported Versions
+Dependabot alerts security vulnerabilities in dependencies. Dependabot security updates will be accepted via Pull Request.
 
-| Version | Supported |
-|---------|-----------|
-| Latest  | Yes |
-| Older   | As-is |
+## Secret Protection
+
+GitHub Secret Protection scans for hardcoded secrets. Do not commit API keys, tokens, or passwords to this repository.
+
+## Advanced Security
+
+Enable GitHub Advanced Security for:
+- Dependabot alerts
+- CodeQL analysis
+- Secret scanning
+- Push protection
