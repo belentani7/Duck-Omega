@@ -68,10 +68,25 @@ describe("HTTP route integration contracts", () => {
   it("covers upload authentication, MIME rejection, size limit and metadata persistence", async () => {
     vi.spyOn(sdk, "authenticateRequest").mockResolvedValueOnce(null as any);
     const unauthenticated = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: "ZGVt bw==" } });
-    expect(unauthenticated.status).toBe(400);
+    expect(unauthenticated.status).toBe(401);
 
     const invalidMime = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.exe", mimeType: "application/x-msdownload", contentBase64: "ZGVtbw==" } });
     expect(invalidMime.status).toBe(415);
+
+    const unsafeName = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "../private.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==" } });
+    expect(unsafeName.status).toBe(400);
+    expect(storage.storagePut).not.toHaveBeenCalled();
+
+    const unsafeMedia = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav-fake", contentBase64: "ZGVtbw==" } });
+    expect(unsafeMedia.status).toBe(415);
+    expect(storage.storagePut).not.toHaveBeenCalled();
+
+    const corrupted = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: "ZGVtb!" } });
+    expect(corrupted.status).toBe(400);
+    expect(storage.storagePut).not.toHaveBeenCalled();
+
+    const invalidId = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", projectId: -1 } });
+    expect(invalidId.status).toBe(400);
 
     const tooLarge = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "large.wav", mimeType: "audio/wav", contentBase64: Buffer.alloc(50 * 1024 * 1024 + 1).toString("base64") } });
     expect(tooLarge.status).toBe(413);
