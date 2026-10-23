@@ -32,7 +32,9 @@ export function isSafeUploadName(value: string): boolean {
     value !== "." &&
     value !== ".." &&
     !value.startsWith(".") &&
-    !/[\\/\\\\\x00-\x1f\x7f]/.test(value)
+    !value.includes("/") &&
+    !value.includes("\\") &&
+    !/[\x00-\x1f\x7f]/.test(value)
   );
 }
 
