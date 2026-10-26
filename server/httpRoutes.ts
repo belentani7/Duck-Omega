@@ -3,7 +3,7 @@ import type { Express, Request, Response } from "express";
 import { createFileRecord, executeAutomationEvent, getClientByUserId, getFileByStorageKey, getNextFileVersion, getProject, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
-import { decodeUploadBase64, isAllowedUploadMime, isOptionalPositiveId, isSafeUploadName, UploadValidationError } from "./fileUpload";
+import { decodeUploadBase64, isAllowedUploadMime, isOptionalPositiveId, isSafeUploadName, matchesUploadSignature, UploadValidationError } from "./fileUpload";
 
 export function safeEqualHex(expected: string, received: string) {
   const a = Buffer.from(expected, "hex");
@@ -56,6 +56,9 @@ export function registerHttpRoutes(app: Express) {
           return res.status(error.status).json({ error: error.message });
         }
         throw error;
+      }
+      if (!matchesUploadSignature(buffer, mimeType)) {
+        return res.status(415).json({ error: "Conteúdo do arquivo não corresponde ao tipo MIME" });
       }
       const sha256 = crypto.createHash("sha256").update(buffer).digest("hex");
       const normalizedProjectId = typeof projectId === "number" ? projectId : undefined;
