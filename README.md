@@ -27,7 +27,7 @@ hacen falta.
 
 ## Stack
 
-- **Astro 5** — sitio, SSG y enrutado
+- **Astro 7** — sitio, SSG y enrutado
 - **TypeScript** — tipado estricto (`tsc --noEmit`)
 - **Drizzle** — capa de datos
 - **Tailwind + shadcn/ui** — sistema visual (`components.json`)
