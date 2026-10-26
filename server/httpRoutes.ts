@@ -3,6 +3,7 @@ import type { Express, Request, Response } from "express";
 import { createFileRecord, executeAutomationEvent, getClientByUserId, getFileByStorageKey, getNextFileVersion, getProject, recordPaymentEvent, transitionOrder } from "./db";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { sdk } from "./_core/sdk";
+import { decodeUploadBase64, isAllowedUploadMime, isOptionalPositiveId, isSafeUploadName, matchesUploadSignature, UploadValidationError } from "./fileUpload";
 
 export function safeEqualHex(expected: string, received: string) {
   const a = Buffer.from(expected, "hex");
@@ -21,13 +22,21 @@ export function registerHttpRoutes(app: Express) {
     try {
       const { fileName, mimeType, contentBase64, projectId, clientId, visibility } = req.body ?? {};
       const user = await sdk.authenticateRequest(req as any);
-      if (typeof fileName !== "string" || typeof mimeType !== "string" || typeof contentBase64 !== "string" || !user?.id) {
+      if (!user?.id) return res.status(401).json({ error: "Autenticação necessária" });
+      if (!["owner", "producer", "client"].includes(user.role)) {
+        return res.status(403).json({ error: "Papel sem permissão para enviar arquivos" });
+      }
+      if (typeof fileName !== "string" || typeof mimeType !== "string" || typeof contentBase64 !== "string") {
         return res.status(400).json({ error: "fileName, mimeType e contentBase64 são obrigatórios" });
+      }
+      if (!isSafeUploadName(fileName) || !isOptionalPositiveId(projectId) || !isOptionalPositiveId(clientId)) {
+        return res.status(400).json({ error: "Nome ou identificadores de arquivo inválidos" });
       }
       const requestedVisibility = visibility === undefined ? "private" : visibility;
       if (requestedVisibility !== "private" && requestedVisibility !== "client") return res.status(400).json({ error: "Visibilidade inválida" });
       const clientProfile = user.role === "client" ? await getClientByUserId(user.id) : undefined;
       if (user.role === "client") {
+        if (!clientProfile) return res.status(403).json({ error: "Perfil de cliente não encontrado" });
         if (typeof clientId === "number" && clientId !== clientProfile?.id) return res.status(403).json({ error: "Cliente não pode atribuir o arquivo a outro cliente" });
         if (typeof projectId === "number") {
           const project = await getProject(projectId);
@@ -36,11 +45,21 @@ export function registerHttpRoutes(app: Express) {
       }
       const normalizedClientId = typeof clientId === "number" ? clientId : clientProfile?.id;
       if (requestedVisibility === "client" && normalizedClientId === undefined) return res.status(400).json({ error: "Arquivos visíveis ao cliente exigem associação" });
-      if (!/^audio\/(mpeg|wav|x-wav|mp4)|application\/(pdf|zip)|video\//.test(mimeType)) {
+      if (!isAllowedUploadMime(mimeType)) {
         return res.status(415).json({ error: "Tipo MIME não permitido" });
       }
-      const buffer = Buffer.from(contentBase64, "base64");
-      if (buffer.byteLength > 50 * 1024 * 1024) return res.status(413).json({ error: "O arquivo ultrapassa 50 MB" });
+      let buffer: Buffer;
+      try {
+        buffer = decodeUploadBase64(contentBase64);
+      } catch (error) {
+        if (error instanceof UploadValidationError) {
+          return res.status(error.status).json({ error: error.message });
+        }
+        throw error;
+      }
+      if (!matchesUploadSignature(buffer, mimeType)) {
+        return res.status(415).json({ error: "Conteúdo do arquivo não corresponde ao tipo MIME" });
+      }
       const sha256 = crypto.createHash("sha256").update(buffer).digest("hex");
       const normalizedProjectId = typeof projectId === "number" ? projectId : undefined;
       const version = await getNextFileVersion({ fileName, projectId: normalizedProjectId, clientId: normalizedClientId });
@@ -49,7 +68,7 @@ export function registerHttpRoutes(app: Express) {
       if (id) await executeAutomationEvent({ type: "file.received", entityType: "file", entityId: id, actorId: user.id });
       return res.status(201).json({ id, key: stored.key, url: stored.url, sha256, version });
     } catch (error) {
-      console.error("[Files] upload failed", error);
+      console.error("[Files] upload failed");
       return res.status(500).json({ error: "Não foi possível salvar o arquivo" });
     }
   });
