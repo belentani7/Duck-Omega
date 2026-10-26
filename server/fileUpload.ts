@@ -24,6 +24,41 @@ export function isAllowedUploadMime(value: string): boolean {
   return ALLOWED_MIME.has(value.toLowerCase());
 }
 
+/**
+ * Lightweight file-container signature gate. This is NOT a malware scanner or
+ * a full media parser; it prevents arbitrary HTML/scripts from being stored as
+ * a trusted audio, video or document type in the legacy JSON upload route.
+ */
+export function matchesUploadSignature(bytes: Buffer, mimeType: string): boolean {
+  const ascii = (start: number, length: number) => bytes.toString("ascii", start, start + length);
+  const isIsoBmff = bytes.length >= 12 && ascii(4, 4) === "ftyp";
+  const brand = isIsoBmff ? ascii(8, 4) : "";
+  switch (mimeType.toLowerCase()) {
+    case "audio/wav":
+    case "audio/x-wav":
+      return bytes.length >= 12 && ascii(0, 4) === "RIFF" && ascii(8, 4) === "WAVE";
+    case "audio/mpeg":
+      return (bytes.length >= 10 && ascii(0, 3) === "ID3") ||
+        (bytes.length >= 4 && bytes[0] === 0xff && (bytes[1] & 0xe0) === 0xe0 &&
+          (bytes[1] & 0x06) !== 0 && (bytes[2] & 0xf0) !== 0xf0);
+    case "application/pdf":
+      return bytes.length >= 8 && ascii(0, 5) === "%PDF-" && /^[12]\\.[0-9]$/.test(ascii(5, 3));
+    case "application/zip":
+      return bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4b &&
+        ((bytes[2] === 3 && bytes[3] === 4) || (bytes[2] === 5 && bytes[3] === 6));
+    case "video/webm":
+      return bytes.length >= 12 && bytes.subarray(0, 4).equals(Buffer.from([0x1a, 0x45, 0xdf, 0xa3])) &&
+        bytes.subarray(4, Math.min(bytes.length, 256)).includes(Buffer.from([0x42, 0x82, 0x84, 0x77, 0x65, 0x62, 0x6d]));
+    case "audio/mp4":
+    case "video/mp4":
+      return isIsoBmff && new Set(["isom", "iso2", "iso5", "iso6", "mp41", "mp42", "M4A ", "M4V ", "avc1", "dash", "3gp4", "3gp5"]).has(brand);
+    case "video/quicktime":
+      return (isIsoBmff && brand === "qt  ") || (bytes.length >= 8 && ascii(4, 4) === "moov");
+    default:
+      return false;
+  }
+}
+
 export function isSafeUploadName(value: string): boolean {
   return (
     value.length > 0 &&
