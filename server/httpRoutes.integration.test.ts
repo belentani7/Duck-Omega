@@ -9,6 +9,7 @@ import { sdk } from "./_core/sdk";
 
 let server: http.Server;
 let baseUrl = "";
+const WAV_BASE64 = "UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
 process.env.NODE_ENV = "test";
 
 function requestJson(path: string, options: { method?: string; body?: unknown; headers?: Record<string, string> } = {}) {
@@ -70,14 +71,14 @@ describe("HTTP route integration contracts", () => {
     const unauthenticated = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: "ZGVt bw==" } });
     expect(unauthenticated.status).toBe(401);
 
-    const invalidMime = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.exe", mimeType: "application/x-msdownload", contentBase64: "ZGVtbw==" } });
+    const invalidMime = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.exe", mimeType: "application/x-msdownload", contentBase64: WAV_BASE64 } });
     expect(invalidMime.status).toBe(415);
 
-    const unsafeName = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "../private.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==" } });
+    const unsafeName = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "../private.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64 } });
     expect(unsafeName.status).toBe(400);
     expect(storage.storagePut).not.toHaveBeenCalled();
 
-    const unsafeMedia = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav-fake", contentBase64: "ZGVtbw==" } });
+    const unsafeMedia = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav-fake", contentBase64: WAV_BASE64 } });
     expect(unsafeMedia.status).toBe(415);
     expect(storage.storagePut).not.toHaveBeenCalled();
 
@@ -85,7 +86,11 @@ describe("HTTP route integration contracts", () => {
     expect(corrupted.status).toBe(400);
     expect(storage.storagePut).not.toHaveBeenCalled();
 
-    const invalidId = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", projectId: -1 } });
+    const disguisedHtml = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "report.pdf", mimeType: "application/pdf", contentBase64: Buffer.from("<script>alert(1)</script>").toString("base64") } });
+    expect(disguisedHtml.status).toBe(415);
+    expect(storage.storagePut).not.toHaveBeenCalled();
+
+    const invalidId = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, projectId: -1 } });
     expect(invalidId.status).toBe(400);
 
     const tooLarge = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "large.wav", mimeType: "audio/wav", contentBase64: Buffer.alloc(50 * 1024 * 1024 + 1).toString("base64") } });
@@ -93,22 +98,22 @@ describe("HTTP route integration contracts", () => {
 
     vi.spyOn(sdk, "authenticateRequest").mockResolvedValue({ id: 9, role: "client" } as any);
     vi.spyOn(db, "getClientByUserId").mockResolvedValue({ id: 22 } as any);
-    expect((await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", clientId: 23 } })).status).toBe(403);
-    expect((await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", projectId: 3, clientId: 22 } })).status).toBe(403);
+    expect((await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, clientId: 23 } })).status).toBe(403);
+    expect((await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, projectId: 3, clientId: 22 } })).status).toBe(403);
 
     vi.spyOn(sdk, "authenticateRequest").mockResolvedValue({ id: 7, role: "owner" } as any);
-    const accepted = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: Buffer.from("demo").toString("base64"), projectId: 3, clientId: 22 } });
+    const accepted = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "demo.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, projectId: 3, clientId: 22 } });
     expect(accepted.status).toBe(201);
     expect(accepted.body.version).toBe(1);
     expect(db.createFileRecord).toHaveBeenCalledWith(expect.objectContaining({ fileName: "demo.wav", mimeType: "audio/wav", projectId: 3, clientId: 22, version: 1, visibility: "private" }));
 
-    const clientVisible = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", clientId: 22, visibility: "client" } });
+    const clientVisible = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "client.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, clientId: 22, visibility: "client" } });
     expect(clientVisible.status).toBe(201);
     expect(db.createFileRecord).toHaveBeenCalledWith(expect.objectContaining({ fileName: "client.wav", clientId: 22, visibility: "client", version: 1 }));
 
     vi.spyOn(db, "getNextFileVersion").mockResolvedValueOnce(1).mockResolvedValueOnce(2);
-    const firstVersion = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "repeat.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", clientId: 22 } });
-    const secondVersion = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "repeat.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", clientId: 22 } });
+    const firstVersion = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "repeat.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, clientId: 22 } });
+    const secondVersion = await requestJson("/api/files/upload", { method: "POST", body: { fileName: "repeat.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, clientId: 22 } });
     expect(firstVersion.body.version).toBe(1);
     expect(secondVersion.body.version).toBe(2);
     expect(db.createFileRecord).toHaveBeenLastCalledWith(expect.objectContaining({ fileName: "repeat.wav", version: 2, clientId: 22 }));
@@ -119,7 +124,7 @@ describe("HTTP route integration contracts", () => {
     db.resetIsolatedFileMetadata();
     vi.spyOn(sdk, "authenticateRequest").mockResolvedValue({ id: 7, role: "owner" } as any);
     vi.spyOn(storage, "storagePut").mockImplementation(async (key, _data, _contentType) => ({ key, url: `https://storage.test/${key}` }));
-    const body = { fileName: "persisted.wav", mimeType: "audio/wav", contentBase64: "ZGVtbw==", projectId: 12, clientId: 22, visibility: "client" };
+    const body = { fileName: "persisted.wav", mimeType: "audio/wav", contentBase64: WAV_BASE64, projectId: 12, clientId: 22, visibility: "client" };
     const first = await requestJson("/api/files/upload", { method: "POST", body });
     const second = await requestJson("/api/files/upload", { method: "POST", body });
     expect(first.status).toBe(201);
