@@ -52,8 +52,8 @@ describe("Duck file upload transport validation", () => {
     const webm = Buffer.from([0x1a, 0x45, 0xdf, 0xa3, 0x42, 0x82, 0x84, 0x77, 0x65, 0x62, 0x6d, 0, 0]);
     for (const [data, type] of [
       [wav, "audio/wav"], [wav, "audio/x-wav"],
-      [Buffer.from("ID3\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000"), "audio/mpeg"],
-      [Buffer.from("%PDF-1.7\\n"), "application/pdf"],
+      [Buffer.from([0x49, 0x44, 0x33, 4, 0, 0, 0, 0, 0, 0]), "audio/mpeg"],
+      [Buffer.from("%PDF-1.7"), "application/pdf"],
       [Buffer.from([0x50, 0x4b, 3, 4, 0, 0]), "application/zip"],
       [mp4, "video/mp4"], [mp4, "audio/mp4"],
       [quicktime, "video/quicktime"], [webm, "video/webm"],
@@ -70,7 +70,7 @@ describe("Duck file upload transport validation", () => {
     const wav = Buffer.from("UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=", "base64");
     expect(matchesUploadSignature(wav, "application/pdf")).toBe(false);
     expect(matchesUploadSignature(Buffer.alloc(0), "audio/wav")).toBe(false);
-    expect(matchesUploadSignature(Buffer.from("%PDF-1.7\\n"), "text/html")).toBe(false);
+    expect(matchesUploadSignature(Buffer.from("%PDF-1.7"), "text/html")).toBe(false);
   });
 
 });
