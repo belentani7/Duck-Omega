@@ -42,7 +42,7 @@ export function matchesUploadSignature(bytes: Buffer, mimeType: string): boolean
         (bytes.length >= 4 && bytes[0] === 0xff && (bytes[1] & 0xe0) === 0xe0 &&
           (bytes[1] & 0x06) !== 0 && (bytes[2] & 0xf0) !== 0xf0);
     case "application/pdf":
-      return bytes.length >= 8 && ascii(0, 5) === "%PDF-" && /^[12]\\.[0-9]$/.test(ascii(5, 3));
+      return bytes.length >= 8 && ascii(0, 5) === "%PDF-" && /^[12][.][0-9]$/.test(ascii(5, 3));
     case "application/zip":
       return bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4b &&
         ((bytes[2] === 3 && bytes[3] === 4) || (bytes[2] === 5 && bytes[3] === 6));
