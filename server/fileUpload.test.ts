@@ -4,6 +4,7 @@ import {
   isAllowedUploadMime,
   isOptionalPositiveId,
   isSafeUploadName,
+  matchesUploadSignature,
   MAX_UPLOAD_BYTES,
   UploadValidationError,
 } from "./fileUpload";
@@ -44,4 +45,32 @@ describe("Duck file upload transport validation", () => {
   it("blocks oversized files from allocation", () => {
     expect(() => decodeUploadBase64("A".repeat(Math.ceil(MAX_UPLOAD_BYTES / 3) * 4 + 4))).toThrowError("O arquivo ultrapassa 50 MB");
   });
+  it("recognizes supported file container signatures", () => {
+    const wav = Buffer.from("UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=", "base64");
+    const mp4 = Buffer.concat([Buffer.from([0, 0, 0, 16]), Buffer.from("ftypisom"), Buffer.alloc(4)]);
+    const quicktime = Buffer.concat([Buffer.from([0, 0, 0, 12]), Buffer.from("ftypqt  ")]);
+    const webm = Buffer.from([0x1a, 0x45, 0xdf, 0xa3, 0x42, 0x82, 0x84, 0x77, 0x65, 0x62, 0x6d, 0, 0]);
+    for (const [data, type] of [
+      [wav, "audio/wav"], [wav, "audio/x-wav"],
+      [Buffer.from("ID3\\u0004\\u0000\\u0000\\u0000\\u0000\\u0000\\u0000"), "audio/mpeg"],
+      [Buffer.from("%PDF-1.7\\n"), "application/pdf"],
+      [Buffer.from([0x50, 0x4b, 3, 4, 0, 0]), "application/zip"],
+      [mp4, "video/mp4"], [mp4, "audio/mp4"],
+      [quicktime, "video/quicktime"], [webm, "video/webm"],
+    ] as Array<[Buffer, string]>) {
+      expect(matchesUploadSignature(data, type)).toBe(true);
+    }
+  });
+
+  it("rejects HTML masquerading as media and mismatched file types", () => {
+    const html = Buffer.from("<script>alert(1)</script>");
+    for (const type of ["audio/wav", "audio/mpeg", "application/pdf", "application/zip", "video/mp4", "video/webm", "video/quicktime"]) {
+      expect(matchesUploadSignature(html, type)).toBe(false);
+    }
+    const wav = Buffer.from("UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=", "base64");
+    expect(matchesUploadSignature(wav, "application/pdf")).toBe(false);
+    expect(matchesUploadSignature(Buffer.alloc(0), "audio/wav")).toBe(false);
+    expect(matchesUploadSignature(Buffer.from("%PDF-1.7\\n"), "text/html")).toBe(false);
+  });
+
 });
